@@ -3,10 +3,10 @@
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
-    <title>$title$</title>
+    <title>FsBulletML.Parser</title>
     <authors>zecl</authors>
     <owners>bleis-tift</owners>
-    <licenseUrl>https://github.com/zecl/FsBulletML/blob/master/LICENSE</licenseUrl>
+    <licenseUrl>https://github.com/zecl/FsBulletML/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/zecl/FsBulletML</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
@@ -15,7 +15,7 @@
       <frameworkAssembly assemblyName="System.Xml"/>
     </frameworkAssemblies>
     <dependencies>
-        <dependency id="FParsec" version="1.0.1" />
+        <dependency id="FsBulletML.Core" version="0.8.1" />
     </dependencies>
   </metadata>
 </package>
