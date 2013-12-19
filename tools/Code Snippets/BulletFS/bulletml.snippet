@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Bulletml</Title>
+            <Shortcut>bulletml</Shortcut>
+            <Description>Bulletml要素 スニペット</Description>
+            <Author>zecl</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+          <Declarations>
+            <Literal Editable="true">
+              <ID>param1</ID>
+              <ToolTip>xmlns</ToolTip>
+              <Default>http://www.asahi-net.or.jp/~cs8k-cyu/bulletml</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param2</ID>
+              <ToolTip>shooting direction</ToolTip>
+              <Default>BulletVertical</Default>
+              <Function></Function>
+            </Literal>
+          </Declarations>
+          <Code Language="fsharp">
+            <![CDATA[Bulletml({ bulletmlXmlns = Some "$param1$"; bulletmlType = Some ShootingDirection.$param2$ }, 
+    []) $end$]]>
+          </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

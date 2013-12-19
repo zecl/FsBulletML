@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Action.Repeat</Title>
+            <Shortcut>action_repeat</Shortcut>
+            <Description>Action.Repeat要素 スニペット</Description>
+            <Author>zecl</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+          <Declarations>
+            <Literal Editable="true">
+              <ID>param1</ID>
+              <ToolTip>times value</ToolTip>
+              <Default>1</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param2</ID>
+              <ToolTip>action or actionRef</ToolTip>
+              <Default>actionElm_action</Default>
+              <Function></Function>
+            </Literal>
+          </Declarations>
+          <Code Language="fsharp">
+            <![CDATA[Action.Repeat ( 
+    Times("$param1$"), 
+    $param2$) $end$]]>
+          </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>BulletmlElm.Bullet</Title>
+            <Shortcut>bulletmlElm_bullet</Shortcut>
+            <Description>BulletmlElm.Bullet要素 スニペット</Description>
+            <Author>zecl</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+          <Declarations>
+            <Literal Editable="true">
+              <ID>param1</ID>
+              <ToolTip>bullet name</ToolTip>
+              <Default>bulletName</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param2</ID>
+              <ToolTip>direction</ToolTip>
+              <Default>None</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param3</ID>
+              <ToolTip>speed</ToolTip>
+              <Default>None</Default>
+              <Function></Function>
+            </Literal>
+          </Declarations>
+          <Code Language="fsharp">
+            <![CDATA[BulletmlElm.Bullet ({ bulletLabel = Some "$param1$" },
+    $param2$,
+    $param3$,
+    []) $end$]]>
+          </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

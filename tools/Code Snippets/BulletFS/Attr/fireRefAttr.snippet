@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>FireRefAttr</Title>
+            <Shortcut>fireRefAttr</Shortcut>
+            <Description>FireRefAttr スニペット</Description>
+            <Author>zecl</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+          <Declarations>
+            <Literal Editable="true">
+              <ID>param1</ID>
+              <ToolTip>fireRef name</ToolTip>
+              <Default>fireRefName</Default>
+              <Function></Function>
+            </Literal>
+          </Declarations>
+          <Code Language="fsharp">
+            <![CDATA[{ fireRefLabel = "$param1$" } $end$]]>
+          </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

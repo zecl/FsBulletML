@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Horizontal</Title>
+            <Shortcut>horizontal</Shortcut>
+            <Description>Horizontal要素 スニペット</Description>
+            <Author>zecl</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+          <Declarations>
+            <Literal Editable="true">
+              <ID>param1</ID>
+              <ToolTip>horizontal type</ToolTip>
+              <Default>Absolute</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param2</ID>
+              <ToolTip>horizontal value</ToolTip>
+              <Default>1</Default>
+              <Function></Function>
+            </Literal>
+          </Declarations>
+          <Code Language="fsharp">
+            <![CDATA[Horizontal ( Some { horizontalType = HorizontalType.$param1$ }, "$param2$") $end$]]>
+          </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

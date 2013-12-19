@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>BulletmlElm.Fire</Title>
+            <Shortcut>bulletmlElm_fire</Shortcut>
+            <Description>BulletmlElm.Fire要素 スニペット</Description>
+            <Author>zecl</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+          <Declarations>
+            <Literal Editable="true">
+              <ID>param1</ID>
+              <ToolTip>fire name</ToolTip>
+              <Default>fireName</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param2</ID>
+              <ToolTip>direction</ToolTip>
+              <Default>None</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param3</ID>
+              <ToolTip>speed</ToolTip>
+              <Default>None</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param4</ID>
+              <ToolTip>bullet or bulletRef</ToolTip>
+              <Default>bulletElm_bullet</Default>
+              <Function></Function>
+            </Literal>
+          </Declarations>
+          <Code Language="fsharp">
+            <![CDATA[BulletmlElm.Fire  ({ fireLabel = Some "$param1$" }, 
+    $param2$,
+    $param3$,
+    $param4$) $end$]]>
+          </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
