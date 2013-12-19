@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DA210C
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Docs", "src\FsBulletML.Docs\FsBulletML.Docs.fsproj", "{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
