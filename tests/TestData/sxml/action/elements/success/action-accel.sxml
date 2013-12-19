@@ -1,0 +1,9 @@
+(bulletml (@ (xmlns "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml") (type "vertical"))
+    (action (@ (label "top"))
+        (accel
+            (horizontal "10")
+            (vertical "5")
+            (term "2")
+        )
+    )
+)

@@ -1,0 +1,11 @@
+(bulletml (@ (xmlns "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml") (type "vertical"))
+    (bullet (@ (label "downAccel"))
+        (speed "2")
+        (action
+            (accel
+                (vertical "3")
+                (term "120")
+            )
+        )
+    )
+)

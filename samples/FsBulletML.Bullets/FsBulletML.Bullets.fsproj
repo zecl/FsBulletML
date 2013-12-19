@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>f0bad024-5c63-4c24-b9c8-3d8326ce8fd7</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FsBulletML.Bullets</RootNamespace>
+    <AssemblyName>FsBulletML.Bullets</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <Name>FsBulletML.Bullets</Name>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <Tailcalls>false</Tailcalls>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\Debug\FsBulletML.Bullets.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\Release\FsBulletML.Bullets.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bulletsmorph.fs" />
+    <Compile Include="ChaosSeed.fs" />
+    <Compile Include="Daiouzyou.fs" />
+    <Compile Include="Dodonpachi.fs" />
+    <Compile Include="DragonBlaze.fs" />
+    <Compile Include="EspRade.fs" />
+    <Compile Include="Garegga.fs" />
+    <Compile Include="GDarius.fs" />
+    <Compile Include="GigaWing2.fs" />
+    <Compile Include="Guwange.fs" />
+    <Compile Include="GWange.fs" />
+    <Compile Include="KetuiLt.fs" />
+    <Compile Include="MDA.fs" />
+    <Compile Include="Noiz2sa.fs" />
+    <Compile Include="Original.fs" />
+    <Compile Include="OtakuTwo.fs" />
+    <Compile Include="Progear.fs" />
+    <Compile Include="Psyvariar.fs" />
+    <Compile Include="SilverGun.fs" />
+    <Compile Include="StormCalibar.fs" />
+    <Compile Include="Strikers1999.fs" />
+    <Compile Include="Tenmado.fs" />
+    <Compile Include="Xevious.fs" />
+    <Compile Include="XiiStag.fs" />
+    <Compile Include="Xsoldier.fs" />
+    <Compile Include="Others.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FsBulletML.Core\FsBulletML.Core.fsproj">
+      <Name>FsBulletML.Core</Name>
+      <Project>{deda69b5-2853-4192-a886-56194610391c}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets" Condition=" Exists('$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

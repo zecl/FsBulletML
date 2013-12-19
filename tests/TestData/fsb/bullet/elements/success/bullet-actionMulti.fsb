@@ -1,0 +1,13 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"
+    action label="top"
+        fire label="test"
+            direction:"2"
+            speed:"4"
+            bullet label="hoge"
+                action
+                    wait:"10"
+                actionRef label="abc"
+                    param:"43"
+                action
+                    fire
+                        bullet

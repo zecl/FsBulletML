@@ -1,0 +1,16 @@
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical">
+    <action label="top">
+        <accel>
+            <vertical>2</vertical>
+            <term>5</term>
+        </accel>
+        <fire>
+            <bullet>
+                <speed type="absolute">3</speed>
+                <action>
+                    <vanish />
+                </action>
+            </bullet>
+        </fire>
+    </action>
+</bulletml>

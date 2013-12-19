@@ -1,0 +1,10 @@
+(bulletml (@ (xmlns "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml") (type "vertical"))
+    (action (@ (label "top"))
+        (repeat (@ (label "rerere"))
+            (times "3")
+            (action
+                (wait "3")
+            )
+        )
+    )
+)

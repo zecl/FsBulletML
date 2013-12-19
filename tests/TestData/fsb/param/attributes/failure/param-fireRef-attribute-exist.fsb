@@ -1,0 +1,10 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"
+    action label="abc"
+        fire label="abc"
+            direction:"$1*$2+$3"
+            bullet
+    action label="top"
+        fireRef label="abc"
+            param label="test1":"3"
+            param label="test2":"4"
+            param label="test3":"5"

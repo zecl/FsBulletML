@@ -1,0 +1,12 @@
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical">
+    <action>
+        <fireRef>
+            <param>20</param>
+        </fireRef>
+        <fire>
+            <bulletRef>
+                <param>333</param>
+            </bulletRef>
+        </fire>
+    </action>
+</bulletml>

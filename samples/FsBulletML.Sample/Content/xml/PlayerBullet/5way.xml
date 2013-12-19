@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/bulletml.dtd">
+
+<bulletml type="vertical">
+    <action label='top'>
+        <fire>
+            <direction type="relative">-20</direction>
+            <speed>10</speed>
+            <bullet/>
+        </fire>
+        <repeat>
+            <times>4</times>
+            <action>
+                <fire>
+                    <direction type='sequence'>10</direction>
+                    <speed>10</speed>
+                    <bullet/>
+                </fire>
+            </action>
+        </repeat>
+    </action>
+</bulletml>

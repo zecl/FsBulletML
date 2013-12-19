@@ -1,0 +1,16 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"
+    action label="abc"
+        fire label="abc"
+            direction:"$1*$2+$3"
+            bullet label="abc"
+                direction:"$1*$2+$3"
+                speed:"44"
+                action
+                    wait:"$2"
+    action label="top"
+        fire
+            direction:"$1*$2+$3"
+            bulletRef label="abc"
+                param:"3"
+                param:"4"
+                param:"5"

@@ -1,0 +1,5 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"
+    action label="top"
+        fire label="test"
+            speed:"2"
+            bullet

@@ -1,0 +1,20 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"
+    fire
+        direction:"-20"
+        bullet
+    bullet label="downAccel"
+        speed:"2"
+        action
+            accel
+                vertical:"3"
+                term:"120"
+    action label="top"
+        fire
+            direction:"-20"
+            bullet
+        repeat
+            times:"4"
+            action
+                fire
+                    direction type="sequence":"10"
+                    bullet

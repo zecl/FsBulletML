@@ -1,0 +1,35 @@
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical">
+    <action label="top">
+        <repeat>
+            <times>3</times>
+            <action>
+                <wait>10</wait>
+            </action>
+            <actionRef label="abc">
+                <param>43</param>
+            </actionRef>
+            <action>
+                <fire>
+                    <bullet />
+                </fire>
+            </action>
+        </repeat>
+        <fire label="test">
+            <direction>2</direction>
+            <speed>4</speed>
+            <bullet label="hoge">
+                <action>
+                    <wait>10</wait>
+                </action>
+                <actionRef label="abc">
+                    <param>43</param>
+                </actionRef>
+                <action>
+                    <fire>
+                        <bullet />
+                    </fire>
+                </action>
+            </bullet>
+        </fire>
+    </action>
+</bulletml>

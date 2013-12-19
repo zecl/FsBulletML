@@ -1,0 +1,6 @@
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical">
+    <fire>
+        <direction>-20</direction>
+        <bullet/>
+    </fire>
+</bulletml>

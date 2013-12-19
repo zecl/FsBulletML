@@ -1,0 +1,19 @@
+(bulletml (@ (xmlns "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml") (type "vertical"))
+    (action (@ (label "top"))
+        (fire (@ (label "test"))
+            (direction "2")
+            (bullet
+                (speed "20")
+            )
+        )
+        (repeat
+            (action
+                (fire
+                    (direction "3")
+                    (speed "10")
+                    (bullet)
+                )
+            )
+        )
+    )
+)

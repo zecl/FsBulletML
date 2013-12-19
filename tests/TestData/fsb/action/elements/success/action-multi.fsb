@@ -1,0 +1,30 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"
+    action label="top"
+        actionRef label="test"
+            param:"1"
+            param:"2"
+            param:"3"
+        accel
+            horizontal:"10"
+            vertical:"5"
+            term:"2"
+        action
+            vanish
+        changeDirection
+            direction:"10"
+            term:"2"
+        changeSpeed
+            speed:"10"
+            term:"2"
+        fire
+            bullet
+        fireRef label="test"
+            param:"1"
+            param:"2"
+            param:"3"
+        repeat
+            times:"3"
+            action
+                vanish
+        vanish
+        wait:"3"

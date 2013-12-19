@@ -1,0 +1,43 @@
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical">
+    <action label="top">
+        <actionRef label="test">
+            <param>$rank</param>
+            <param>$rank</param>
+            <param>$rank</param>
+        </actionRef>
+        <accel>
+            <horizontal>$rank</horizontal>
+            <vertical>$rank</vertical>
+            <term>$rank</term>
+        </accel>
+        <action>
+            <vanish/>
+        </action>
+        <changeDirection>
+            <direction>$rank</direction>
+            <term>$rank</term>
+        </changeDirection>
+        <changeSpeed>
+            <speed>$rank</speed>
+            <term>$rank</term>
+        </changeSpeed>
+        <fire>
+            <direction>$rank</direction>
+            <speed>$rank</speed>
+            <bullet />
+        </fire>
+        <fireRef label="test">
+            <param>$rank</param>
+            <param>$rank</param>
+            <param>$rank</param>
+        </fireRef>
+        <repeat>
+            <times>$rank</times>
+            <action>
+                <vanish />
+            </action>
+        </repeat>
+        <vanish />
+        <wait>$rank</wait>
+    </action>
+</bulletml>

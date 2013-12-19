@@ -1,0 +1,30 @@
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical">
+    <fire>
+        <direction>-20</direction>
+        <bullet/>
+    </fire>
+    <bullet label="downAccel">
+        <speed>2</speed>
+        <action>
+            <accel>
+                <vertical>3</vertical>
+                <term>120</term>
+            </accel>
+        </action>
+    </bullet>
+    <action label="top">
+        <fire>
+            <direction>-20</direction>
+            <bullet/>
+        </fire>
+        <repeat>
+            <times>4</times>
+            <action>
+                <fire>
+                    <direction type="sequence">10</direction>
+                    <bullet/>
+                </fire>
+            </action>
+        </repeat>
+    </action>
+</bulletml>

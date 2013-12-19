@@ -1,0 +1,13 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"
+    action label="top"
+        fire
+            bullet
+                action
+                    wait:"3"
+        repeat
+            times:"3"
+            action
+                fire
+                    direction:"3"
+                    speed:"10"
+                    bullet

@@ -1,0 +1,33 @@
+(bulletml     (@      (xmlns      "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml")           (type                  "vertical")            )
+    (fire (@ (label "circle"))
+        (direction (@ (type "sequence")) "$1")
+        (speed "6")
+        (bullet
+            (action
+                (wait "3")
+                (fire
+                    (direction (@ (type "absolute")) "$2")
+                    (speed "1.5+$rank")
+                    (bullet)
+                )
+                (vanish)
+            )
+        )
+    )
+    (action (@ (label "fireCircle"))
+        (repeat 
+            (times "18")
+            (action
+                (fireRef (@ (label "circle"))
+                    (param "20")
+                    (param "$1")
+                )
+            )
+        )
+    )
+    (action (@ (label "top"))
+        (actionRef (@ (label "fireCircle"))
+            (param "180-45+90*$rand")
+        )
+    )
+)

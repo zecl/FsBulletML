@@ -1,0 +1,6 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"
+    action label="top"
+        actionRef label="test"
+            param:"1"
+            param:"2"
+            param:"3"

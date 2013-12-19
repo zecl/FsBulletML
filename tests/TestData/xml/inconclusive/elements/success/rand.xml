@@ -1,0 +1,43 @@
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical">
+    <action label="top">
+        <actionRef label="test">
+            <param>$rand</param>
+            <param>$rand</param>
+            <param>$rand</param>
+        </actionRef>
+        <accel>
+            <horizontal>$rand</horizontal>
+            <vertical>$rand</vertical>
+            <term>$rand</term>
+        </accel>
+        <action>
+            <vanish/>
+        </action>
+        <changeDirection>
+            <direction>$rand</direction>
+            <term>$rand</term>
+        </changeDirection>
+        <changeSpeed>
+            <speed>$rand</speed>
+            <term>$rand</term>
+        </changeSpeed>
+        <fire>
+            <direction>$rand</direction>
+            <speed>$rand</speed>
+            <bullet />
+        </fire>
+        <fireRef label="test">
+            <param>$rand</param>
+            <param>$rand</param>
+            <param>$rand</param>
+        </fireRef>
+        <repeat>
+            <times>$rand</times>
+            <action>
+                <vanish />
+            </action>
+        </repeat>
+        <vanish />
+        <wait>$rand</wait>
+    </action>
+</bulletml>

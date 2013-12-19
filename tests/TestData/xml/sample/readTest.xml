@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bulletml SYSTEM "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/bulletml.dtd">
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical">
+    <bullet label="test">
+        <direction>$1+$2</direction>
+        <speed>$3*$4</speed>
+    </bullet>
+    <action label='top'>
+        <fire>
+            <direction>-20</direction>
+            <speed>18</speed>
+            <bullet>
+                <direction>$2</direction>
+                <speed>10</speed>
+                <action label='hoge'>
+                    <fire label = "A">
+                        <direction>$1</direction>
+                        <bulletRef label="test">
+                            <param>180-45+90*$rand</param>
+                            <param>20</param>
+                            <param>30</param>
+                            <param>400</param>
+                        </bulletRef>
+                    </fire>
+                </action>
+            </bullet>
+        </fire>
+        <repeat>
+            <times>4</times>
+            <action label = "B">
+                <fire label = "test2action">
+                    <bullet label="test2">
+                        <direction>90</direction>
+                        <speed>$1</speed>
+                        <action>
+                            <fire label = "bulletFire">
+                                <direction>500</direction>
+                                <speed>98</speed>
+                                <bulletRef label="test">
+                                    <param>1</param>
+                                    <param>2</param>
+                                    <param>3</param>
+                                    <param>4</param>
+                                </bulletRef>
+                            </fire>
+                        </action>
+                    </bullet>
+                </fire>
+                <changeDirection>
+                    <direction>5</direction>
+                    <term>120</term>
+                </changeDirection>
+                <changeSpeed>
+                    <speed>0</speed>
+                    <term>60</term>
+                </changeSpeed>
+                <wait>60</wait>
+                <vanish />
+                <accel>
+                    <horizontal>3</horizontal>
+                    <vertical>3</vertical>
+                    <term>120</term>
+                </accel>
+                <fireRef label="A" >
+                    <param>30</param>
+                    <param>400</param>
+                </fireRef>
+            </action>
+        </repeat>
+        <repeat>
+            <times>2</times>
+            <actionRef label="B">
+                <param>99</param>
+                <param>77</param>
+            </actionRef>
+        </repeat>
+    </action>
+    <fire label = "topFire">
+        <direction>123</direction>
+        <bulletRef label="topBulletRef">
+            <param>456</param>
+        </bulletRef>
+    </fire>
+</bulletml>
