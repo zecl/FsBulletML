@@ -16,7 +16,7 @@
     </frameworkAssemblies>
     <dependencies>
       <group targetFramework="net40">
-        <dependency id="FsBulletML.Core" version="0.8.1" />
+        <dependency id="FsBulletML.Core" version="0.8.2" />
       </group>
     </dependencies>
   </metadata>
