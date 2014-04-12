@@ -1,6 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DA210CE9-334B-4DB9-B5DD-1B23AE9BDB54}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Core", "src\FsBulletML.Core\FsBulletML.Core.fsproj", "{DEDA69B5-2853-4192-A886-56194610391C}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Parser", "src\FsBulletML.Parser\FsBulletML.Parser.fsproj", "{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}"
@@ -11,13 +20,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Bullets", "sampl
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Sample", "samples\FsBulletML.Sample\FsBulletML.Sample.fsproj", "{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DA210CE9-334B-4DB9-B5DD-1B23AE9BDB54}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Docs", "src\FsBulletML.Docs\FsBulletML.Docs.fsproj", "{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}"
 EndProject
 Global
@@ -26,14 +28,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DEDA69B5-2853-4192-A886-56194610391C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEDA69B5-2853-4192-A886-56194610391C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEDA69B5-2853-4192-A886-56194610391C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEDA69B5-2853-4192-A886-56194610391C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEDA69B5-2853-4192-A886-56194610391C}.Debug|Any CPU.ActiveCfg = Debug 4.0|Any CPU
+		{DEDA69B5-2853-4192-A886-56194610391C}.Debug|Any CPU.Build.0 = Debug 4.0|Any CPU
+		{DEDA69B5-2853-4192-A886-56194610391C}.Release|Any CPU.ActiveCfg = Release 4.0|Any CPU
+		{DEDA69B5-2853-4192-A886-56194610391C}.Release|Any CPU.Build.0 = Release 4.0|Any CPU
+		{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}.Debug|Any CPU.ActiveCfg = Debug 4.0|Any CPU
+		{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}.Debug|Any CPU.Build.0 = Debug 4.0|Any CPU
+		{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}.Release|Any CPU.ActiveCfg = Release 4.0|Any CPU
+		{0094CAF8-9F7B-4F2E-948B-DC51AE2CEAC6}.Release|Any CPU.Build.0 = Release 4.0|Any CPU
 		{F304E9CA-2424-48DF-94B6-6AF7A38CA028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F304E9CA-2424-48DF-94B6-6AF7A38CA028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F304E9CA-2424-48DF-94B6-6AF7A38CA028}.Release|Any CPU.ActiveCfg = Release|Any CPU

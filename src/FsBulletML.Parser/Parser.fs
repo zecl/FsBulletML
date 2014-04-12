@@ -36,12 +36,12 @@ module Bulletml =
     static member ReadXmlString (xml : string) : Bulletml = 
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.readXmlNode(xml, reader) |> Parser.convertBulletmlFromXmlNode
+      XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
     [<CompiledName "TryReadXmlString">]
     static member TryReadXmlString (xml : string) : Bulletml option = 
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.readXmlNode(xml, reader) |> Parser.tryBulletmlFromXmlNode
+      XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
 #endif
 
 #if NET40
@@ -60,11 +60,11 @@ module Bulletml =
     [<CompiledName "ReadXml">]
     static member ReadXml (xmlFile : string) : Bulletml =
       use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
-      XmlNode.readXmlNode(xmlFile, reader) |> Parser.convertBulletmlFromXmlNode
+      XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
     [<CompiledName "TryReadXml">]
     static member TryReadXml (xmlFile : string) : Bulletml option =
       use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
-      XmlNode.readXmlNode(xmlFile, reader) |> Parser.tryBulletmlFromXmlNode
+      XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
 #endif
 
     [<CompiledName "ReadSxmlString">]

@@ -6,15 +6,15 @@ open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 
 //[<assembly: AssemblyVersion("0.8.*")>]
-[<assembly: AssemblyVersion("0.8.1")>]
-[<assembly: AssemblyFileVersion("0.8.1")>]
-[<assembly: AssemblyInformationalVersion("0.8.1")>]
+[<assembly: AssemblyVersion("0.8.2")>]
+[<assembly: AssemblyFileVersion("0.8.2")>]
+[<assembly: AssemblyInformationalVersion("0.8.2")>]
 
 [<assembly: AssemblyTitle("FsBulletML")>]
 [<assembly: AssemblyDescription("F# implementation of BulletML for internal DSL.")>]
 [<assembly: AssemblyCompany("")>]
 [<assembly: AssemblyProduct("FsBulletML.Core")>]
-[<assembly: AssemblyCopyright("Copyright (C) 2013 zecl")>]
+[<assembly: AssemblyCopyright("Copyright (C) 2013-2014 zecl")>]
 [<assembly: AssemblyTrademark("")>]
 [<assembly: AssemblyCulture("")>]
 [<assembly: NeutralResourcesLanguage("ja-JP")>]
@@ -22,8 +22,8 @@ open System.Runtime.InteropServices
 [<assembly: ComVisible(false)>]
 [<assembly: Guid("2EBAF051-E207-4186-A395-FA81F4A27600")>]
 
-#if DEBUG
 [<assembly: InternalsVisibleTo("FsBulletML.Parser")>]
+#if DEBUG
 [<assembly: InternalsVisibleTo("FsBulletML.Parser.Tests")>]
 [<assembly: InternalsVisibleTo("CreateBullets")>]
 #endif
