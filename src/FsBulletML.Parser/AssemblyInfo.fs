@@ -10,7 +10,7 @@ open System.Runtime.InteropServices
 [<assembly: AssemblyInformationalVersion("0.8.2")>]
 
 [<assembly: AssemblyTitle("FsBulletML")>]
-[<assembly: AssemblyDescription("F# Implementation of BulletML")>]
+[<assembly: AssemblyDescription("F# Implementation of BulletML for external DSL.")>]
 [<assembly: AssemblyCompany("")>]
 [<assembly: AssemblyProduct("FsBulletML.Parser")>]
 [<assembly: AssemblyCopyright("Copyright (C) 2013-2014 zecl All Rights Reserved.")>]

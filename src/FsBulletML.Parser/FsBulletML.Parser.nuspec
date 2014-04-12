@@ -5,7 +5,7 @@
     <version>$version$</version>
     <title>FsBulletML.Parser</title>
     <authors>zecl</authors>
-    <owners>bleis-tift</owners>
+    <owners>zecl</owners>
     <licenseUrl>https://github.com/zecl/FsBulletML/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/zecl/FsBulletML</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,7 +15,9 @@
       <frameworkAssembly assemblyName="System.Xml"/>
     </frameworkAssemblies>
     <dependencies>
+      <group targetFramework="net40">
         <dependency id="FsBulletML.Core" version="0.8.1" />
+      </group>
     </dependencies>
   </metadata>
 </package>

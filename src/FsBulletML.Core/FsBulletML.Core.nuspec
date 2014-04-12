@@ -5,7 +5,7 @@
     <version>$version$</version>
     <title>FsBulletML.Core</title>
     <authors>zecl</authors>
-    <owners>bleis-tift</owners>
+    <owners>zecl</owners>
     <licenseUrl>https://github.com/zecl/FsBulletML/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/zecl/FsBulletML</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
