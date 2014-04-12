@@ -8,9 +8,35 @@ open System.Xml
 open System.Text.RegularExpressions
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
+open Microsoft.FSharp.Reflection 
 
 [<AutoOpen>]
 module DTD =
+  let stringifyFullName (discriminatedUnion:'T) = 
+    if box discriminatedUnion = null  then
+      nullArg  "discriminatedUnion"  
+    if FSharpType.IsUnion(typeof<'T>)|> not then
+      invalidArg "discriminatedUnion" (sprintf "not DU:%s" typeof<'T>.FullName)
+ 
+    let info, objects = FSharpValue.GetUnionFields(discriminatedUnion, typeof<'T>)
+    let typeName = 
+      if info.DeclaringType.IsGenericType then
+        info.DeclaringType.Name.Substring(0, info.DeclaringType.Name.LastIndexOf("`"))  + "." + info.Name
+      else
+        info.DeclaringType.Name + "." + info.Name
+    match objects  with
+    | [||] -> typeName
+    | elements ->
+      let fields = info.GetFields()
+      if fields.Length = 1 then
+        sprintf "%s %A" typeName elements.[0]
+      else
+        let tupleType = 
+          fields
+          |> Array.map( fun pi -> pi.PropertyType )
+          |> FSharpType.MakeTupleType
+        let tuple = FSharpValue.MakeTuple(elements, tupleType)
+        sprintf "%s %A" typeName tuple
 
   /// BulletML DTD
   /// <!ELEMENT vertical (#PCDATA)>
@@ -18,10 +44,12 @@ module DTD =
   type Vertical =
   | Vertical of VerticalAttrs option * string 
   and VerticalAttrs = { verticalType : VerticalType }
-  and VerticalType = 
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]VerticalType = 
   | Absolute 
   | Relative
   | Sequence
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 
 
   /// BulletML DTD
   /// <!ELEMENT param (#PCDATA)>  
@@ -49,10 +77,12 @@ module DTD =
   type Speed =
   | Speed of SpeedAttrs option * string
   and SpeedAttrs = { speedType : SpeedType }
-  and SpeedType = 
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]SpeedType = 
   | Absolute 
   | Relative 
   | Sequence
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 
 
   /// BulletML DTD
   /// <!ELEMENT direction (#PCDATA)>
@@ -60,8 +90,10 @@ module DTD =
   type Direction = 
   | Direction of DirectionAttrs option * string
   and DirectionAttrs = { directionType : DirectionType }
-  and DirectionType =
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]DirectionType =
   | Aim | Absolute | Relative | Sequence
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 
 
   /// BulletML DTD
   /// <!ELEMENT term (#PCDATA)>
@@ -77,16 +109,21 @@ module DTD =
   type Horizontal = 
   | Horizontal of HorizontalAttrs option * string
   and HorizontalAttrs = { horizontalType : HorizontalType }
-  and HorizontalType = 
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]HorizontalType = 
   | Absolute // Default
   | Relative
   | Sequence
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 
 
   type BulletmlAttrs = { bulletmlXmlns : string option; bulletmlType : ShootingDirection option}
-  and ShootingDirection = 
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]ShootingDirection = 
   | BulletNone // Default 
   | BulletVertical 
   | BulletHorizontal
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t   
+  
   type ActionAttrs = { actionLabel : string option }
   type ActionRefAttrs = { actionRefLabel : string }
   type FireAttrs = { fireLabel : string option }
@@ -443,6 +480,7 @@ module DTD =
       this.GetXmlString Formatting.Indented encodingAndDoctype indentation
 
   /// Innternal DSL
+  [<StructuredFormatDisplay("{ToStructuredDisplay}")>]
   type Bulletml =
 /// BulletML DTD
 /// <!ELEMENT bulletml (bullet | fire | action)*>
@@ -492,13 +530,17 @@ module DTD =
 /// <!ELEMENT repeat (times, (action | actionRef))>
   | Repeat of Times * ActionElm 
   | NotCommand
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 
 
-  and BulletmlElm =
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]BulletmlElm =
   | Bullet of BulletAttrs * Direction option * Speed option * ActionElm list 
   | Fire of FireAttrs * Direction option * Speed option * BulletElm 
   | Action of ActionAttrs * Action list 
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 
 
-  and Action = 
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]Action = 
   | ChangeDirection of Direction * Term
   | Accel of Horizontal option * Vertical option * Term
   | Vanish 
@@ -509,11 +551,17 @@ module DTD =
   | FireRef of FireRefAttrs * Params
   | Action of ActionAttrs * Action list 
   | ActionRef of ActionRefAttrs * Params
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 
 
-  and BulletElm =
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]BulletElm =
   | Bullet of BulletAttrs * Direction option * Speed option * ActionElm list 
   | BulletRef of BulletRefAttrs * Params
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 
 
-  and ActionElm =
+  and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]ActionElm =
   | Action of ActionAttrs * Action list 
   | ActionRef of ActionRefAttrs * Params
+    member private t.ToStructuredDisplay = t.ToString()
+    override t.ToString () = stringifyFullName t 

@@ -116,8 +116,7 @@ module Bulletml =
       | Failure (_,_,_) -> None
 
     member this.ToNodeString() = 
-      // TODO : ケース識別子名称かぶりを考慮しつつ独自に文字列化したい...
-      sprintf "%+A" this |> (fun s -> s.Replace("null","None"))
+      this.ToString().Replace("null","None")
 
     member this.ToXmlString() =
       let recBulletml = this |> IntermediateParser.convertRecBulletml 
