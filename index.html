@@ -40,7 +40,7 @@
 
 <h2>これは何？</h2>
 
-<p><code>FsBulletML</code>は、弾幕記述言語<code>BulletML</code>の<code>F#</code>実装です。</p>
+<p><code>FsBulletML</code>は、弾幕記述言語<code>BulletML</code>の<code>F#</code>実装です。  <code>MonoGame</code>や<code>Unity(2D or 3D)</code>などで利用することができます。</p>
 
 <p>判別共用体(Discriminated Unions)で弾幕を記述できる内部DSLを提供します。
 また、<code>XML</code>形式、<code>SXML</code>形式、<code>FSB</code>形式(オフサイドルールの独自形式)の外部DSLを読み込んで実行することもできます。</p>
@@ -270,7 +270,7 @@
 
 <h2>インストール</h2>
 
-<p>内部DSLを利用するには、<code>FsBulletML.Core</code>をインストールします。</p>
+<p>内部DSLおよび、<code>XML</code>形式の外部DSLを利用するには、<code>FsBulletML.Core</code>をインストールします。(.NET Framework3.5以上)</p>
 
 <div class="row">
   <div class="span1"></div>
@@ -283,7 +283,7 @@
   <div class="span1"></div>
 </div>
 
-<p>外部DSLを利用するには、<code>FsBulletML.Core</code>に加えて、<code>FsBulletML.Parser</code>をインストールします。</p>
+<p>外部DSL(<code>SXML</code>形式、<code>FSB</code>形式)を利用するには、<code>FsBulletML.Core</code>に加えて、<code>FsBulletML.Parser</code>をインストールします。(.NET Framework4.0以上)</p>
 
 <div class="row">
   <div class="span1"></div>
@@ -307,6 +307,16 @@
   サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples" target="_blunk">source</a>)は<a href="http://monogame.codeplex.com/" target="_blunk">MonoGame</a>で動かしています。弾の破棄はガベージコレクションに丸投げです。
 </div>
 
+<br>
+
+<div style="text-align:center;">
+  <object width="560" height="315">
+      <param name="movie" value="https://www.youtube.com/v/mWLfbHV7qXc"></param>
+      <embed src="https://www.youtube.com/v/mWLfbHV7qXc" width="560" height="315" />
+      <noembed>プラグインが必要です。</noembed>
+  </object><br>
+</div>
+
 <h2>ご利用上の注意</h2>
 
 <ul>
@@ -318,6 +328,7 @@
 <h2>今後の課題とか（予定は未定）</h2>
 
 <ul>
+<li>Unity用のサンプルプログラムの作成。</li>
 <li>テストが雑。現状ざっくりとしたパーサのテストしかない。</li>
 <li><code>BulletML</code>の構文チェックが中途半端。</li>
 <li>より型安全な弾幕記述のサポート。</li>
@@ -333,22 +344,22 @@
 
           <div class="tip" id="fs1">名前空間 FsBulletML</div>
 <div class="tip" id="fs2">val sample : &#39;a<br /><br />完全名: Index.sample<br /><em><br /><br />&#160;全方位弾</em></div>
-<div class="tip" id="fs3">Multiple items<br />共用体ケース Bulletml.Bulletml: BulletmlAttrs * BulletmlElm list -&gt; Bulletml<br /><br />--------------------<br />type Bulletml =<br />&#160;&#160;| Bulletml of BulletmlAttrs * BulletmlElm list<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;| ActionRef of ActionRefAttrs * Params<br />&#160;&#160;| Fire of FireAttrs * Direction option * Speed option * BulletElm<br />&#160;&#160;| FireRef of FireRefAttrs * Params<br />&#160;&#160;| Wait of string<br />&#160;&#160;| Vanish<br />&#160;&#160;| ChangeSpeed of Speed * Term<br />&#160;&#160;| ChangeDirection of Direction * Term<br />&#160;&#160;| Accel of Horizontal option * Vertical option * Term<br />&#160;&#160;...<br /><br />完全名: FsBulletML.DTD.Bulletml</div>
+<div class="tip" id="fs3">Multiple items<br />共用体ケース Bulletml.Bulletml: BulletmlAttrs * BulletmlElm list -&gt; Bulletml<br /><br />--------------------<br />type Bulletml =<br />&#160;&#160;| Bulletml of BulletmlAttrs * BulletmlElm list<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;| ActionRef of ActionRefAttrs * Params<br />&#160;&#160;| Fire of FireAttrs * Direction option * Speed option * BulletElm<br />&#160;&#160;| FireRef of FireRefAttrs * Params<br />&#160;&#160;| Wait of string<br />&#160;&#160;| Vanish<br />&#160;&#160;| ChangeSpeed of Speed * Term<br />&#160;&#160;| ChangeDirection of Direction * Term<br />&#160;&#160;| Accel of Horizontal option * Vertical option * Term<br />&#160;&#160;...<br />&#160;&#160;member ToNodeString : unit -&gt; string<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.Bulletml</div>
 <div class="tip" id="fs4">共用体ケース Option.None: Option&lt;&#39;T&gt;</div>
 <div class="tip" id="fs5">共用体ケース Option.Some: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
-<div class="tip" id="fs6">type ShootingDirection =<br />&#160;&#160;| BulletNone<br />&#160;&#160;| BulletVertical<br />&#160;&#160;| BulletHorizontal<br /><br />完全名: FsBulletML.DTD.ShootingDirection</div>
+<div class="tip" id="fs6">type ShootingDirection =<br />&#160;&#160;| BulletNone<br />&#160;&#160;| BulletVertical<br />&#160;&#160;| BulletHorizontal<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.ShootingDirection</div>
 <div class="tip" id="fs7">共用体ケース ShootingDirection.BulletVertical: ShootingDirection</div>
-<div class="tip" id="fs8">type BulletmlElm =<br />&#160;&#160;| Bullet of BulletAttrs * Direction option * Speed option * ActionElm list<br />&#160;&#160;| Fire of FireAttrs * Direction option * Speed option * BulletElm<br />&#160;&#160;| Action of ActionAttrs * Action list<br /><br />完全名: FsBulletML.DTD.BulletmlElm</div>
+<div class="tip" id="fs8">type BulletmlElm =<br />&#160;&#160;| Bullet of BulletAttrs * Direction option * Speed option * ActionElm list<br />&#160;&#160;| Fire of FireAttrs * Direction option * Speed option * BulletElm<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.BulletmlElm</div>
 <div class="tip" id="fs9">共用体ケース BulletmlElm.Action: ActionAttrs * Action list -&gt; BulletmlElm</div>
-<div class="tip" id="fs10">Multiple items<br />共用体ケース ActionElm.Action: ActionAttrs * Action list -&gt; ActionElm<br /><br />--------------------<br />type Action =<br />&#160;&#160;| ChangeDirection of Direction * Term<br />&#160;&#160;| Accel of Horizontal option * Vertical option * Term<br />&#160;&#160;| Vanish<br />&#160;&#160;| ChangeSpeed of Speed * Term<br />&#160;&#160;| Repeat of Times * ActionElm<br />&#160;&#160;| Wait of string<br />&#160;&#160;| Fire of FireAttrs * Direction option * Speed option * BulletElm<br />&#160;&#160;| FireRef of FireRefAttrs * Params<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;| ActionRef of ActionRefAttrs * Params<br /><br />完全名: FsBulletML.DTD.Action</div>
+<div class="tip" id="fs10">Multiple items<br />共用体ケース ActionElm.Action: ActionAttrs * Action list -&gt; ActionElm<br /><br />--------------------<br />type Action =<br />&#160;&#160;| ChangeDirection of Direction * Term<br />&#160;&#160;| Accel of Horizontal option * Vertical option * Term<br />&#160;&#160;| Vanish<br />&#160;&#160;| ChangeSpeed of Speed * Term<br />&#160;&#160;| Repeat of Times * ActionElm<br />&#160;&#160;| Wait of string<br />&#160;&#160;| Fire of FireAttrs * Direction option * Speed option * BulletElm<br />&#160;&#160;| FireRef of FireRefAttrs * Params<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;| ActionRef of ActionRefAttrs * Params<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.Action</div>
 <div class="tip" id="fs11">共用体ケース Action.Repeat: Times * ActionElm -&gt; Action</div>
 <div class="tip" id="fs12">Multiple items<br />共用体ケース Times.Times: string -&gt; Times<br /><br />--------------------<br />type Times = | Times of string<br /><br />完全名: FsBulletML.DTD.Times</div>
 <div class="tip" id="fs13">共用体ケース Action.Fire: FireAttrs * Direction option * Speed option * BulletElm -&gt; Action</div>
 <div class="tip" id="fs14">Multiple items<br />共用体ケース Direction.Direction: DirectionAttrs option * string -&gt; Direction<br /><br />--------------------<br />type Direction = | Direction of DirectionAttrs option * string<br /><br />完全名: FsBulletML.DTD.Direction</div>
-<div class="tip" id="fs15">type DirectionType =<br />&#160;&#160;| Aim<br />&#160;&#160;| Absolute<br />&#160;&#160;| Relative<br />&#160;&#160;| Sequence<br /><br />完全名: FsBulletML.DTD.DirectionType</div>
+<div class="tip" id="fs15">type DirectionType =<br />&#160;&#160;| Aim<br />&#160;&#160;| Absolute<br />&#160;&#160;| Relative<br />&#160;&#160;| Sequence<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.DirectionType</div>
 <div class="tip" id="fs16">共用体ケース DirectionType.Sequence: DirectionType</div>
 <div class="tip" id="fs17">共用体ケース BulletElm.Bullet: BulletAttrs * Direction option * Speed option * ActionElm list -&gt; BulletElm</div>
-<div class="tip" id="fs18">type ActionElm =<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;| ActionRef of ActionRefAttrs * Params<br /><br />完全名: FsBulletML.DTD.ActionElm</div>
+<div class="tip" id="fs18">type ActionElm =<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;| ActionRef of ActionRefAttrs * Params<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.ActionElm</div>
 <div class="tip" id="fs19">共用体ケース ActionElm.Action: ActionAttrs * Action list -&gt; ActionElm</div>
 <div class="tip" id="fs20">共用体ケース Action.ActionRef: ActionRefAttrs * Params -&gt; Action</div>
 <div class="tip" id="fs21">共用体ケース Action.Wait: string -&gt; Action</div>
@@ -362,6 +373,8 @@
             <li class="divider"></li>
             <li class="nav-header"></li>
             <li><a href="https://github.com/zecl/FsBulletML/blob/master/LICENSE.md">License(MIT)</a></li>
+            <li class="nav-header"></li>
+            <li><a href="./releasenote.html">ReleaseNote</a></li>
 
             <li class="nav-header">LINK</li>
             <li><a href="http://www.asahi-net.or.jp/~cs8k-cyu/" target="_blank">ABA Games</a></li>
