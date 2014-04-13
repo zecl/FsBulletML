@@ -532,6 +532,8 @@ module DTD =
   | NotCommand
     member private t.ToStructuredDisplay = t.ToString()
     override t.ToString () = stringifyFullName t 
+    member this.ToNodeString() = 
+      this.ToString().Replace("null","None")
 
   and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]BulletmlElm =
   | Bullet of BulletAttrs * Direction option * Speed option * ActionElm list 

@@ -55,7 +55,6 @@
   <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Xml.fs" />
     <Compile Include="Sxml.fs" />
     <Compile Include="Offside.fs" />
     <Compile Include="Parser.fs" />

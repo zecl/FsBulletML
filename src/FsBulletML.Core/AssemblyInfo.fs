@@ -6,12 +6,12 @@ open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 
 //[<assembly: AssemblyVersion("0.8.*")>]
-[<assembly: AssemblyVersion("0.8.3")>]
-[<assembly: AssemblyFileVersion("0.8.3")>]
-[<assembly: AssemblyInformationalVersion("0.8.3")>]
+[<assembly: AssemblyVersion("0.8.4")>]
+[<assembly: AssemblyFileVersion("0.8.4")>]
+[<assembly: AssemblyInformationalVersion("0.8.4")>]
 
 [<assembly: AssemblyTitle("FsBulletML")>]
-[<assembly: AssemblyDescription("F# implementation of BulletML for internal DSL.")>]
+[<assembly: AssemblyDescription("F# implementation of BulletML for internal DSL, and Xml.")>]
 [<assembly: AssemblyCompany("")>]
 [<assembly: AssemblyProduct("FsBulletML.Core")>]
 [<assembly: AssemblyCopyright("Copyright (C) 2013-2014 zecl")>]

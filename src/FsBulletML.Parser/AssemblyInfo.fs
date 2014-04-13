@@ -5,12 +5,12 @@ open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 
 //[<assembly: AssemblyVersion("0.8.*")>]
-[<assembly: AssemblyVersion("0.8.3")>]
-[<assembly: AssemblyFileVersion("0.8.3")>]
-[<assembly: AssemblyInformationalVersion("0.8.3")>]
+[<assembly: AssemblyVersion("0.8.4")>]
+[<assembly: AssemblyFileVersion("0.8.4")>]
+[<assembly: AssemblyInformationalVersion("0.8.4")>]
 
 [<assembly: AssemblyTitle("FsBulletML")>]
-[<assembly: AssemblyDescription("F# Implementation of BulletML for external DSL.")>]
+[<assembly: AssemblyDescription("F# Implementation of BulletML for external DSL(SXML, FSB).")>]
 [<assembly: AssemblyCompany("")>]
 [<assembly: AssemblyProduct("FsBulletML.Parser")>]
 [<assembly: AssemblyCopyright("Copyright (C) 2013-2014 zecl All Rights Reserved.")>]

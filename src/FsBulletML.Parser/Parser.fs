@@ -17,34 +17,19 @@ module Bulletml =
 
   type Bulletml with
 
-#if NET40
     [<CompiledName "ReadXmlString">]
     static member ReadXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml = 
       let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
-      XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
+      AST.XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
     [<CompiledName "TryReadXmlString">]
     static member TryReadXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml option = 
       let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
-      XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
-#endif
-#if NET35
-    [<CompiledName "ReadXmlString">]
-    static member ReadXmlString (xml : string) : Bulletml = 
-      use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
-    [<CompiledName "TryReadXmlString">]
-    static member TryReadXmlString (xml : string) : Bulletml option = 
-      use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
-#endif
+      AST.XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
 
-#if NET40
     [<CompiledName "ReadXml">]
     static member ReadXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml =
       let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
@@ -55,17 +40,6 @@ module Bulletml =
       let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
       use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented dtdProcessing) 
       XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
-#endif
-#if NET35
-    [<CompiledName "ReadXml">]
-    static member ReadXml (xmlFile : string) : Bulletml =
-      use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
-      XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
-    [<CompiledName "TryReadXml">]
-    static member TryReadXml (xmlFile : string) : Bulletml option =
-      use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
-      XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
-#endif
 
     [<CompiledName "ReadSxmlString">]
     static member ReadSxmlString (sxml : string) : Bulletml =
@@ -114,9 +88,6 @@ module Bulletml =
       match Offside.parseFromFile fsbFile with 
       | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode
       | Failure (_,_,_) -> None
-
-    member this.ToNodeString() = 
-      this.ToString().Replace("null","None")
 
     member this.ToXmlString() =
       let recBulletml = this |> IntermediateParser.convertRecBulletml 
