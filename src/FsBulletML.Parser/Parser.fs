@@ -17,30 +17,6 @@ module Bulletml =
 
   type Bulletml with
 
-    [<CompiledName "ReadXmlString">]
-    static member ReadXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml = 
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
-      AST.XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
-    [<CompiledName "TryReadXmlString">]
-    static member TryReadXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml option = 
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
-      AST.XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
-
-    [<CompiledName "ReadXml">]
-    static member ReadXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml =
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented dtdProcessing) 
-      XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
-    [<CompiledName "TryReadXml">]
-    static member TryReadXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml option =
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented dtdProcessing) 
-      XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
-
     [<CompiledName "ReadSxmlString">]
     static member ReadSxmlString (sxml : string) : Bulletml =
       match Sxml.parse sxml with 

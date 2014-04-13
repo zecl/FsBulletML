@@ -58,11 +58,12 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="index.fsx" />
-    <None Include="packages.config" />
+    <None Include="releasenote.fsx" />
+    <None Include="generate.fsx" />
     <Content Include="tips.js" />
     <None Include="style.css" />
-    <None Include="generate.fsx" />
     <None Include="fsx.bat" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FsBulletML.Core\FsBulletML.Core.fsproj">

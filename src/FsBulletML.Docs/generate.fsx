@@ -26,6 +26,7 @@ let projInfo =
     "github-link", "https://github.com/zecl/FsBulletML"
     "project-name", "FsBulletML" 
     "license-page", "https://github.com/zecl/FsBulletML/blob/master/LICENSE.md"
+    "releasenote-page","./releasenote.html"
     "root",root
     ]
 

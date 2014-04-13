@@ -4,7 +4,7 @@ FsBulletML(Beta)
 
 これは何？
 -------------
-``FsBulletML``は、弾幕記述言語``BulletML``の``F#``実装です。  
+``FsBulletML``は、弾幕記述言語``BulletML``の``F#``実装です。  ``MonoGame``や``Unity(2D or 3D)``などで利用することができます。
   
 判別共用体(Discriminated Unions)で弾幕を記述できる内部DSLを提供します。
 また、``XML``形式、``SXML``形式、``FSB``形式(オフサイドルールの独自形式)の外部DSLを読み込んで実行することもできます。
@@ -143,7 +143,7 @@ bulletml
 インストール
 -------------
 
-内部DSLを利用するには、``FsBulletML.Core``をインストールします。
+内部DSLおよび、``XML``形式の外部DSLを利用するには、``FsBulletML.Core``をインストールします。(.NET Framework3.5以上)
 
 <div class="row">
   <div class="span1"></div>
@@ -157,7 +157,7 @@ bulletml
 </div>
 
 
-外部DSLを利用するには、``FsBulletML.Core``に加えて、``FsBulletML.Parser``をインストールします。
+外部DSL(``SXML``形式、``FSB``形式)を利用するには、``FsBulletML.Core``に加えて、``FsBulletML.Parser``をインストールします。(.NET Framework4.0以上)
 
 <div class="row">
   <div class="span1"></div>
@@ -182,6 +182,16 @@ Demo
   </object><br>
   サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples" target="_blunk">source</a>)は<a href="http://monogame.codeplex.com/" target="_blunk">MonoGame</a>で動かしています。弾の破棄はガベージコレクションに丸投げです。
 </div>
+
+<br>
+
+<div style="text-align:center;">
+  <object width="560" height="315">
+      <param name="movie" value="https://www.youtube.com/v/mWLfbHV7qXc"></param>
+      <embed src="https://www.youtube.com/v/mWLfbHV7qXc" width="560" height="315" />
+      <noembed>プラグインが必要です。</noembed>
+  </object><br>
+</div>
 *)
 
 (**
@@ -195,6 +205,7 @@ Demo
 (**
 今後の課題とか（予定は未定）
 -------------
+ - Unity用のサンプルプログラムの作成。
  - テストが雑。現状ざっくりとしたパーサのテストしかない。
  - ``BulletML``の構文チェックが中途半端。
  - より型安全な弾幕記述のサポート。
