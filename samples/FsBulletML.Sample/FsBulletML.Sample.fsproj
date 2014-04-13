@@ -70,9 +70,6 @@
     <Compile Include="BulletFunctions.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
-    <None Include="SDL.dll" />
-    <None Include="Program.cs" />
-    <None Include="Game1.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
