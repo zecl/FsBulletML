@@ -35,7 +35,7 @@ type BaseBullet () as this =
 
       let newBullet = new BaseBullet() :> IBullet
       newBullet.IsBullet <- true
-      newBullet.Radius <- 3.5f
+      newBullet.Radius <- 4.5f
       newBullet.BulletType <- this.self.BulletType
       match newBullet.BulletType with
       | Player -> Manager.addPlayerBullet(newBullet)
