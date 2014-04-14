@@ -17,8 +17,8 @@
   </metadata>
 
   <files>
-    <file src="bin\Release\net35\FsBulletML.Core.dll" target="lib\net35\FsBulletML.Core.dll" />
-    <file src="bin\Release\net35\FsBulletML.Core.xml" target="lib\net35\FsBulletML.Core.xml" />
+    <file src="bin\Release\net40\FsBulletML.Core.dll" target="lib\net40\FsBulletML.Core.dll" />
+    <file src="bin\Release\net40\FsBulletML.Core.xml" target="lib\net40\FsBulletML.Core.xml" />
 
     <file src="..\..\tools\Code Snippets\BulletFS\Action\action_accel.snippet" target="tools\Code Snipets\Action\action_accel.snippet" />
     <file src="..\..\tools\Code Snippets\BulletFS\Action\action_action.snippet" target="tools\Code Snipets\Action\action_action.snippet" />

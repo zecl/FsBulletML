@@ -20,8 +20,17 @@ module Xml =
   let readerSettingsIgnoreWhitespace dtdProcessing = new XmlReaderSettings(DtdProcessing = dtdProcessing, ValidationType = ValidationType.DTD, XmlResolver = resolver, IgnoreComments = true, IgnoreProcessingInstructions = true, IgnoreWhitespace = true)
 #endif
 #if NET35
-  let readerSettingsIndented = new XmlReaderSettings(ValidationType = ValidationType.DTD, IgnoreComments = true, IgnoreProcessingInstructions = true)
-  let readerSettingsIgnoreWhitespace = new XmlReaderSettings(ValidationType = ValidationType.DTD, IgnoreComments = true, IgnoreProcessingInstructions = true, IgnoreWhitespace = true)
+  let readerSettingsIndented = 
+    let settings = new XmlReaderSettings(ValidationType = ValidationType.DTD, IgnoreComments = true, IgnoreProcessingInstructions = true)
+    settings.ProhibitDtd <- false
+    settings.XmlResolver <- null
+    settings 
+
+  let readerSettingsIgnoreWhitespace = 
+    let settings = new XmlReaderSettings(ValidationType = ValidationType.DTD, IgnoreComments = true, IgnoreProcessingInstructions = true, IgnoreWhitespace = true)
+    settings.ProhibitDtd <- false
+    settings.XmlResolver <- null
+    settings 
 #endif
 
   let readXml xmlUri settings = 
@@ -201,12 +210,12 @@ module Xml =
     static member ReadXmlString (xml : string) : Bulletml = 
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.readXmlNode(xml, reader) |> Parser.convertBulletmlFromXmlNode
+      XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
     [<CompiledName "TryReadXmlString">]
     static member TryReadXmlString (xml : string) : Bulletml option = 
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.readXmlNode(xml, reader) |> Parser.tryBulletmlFromXmlNode
+      XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
 #endif
 
 #if NET40
@@ -225,9 +234,9 @@ module Xml =
     [<CompiledName "ReadXml">]
     static member ReadXml (xmlFile : string) : Bulletml =
       use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
-      XmlNode.readXmlNode(xmlFile, reader) |> Parser.convertBulletmlFromXmlNode
+      XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
     [<CompiledName "TryReadXml">]
     static member TryReadXml (xmlFile : string) : Bulletml option =
       use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
-      XmlNode.readXmlNode(xmlFile, reader) |> Parser.tryBulletmlFromXmlNode
+      XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
 #endif
