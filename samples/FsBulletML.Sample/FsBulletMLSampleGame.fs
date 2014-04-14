@@ -24,10 +24,10 @@ type FsBulletMLSampleGame () as this =
 
   static let mutable gmanager = null : GraphicsDeviceManager
   let gametitle, sprite = "FsBulletML.Sample", lazy new SpriteBatch(this.GraphicsDevice)
-  let bulletTexture,enemyBullet1Texture, enemyBullet2Texture, playerTexture, playerBullet1Texture, playerBullet2Texture, enemyTexture, backgroundTexture, particleTexture = 
-    ["bullet"; "enemy_bullet1";"enemy_bullet2";"player";"player_bullet1";"player_bullet2";"enemy1";"background";"particle"] 
+  let bulletTexture,enemyBullet1Texture, enemyBullet2Texture, playerTexture, playerBullet1Texture, playerBullet2Texture, enemyTexture, backgroundTexture, particleTexture, enemyBullet3Texture = 
+    ["bullet"; "enemy_bullet1";"enemy_bullet2";"player";"p_bullet_s";"player_bullet2";"enemy1";"background";"particle";"g_bullet_s"] 
     |> List.map (fun name -> lazy this.Content.Load<Texture2D>(@"..\..\Content\Sprites\" + name)) |> function 
-    |  a::b::c::d::e::f::g::h::i::[] -> a,b,c,d,e,f,g,h,i | _ -> invalidArg "tlist" "長さが違う"
+    |  a::b::c::d::e::f::g::h::i::j::[] -> a,b,c,d,e,f,g,h,i,j | _ -> invalidArg "tlist" "長さが違う"
   let sfont = lazy this.Content.Load<SpriteFont>(@"..\..\Content\font\SpriteFont2")
   let drawText (msg:string) (v:Vector2) c = sprite.Force() |> function
     | x -> sfont.Force() |> fun font -> [font, msg, Vector2(v.X+2.f,v.Y+2.f), Color.Gray; font, msg, v, c ] 
@@ -129,16 +129,20 @@ type FsBulletMLSampleGame () as this =
     this.background.Draw(spriteBatch)
     drawText (String.Format("FPS: {0:F5}", this.fps.value)) (new Vector2(3.f, 3.f)) Color.White
 
-    let enemyBullet1Texture = enemyBullet1Texture.Force()
+    let enemyBullet1Texture = enemyBullet3Texture.Force()
     let enemyBullet2Texture = enemyBullet2Texture.Force()
     let playerBullet1Texture = playerBullet1Texture.Force()
     let playerBullet2Texture = playerBullet2Texture.Force()
     let enemyTexture = enemyTexture.Force()
-  
+
     Manager.playerBullets
-    |> Seq.iter (fun bullet -> spriteBatch.Draw(playerBullet1Texture, Manager.getDrawPos bullet playerBullet1Texture, Color.AntiqueWhite))
+    |> Seq.iter (fun bullet -> let textureCenter = new Vector2(enemyBullet1Texture.Width / 2 |> float32, enemyBullet1Texture.Height / 2 |> float32);
+                               let position = Manager.getDrawPos bullet playerBullet1Texture + textureCenter
+                               spriteBatch.Draw(playerBullet1Texture, position, System.Nullable(), Color.White,bullet.Dir, textureCenter, 1.0f, SpriteEffects.None, 0.f))
     Manager.enemyBullets
-    |> Seq.iter (fun bullet -> spriteBatch.Draw(enemyBullet1Texture, Manager.getDrawPos bullet enemyBullet1Texture, Color.AntiqueWhite))
+    |> Seq.iter (fun bullet -> let textureCenter = new Vector2(enemyBullet1Texture.Width / 2 |> float32, enemyBullet1Texture.Height / 2 |> float32);
+                               let position = Manager.getDrawPos bullet enemyBullet1Texture + textureCenter
+                               spriteBatch.Draw(enemyBullet1Texture, position, System.Nullable(), Color.White,bullet.Dir, textureCenter, 1.0f, SpriteEffects.None, 0.f))
     Manager.enemys 
     |> Seq.iter (fun enemy -> spriteBatch.Draw(enemyTexture, Manager.getDrawPos enemy enemyTexture, Color.AntiqueWhite))
 
