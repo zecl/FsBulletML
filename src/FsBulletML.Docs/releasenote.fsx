@@ -1,5 +1,5 @@
 ﻿(**
-FsBulletML - ReleaseNote
+Release Notes
 ==================================
 0.8.5
 -------------
