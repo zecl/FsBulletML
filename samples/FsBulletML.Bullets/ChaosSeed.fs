@@ -8,7 +8,7 @@ module ChaosSeed =
 
   /// カオスシード、大猿ボス。by 白い弾幕くん
   /// [ChaosSeed]_big_monkey_boss.xml
-  let ``big_monkey_boss`` =
+  let big_monkey_boss =
     "カオスシード、大猿ボス。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

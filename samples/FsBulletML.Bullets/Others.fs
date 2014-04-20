@@ -6,7 +6,7 @@ open FsBulletML
 module Others = 
 
   /// 全方位弾
-  let ``AllWay`` = 
+  let AllWay = 
     "全方位弾",
     Bulletml({ bulletmlXmlns = None; bulletmlType = Some ShootingDirection.BulletVertical;},
         [BulletmlElm.Action ({actionLabel = Some "circle";},
@@ -24,7 +24,7 @@ module Others =
                     [Action.ActionRef ({actionRefLabel = "circle";}, ["20"]); Wait "20"]))])])
 
   /// 前方5way弾
-  let ``5way`` = 
+  let b5way = 
     "前方5方向弾",
     Bulletml ({bulletmlXmlns = None; bulletmlType = Some BulletVertical;},
         [BulletmlElm.Action ({actionLabel = Some "top";},

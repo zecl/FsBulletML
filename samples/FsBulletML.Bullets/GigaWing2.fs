@@ -8,7 +8,7 @@ module GigaWing2 =
 
   /// ギガウィング2のアークリミかも。by 白い弾幕くん
   /// [GigaWing2]_akurimi.xml
-  let ``akurimi`` =
+  let akurimi =
     "ギガウィング2のアークリミかも。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

@@ -8,7 +8,7 @@ module SilverGun =
 
   /// レイディアントシルバーガン4Dボス、PENTA。by 白い弾幕くん
   /// [SilverGun]_4D_boss_PENTA.xml
-  let ``4D_boss_PENTA`` =
+  let b4D_boss_PENTA =
     "レイディアントシルバーガン4Dボス、PENTA。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

@@ -8,7 +8,7 @@ module KetuiLt =
 
   /// ケツイロケテより、一面ボスのビット攻撃 by 白い弾幕くん
   /// [Ketui_LT]_1boss_bit.xml
-  let ``1boss_bit`` =
+  let b1boss_bit =
     "ケツイロケテより、一面ボスのビット攻撃 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -111,7 +111,7 @@ module KetuiLt =
 
   /// ケツイロケテより、三ボスのくねくね by 白い弾幕くん
   /// [Ketui_LT]_3boss_kunekune.xml
-  let ``3boss_kunekune`` =
+  let b3boss_kunekune =
     "ケツイロケテより、三ボスのくねくね by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -215,7 +215,7 @@ module KetuiLt =
 
   /// ケツイロケテより、三ボスの自機狙い弾と横殴り弾 by 白い弾幕くん
   /// [Ketui_LT]_3boss_roll_and_aim.xml
-  let ``3boss_roll_and_aim`` =
+  let b3boss_roll_and_aim =
     "ケツイロケテより、三ボスの自機狙い弾と横殴り弾 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -337,7 +337,7 @@ module KetuiLt =
 
   /// ケツイロケテより、二面ボスのワインダー？ by 白い弾幕くん
   /// [Ketui_LT]_2boss_winder_crash.xml
-  let ``2boss_winder_crash`` =
+  let b2boss_winder_crash =
     "ケツイロケテより、二面ボスのワインダー？ by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = None;

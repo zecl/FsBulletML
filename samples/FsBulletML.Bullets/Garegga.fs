@@ -8,7 +8,7 @@ module Garegga =
 
   /// バトルガレッガのBlackHeartMk2のワインダー。by 白い弾幕くん
   /// [Garegga]_black_heart_mk2_winder.xml
-  let ``black_heart_mk2_winder`` =
+  let black_heart_mk2_winder =
     "バトルガレッガのBlackHeartMk2のワインダー。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

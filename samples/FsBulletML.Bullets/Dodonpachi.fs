@@ -8,7 +8,7 @@ module Dodonpachi =
 
   /// 怒首領蜂、火蜂。by 白い弾幕くん
   /// [Dodonpachi]_hibachi.xml
-  let ``hibachi`` =
+  let hibachi =
     "怒首領蜂、火蜂。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -63,7 +63,7 @@ module Dodonpachi =
   
   /// 怒首領蜂、最終鬼畜兵器その一。 by 白い弾幕くん
   /// [Dodonpachi]_kitiku_1.xml
-  let ``kitiku_1`` =
+  let kitiku_1 =
     "怒首領蜂、最終鬼畜兵器その一。 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -154,7 +154,7 @@ module Dodonpachi =
 
   /// 怒首領蜂、最終鬼畜兵器その二。 by 白い弾幕くん
   /// [Dodonpachi]_kitiku_2.xml
-  let ``kitiku_2`` =
+  let kitiku_2 =
     "怒首領蜂、最終鬼畜兵器その二。 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -207,7 +207,7 @@ module Dodonpachi =
 
   /// 怒首領蜂、最終鬼畜兵器その三。 by 白い弾幕くん
   /// [Dodonpachi]_kitiku_3.xml
-  let ``kitiku_3`` =
+  let kitiku_3 =
     "怒首領蜂、最終鬼畜兵器その三。 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -281,7 +281,7 @@ module Dodonpachi =
 
   /// 怒首領蜂、最終鬼畜兵器その五。by 白い弾幕くん
   /// [Dodonpachi]_kitiku_5.xml
-  let ``kitiku_5`` =
+  let kitiku_5 =
     "怒首領蜂、最終鬼畜兵器その五。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

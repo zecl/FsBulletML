@@ -8,7 +8,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生「緋蜂」開幕攻撃 by 白い弾幕くん
   /// [Daiouzyou]_hibachi_1.xml
-  let ``hibachi_1`` =
+  let hibachi_1 =
     "怒首領蜂大往生「緋蜂」開幕攻撃 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = None;
@@ -50,7 +50,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生「緋蜂」超速青弾 by 白い弾幕くん
   /// [Daiouzyou]_hibachi_2.xml
-  let ``hibachi_2`` =
+  let hibachi_2 =
     "怒首領蜂大往生「緋蜂」超速青弾 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = None;
@@ -153,7 +153,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生「緋蜂」第三攻撃 by 白い弾幕くん
   /// [Daiouzyou]_hibachi_3.xml
-  let ``hibachi_3`` =
+  let hibachi_3 =
     "怒首領蜂大往生「緋蜂」第三攻撃 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = None;
@@ -207,7 +207,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生「緋蜂」発狂攻撃 by 白い弾幕くん
   /// [Daiouzyou]_hibachi_4.xml
-  let ``hibachi_4`` =
+  let hibachi_4 =
     "怒首領蜂大往生「緋蜂」発狂攻撃 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = None;
@@ -955,7 +955,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生「緋蜂」最終形態を妄想してみた by 白い弾幕くん
   /// [Daiouzyou]_hibachi_image.xml
-  let ``hibachi_image`` = 
+  let hibachi_image = 
     "怒首領蜂大往生「緋蜂」最終形態を妄想してみた by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1039,7 +1039,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生「緋蜂」最終形態に多分似たもの by 白い弾幕くん
   /// [Daiouzyou]_hibachi_maybe.xml
-  let ``hibachi_maybe`` =
+  let hibachi_maybe =
     "怒首領蜂大往生「緋蜂」最終形態に多分似たもの by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1154,7 +1154,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生一面ボス by 白い弾幕くん
   /// [Daiouzyou]_round_1_boss.xml
-  let ``round_1_boss`` = 
+  let round_1_boss = 
     "怒首領蜂大往生一面ボス by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1243,7 +1243,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生一面ボス、発狂。by 白い弾幕くん
   /// [Daiouzyou]_round_1_boss_hakkyou.xml
-  let ``round_1_boss_hakkyou`` =
+  let round_1_boss_hakkyou =
     "怒首領蜂大往生一面ボス、発狂。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1373,7 +1373,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生三面ボス「厳武」第二形態 by 白い弾幕くん
   /// [Daiouzyou]_round_3_boss.xml
-  let ``round_3_boss`` =
+  let round_3_boss =
     "怒首領蜂大往生三面ボス「厳武」第二形態 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1434,7 +1434,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生三面ボス「厳武」第三形態 by 白い弾幕くん
   /// [Daiouzyou]_round_3_boss_2.xml
-  let ``round_3_boss_2`` =
+  let round_3_boss_2 =
     "怒首領蜂大往生三面ボス「厳武」第三形態 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1568,7 +1568,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生三面ボス「厳武」発狂 by 白い弾幕くん
   /// [Daiouzyou]_round_3_boss_last.xml
-  let ``round_3_boss_last`` =
+  let round_3_boss_last =
     "怒首領蜂大往生三面ボス「厳武」発狂 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1677,7 +1677,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生四面ボス「逝流」第一形態その三 by 白い弾幕くん
   /// [Daiouzyou]_round_4_boss.xml
-  let ``round_4_boss`` =
+  let round_4_boss =
     "怒首領蜂大往生四面ボス「逝流」第一形態その三 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1755,7 +1755,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生四面ボス「逝流」第一形態その一 by 白い弾幕くん
   /// [Daiouzyou]_round_4_boss_1.xml
-  let ``round_4_boss_1`` =
+  let round_4_boss_1 =
     "怒首領蜂大往生四面ボス「逝流」第一形態その一 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1848,7 +1848,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生四面ボス「逝流」第一形態その二 by 白い弾幕くん
   /// [Daiouzyou]_round_4_boss_2.xml
-  let ``round_4_boss_2`` =
+  let round_4_boss_2 =
     "怒首領蜂大往生四面ボス「逝流」第一形態その二 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1962,7 +1962,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生四面ボス「逝流」第一形態その四 by 白い弾幕くん
   /// [Daiouzyou]_round_4_boss_4.xml
-  let ``round_4_boss_4`` =
+  let round_4_boss_4 =
     "怒首領蜂大往生四面ボス「逝流」第一形態その四 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -2073,7 +2073,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生四面ボス「逝流」第二形態その一 by 白い弾幕くん
   /// [Daiouzyou]_round_4_boss_5.xml
-  let ``round_4_boss_5`` =
+  let round_4_boss_5 =
     "怒首領蜂大往生四面ボス「逝流」第二形態その一 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -2240,7 +2240,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生五面ボス「黄流」第一形態その一 by 白い弾幕くん
   /// [Daiouzyou]_round_5_boss_1.xml
-  let ``round_5_boss_1`` =
+  let round_5_boss_1 =
     "怒首領蜂大往生五面ボス「黄流」第一形態その一 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -2439,7 +2439,7 @@ module Daiouzyou =
   
   /// 怒首領蜂大往生五面ボス「黄流」第一形態その二 by 白い弾幕くん
   /// [Daiouzyou]_round_5_boss_2.xml
-  let ``round_5_boss_2`` =
+  let round_5_boss_2 =
     "怒首領蜂大往生五面ボス「黄流」第一形態その二 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -2598,7 +2598,7 @@ module Daiouzyou =
   
   /// 怒首領蜂大往生二周目一面ボス、その一 by 白い弾幕くん
   /// [Daiouzyou]_round_6_boss_1.xml
-  let ``round_6_boss_1`` =
+  let round_6_boss_1 =
     "怒首領蜂大往生二周目一面ボス、その一 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -2639,7 +2639,7 @@ module Daiouzyou =
   
   /// 怒首領蜂大往生二周目一面ボス、その二 by 白い弾幕くん
   /// [Daiouzyou]_round_6_boss_2.xml
-  let ``round_6_boss_2`` =
+  let round_6_boss_2 =
     "怒首領蜂大往生二周目一面ボス、その二 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -2715,7 +2715,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生二周目一面ボス、その三 by 白い弾幕くん
   /// [Daiouzyou]_round_6_boss_3.xml
-  let ``round_6_boss_3`` =
+  let round_6_boss_3 =
     "怒首領蜂大往生二周目一面ボス、その三 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -2788,7 +2788,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生二周目一面ボス、その四 by 白い弾幕くん
   /// [Daiouzyou]_round_6_boss_4.xml
-  let ``round_6_boss_4`` =
+  let round_6_boss_4 =
     "怒首領蜂大往生二周目一面ボス、その四 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -2866,7 +2866,7 @@ module Daiouzyou =
 
   /// 怒首領蜂大往生二周目一面ボス、その五 by 白い弾幕くん
   /// [Daiouzyou]_round_6_boss_5.xml
-  let ``round_6_boss_5`` =
+  let round_6_boss_5 =
     "怒首領蜂大往生二周目一面ボス、その五 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

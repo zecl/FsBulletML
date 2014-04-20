@@ -8,7 +8,7 @@ module Strikers1999 =
 
   /// ストライカーズ1999の花火かも。by 白い弾幕くん
   /// [Strikers1999]_hanabi.xml
-  let ``hanabi`` =
+  let hanabi =
     "ストライカーズ1999の花火かも。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

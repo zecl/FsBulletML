@@ -8,7 +8,7 @@ module OtakuTwo =
 
   /// おたくツーさん作、円形発射弾・花火型 by 白い弾幕くん
   /// [OtakuTwo]_circle_fireworks.xml
-  let ``circle_fireworks`` =
+  let circle_fireworks =
     "おたくツーさん作、円形発射弾・花火型 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -60,7 +60,7 @@ module OtakuTwo =
 
   /// おたくツーさん作、円形発射弾・花火型弐式 by 白い弾幕くん
   /// [OtakuTwo]_circle_fireworks2.xml
-  let ``circle_fireworks2`` =
+  let circle_fireworks2 =
     "おたくツーさん作、円形発射弾・花火型弐式 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -112,7 +112,7 @@ module OtakuTwo =
 
   /// おたくツーさん作、円形発射弾・速度変化型 by 白い弾幕くん
   /// [OtakuTwo]_circle_trap.xml
-  let ``circle_trap`` =
+  let circle_trap =
     "おたくツーさん作、円形発射弾・速度変化型 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -178,7 +178,7 @@ module OtakuTwo =
 
   /// 最臭鬼畜兵器「非蜂」１：ニオイ波動 by 白い弾幕くん
   /// [OtakuTwo]_dis_bee_1.xml
-  let ``dis_bee_1`` = 
+  let dis_bee_1 = 
     "最臭鬼畜兵器「非蜂」１：ニオイ波動 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -265,7 +265,7 @@ module OtakuTwo =
 
   /// 最臭鬼畜兵器「非蜂」２：壁花火 by 白い弾幕くん
   /// [OtakuTwo]_dis_bee_2.xml
-  let ``dis_bee_2`` =
+  let dis_bee_2 =
     "最臭鬼畜兵器「非蜂」２：壁花火 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -323,7 +323,7 @@ module OtakuTwo =
 
   /// 最臭鬼畜兵器「非蜂」３：ぐるぐる風車 by 白い弾幕くん
   /// [OtakuTwo]_dis_bee_3.xml
-  let ``dis_bee_3`` =
+  let dis_bee_3 =
     "最臭鬼畜兵器「非蜂」３：ぐるぐる風車 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -426,7 +426,7 @@ module OtakuTwo =
 
   /// おたくツーさん作、回転砲台・鶚型 by 白い弾幕くん
   /// [OtakuTwo]_roll_misago.xml
-  let ``roll_misago`` = 
+  let roll_misago = 
     "おたくツーさん作、回転砲台・鶚型 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -544,7 +544,7 @@ module OtakuTwo =
 
   /// 回転発射弾・四段風車形 by 白い弾幕くん
   /// [OtakuTwo]_self-0012.xml
-  let ``self-0012`` =
+  let self_0012 =
     "回転発射弾・四段風車形 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -705,7 +705,7 @@ module OtakuTwo =
 
   /// 自機拘束弾・不規則回転型 by 白い弾幕くん
   /// [OtakuTwo]_self-0062.xml
-  let ``self-0062`` =
+  let self_0062 =
     "自機拘束弾・不規則回転型 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -758,7 +758,7 @@ module OtakuTwo =
   
   /// 自機拘束弾・不規則回転型改 by 白い弾幕くん
   /// [OtakuTwo]_self-0063.xml
-  let ``self-0063`` =
+  let self_0063 =
     "自機拘束弾・不規則回転型改 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -847,7 +847,7 @@ module OtakuTwo =
 
   /// 回転砲台・鶚型副産物 by 白い弾幕くん
   /// [OtakuTwo]_self-0071.xml
-  let ``self-0071`` =
+  let self_0071 =
     "回転砲台・鶚型副産物 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -920,7 +920,7 @@ module OtakuTwo =
 
   /// 加速弾・巨大弾落下型 by 白い弾幕くん
   /// [OtakuTwo]_self-0081.xml
-  let ``self-0081`` = 
+  let self_0081 = 
     "加速弾・巨大弾落下型 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -978,7 +978,7 @@ module OtakuTwo =
 
   /// 「緋蜂のような物体」超速青弾part1 by 白い弾幕くん
   /// [OtakuTwo]_self-1020.xml
-  let ``self-1020`` =
+  let self_1020 =
     "「緋蜂のような物体」超速青弾part1 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1075,7 +1075,7 @@ module OtakuTwo =
 
   /// 「緋蜂のような物体」超速青弾part2 by 白い弾幕くん
   /// [OtakuTwo]_self-1021.xml
-  let ``self-1021`` =
+  let self_1021 =
     "「緋蜂のような物体」超速青弾part2 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1167,7 +1167,7 @@ module OtakuTwo =
 
   /// rRootageより妄想　Part01 by 白い弾幕くん
   /// [OtakuTwo]_self-2010.xml
-  let ``self-2010`` = 
+  let self_2010 = 
     "rRootageより妄想　Part01 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1236,7 +1236,7 @@ module OtakuTwo =
 
   /// rRootageより妄想　Part01-ANOTHER by 白い弾幕くん
   /// [OtakuTwo]_self-2011.xml
-  let ``self-2011`` =
+  let self_2011 =
     "rRootageより妄想　Part01-ANOTHER by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1345,7 +1345,7 @@ module OtakuTwo =
 
   /// rRootageより妄想　Part02 by 白い弾幕くん
   /// [OtakuTwo]_self-2020.xml
-  let ``self-2020`` =
+  let self_2020 =
     "rRootageより妄想　Part02 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1408,7 +1408,7 @@ module OtakuTwo =
 
   /// おたくツーさん作、自機拘束弾・低速移動型 by 白い弾幕くん
   /// [OtakuTwo]_slow_move.xml
-  let ``slow_move`` = 
+  let slow_move = 
     "おたくツーさん作、自機拘束弾・低速移動型 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

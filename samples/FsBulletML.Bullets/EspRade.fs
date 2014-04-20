@@ -8,7 +8,7 @@ module EspRade =
 
   /// エスプレイド、最終面後半「アリスクローン」by 白い弾幕くん
   /// [ESP_RADE]_round_5_alice_clone.xml
-  let ``round_5_alice_clone`` =
+  let round_5_alice_clone =
     "エスプレイド、最終面後半「アリスクローン」by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -36,7 +36,7 @@ module EspRade =
 
   /// エスプレイド、無敵の軍神アレス第二形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_ares_2.xml
-  let ``round_5_boss_ares_2`` = 
+  let round_5_boss_ares_2 = 
     "エスプレイド、無敵の軍神アレス第二形態 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -233,7 +233,7 @@ module EspRade =
 
   /// エスプレイド、ガラ婦人第一形態の片方 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_1_a.xml
-  let ``round_5_boss_gara_1_a`` =
+  let round_5_boss_gara_1_a =
     "エスプレイド、ガラ婦人第一形態の片方 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -294,7 +294,7 @@ module EspRade =
 
   /// エスプレイド、ガラ第一形態のもう一方 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_1_b.xml
-  let ``round_5_boss_gara_1_b`` =
+  let round_5_boss_gara_1_b =
     "エスプレイド、ガラ第一形態のもう一方 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -367,7 +367,7 @@ module EspRade =
 
   /// エスプレイド、ガラ婦人第二形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_2.xml
-  let ``round_5_boss_gara_2`` =
+  let round_5_boss_gara_2 =
     "エスプレイド、ガラ婦人第二形態 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -425,7 +425,7 @@ module EspRade =
 
   /// エスプレイド、ガラ第三形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_3.xml
-  let ``round_5_boss_gara_3`` =
+  let round_5_boss_gara_3 =
     "エスプレイド、ガラ第三形態 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -565,7 +565,7 @@ module EspRade =
 
   /// エスプレイド、ガラ婦人第四形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_4.xml
-  let ``round_5_boss_gara_4`` =
+  let round_5_boss_gara_4 =
     "エスプレイド、ガラ婦人第四形態 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -619,7 +619,7 @@ module EspRade =
 
   /// エスプレイド、ガラ婦人最終形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_5.xml
-  let ``round_5_boss_gara_5`` =
+  let round_5_boss_gara_5 =
     "エスプレイド、ガラ婦人最終形態 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -695,7 +695,7 @@ module EspRade =
 
   /// エスプレイド、五行覚師、発狂。by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_kakusi_hakkyou.xml
-  let ``round_5_boss_kakusi_hakkyou`` =
+  let round_5_boss_kakusi_hakkyou =
     "エスプレイド、五行覚師、発狂。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -768,7 +768,7 @@ module EspRade =
 
   /// エスプレイド、1-3面のボスとなる、IZUNA発狂 by 白い弾幕くん
   /// [ESP_RADE]_round_123_boss_izuna_hakkyou.xml
-  let ``round_123_boss_izuna_hakkyou`` =
+  let round_123_boss_izuna_hakkyou =
     "エスプレイド、1-3面のボスとなる、IZUNA発狂 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -912,7 +912,7 @@ module EspRade =
 
   /// エスプレイド、1-3面のボスとなる、ペラボーイ発狂 by 白い弾幕くん
   /// [ESP_RADE]_round_123_boss_pelaboy_hakkyou.xml
-  let ``round_123_boss_pelaboy_hakkyou`` =
+  let round_123_boss_pelaboy_hakkyou =
     "エスプレイド、1-3面のボスとなる、ペラボーイ発狂 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -1121,7 +1121,7 @@ module EspRade =
 
   /// エスプレイド、1-3面のボスとなる、近江悟君 by 白い弾幕くん
   /// [ESP_RADE]_round_123_boss_satoru_5way.xml
-  let ``round_123_boss_satoru_5way`` =
+  let round_123_boss_satoru_5way =
     "エスプレイド、1-3面のボスとなる、近江悟君 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

@@ -8,7 +8,7 @@ module Noiz2sa =
 
   /// Noiz2saより、88way。 by 白い弾幕くん
   /// [Noiz2sa]_88way.xml
-  let ``88way`` =
+  let b88way =
     "Noiz2saより、88way。 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -54,7 +54,7 @@ module Noiz2sa =
 
   /// Noiz2saより、ビットから自機狙い弾。 by 白い弾幕くん
   /// [Noiz2sa]_bit.xml
-  let ``bit`` =
+  let bit =
     "Noiz2saより、ビットから自機狙い弾。 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -106,7 +106,7 @@ module Noiz2sa =
 
   /// Noiz2saより、回る棒。by 白い弾幕くん
   /// [Noiz2sa]_rollbar.xml
-  let ``rollbar`` = 
+  let rollbar = 
     "Noiz2saより、回る棒。by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

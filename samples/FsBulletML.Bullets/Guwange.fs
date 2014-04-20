@@ -8,7 +8,7 @@ module Guwange =
 
   /// ぐわんげ、二面ボス by 白い弾幕くん
   /// [Guwange]_round_2_boss_circle_fire.xml
-  let ``round_2_boss_circle_fire`` = 
+  let round_2_boss_circle_fire = 
     "ぐわんげ、二面ボス by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -41,7 +41,7 @@ module Guwange =
 
   /// ぐわんげ、三面ボス by 白い弾幕くん
   /// [Guwange]_round_3_boss_fast_3way.xml
-  let ``round_3_boss_fast_3way`` =
+  let round_3_boss_fast_3way =
     "ぐわんげ、三面ボス by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
@@ -117,7 +117,7 @@ module Guwange =
 
   /// ぐわんげ、四面ボス by 白い弾幕くん
   /// [Guwange]_round_4_boss_eye_ball.xml
-  let ``round_4_boss_eye_ball`` =
+  let round_4_boss_eye_ball =
     "ぐわんげ、四面ボス by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

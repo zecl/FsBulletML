@@ -8,7 +8,7 @@ module Xsoldier =
 
   /// XSoldierの8面ボスの主砲 by 白い弾幕くん
   /// [xsoldier]_8_boss_main.xml
-  let ``8_boss_main`` =
+  let b8_boss_main =
     "XSoldierの8面ボスの主砲 by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

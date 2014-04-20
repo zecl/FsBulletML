@@ -64,10 +64,10 @@ type Enemy (life) as this =
 
 module EnemyControl =
   let bullets = [ FsBulletML.Bullets.EnemyBullet.Sdmkun.Guwange.round_2_boss_circle_fire
-                  FsBulletML.Bullets.EnemyBullet.Sdmkun.Psyvariar.``4_D_boss_MZIQ``
-                  FsBulletML.Bullets.EnemyBullet.Sdmkun.SilverGun.``4D_boss_PENTA``
+                  FsBulletML.Bullets.EnemyBullet.Sdmkun.Psyvariar.b4_D_boss_MZIQ
+                  FsBulletML.Bullets.EnemyBullet.Sdmkun.SilverGun.b4D_boss_PENTA
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Strikers1999.hanabi
-                  FsBulletML.Bullets.EnemyBullet.Sdmkun.MAD.``10flower_2``
+                  FsBulletML.Bullets.EnemyBullet.Sdmkun.MAD.b10flower_2
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.OtakuTwo.dis_bee_1
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.OtakuTwo.dis_bee_2
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.OtakuTwo.dis_bee_3
@@ -78,11 +78,11 @@ module EnemyControl =
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.GWange._roll_gara
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Original.knight_2
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.GWange.round_trip_bit
-                  FsBulletML.Bullets.EnemyBullet.Sdmkun.Noiz2sa.``88way``
+                  FsBulletML.Bullets.EnemyBullet.Sdmkun.Noiz2sa.b88way
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Noiz2sa.bit
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Noiz2sa.rollbar
-                  FsBulletML.Bullets.EnemyBullet.Sdmkun.Tenmado.``5_boss_1``
-                  FsBulletML.Bullets.EnemyBullet.Sdmkun.Tenmado.``5_boss_3``
+                  FsBulletML.Bullets.EnemyBullet.Sdmkun.Tenmado.b5_boss_1
+                  FsBulletML.Bullets.EnemyBullet.Sdmkun.Tenmado.b5_boss_3
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Dodonpachi.hibachi
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Dodonpachi.kitiku_1 
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Dodonpachi.kitiku_2
@@ -115,8 +115,8 @@ module EnemyControl =
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Original.fujin_ranbu_true
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Bulletsmorph.double_seduction
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Original.accusation
-                  FsBulletML.Bullets.EnemyBullet.Sdmkun.XiiStag.``3b``
-                  FsBulletML.Bullets.EnemyBullet.Sdmkun.KetuiLt.``2boss_winder_crash``
+                  FsBulletML.Bullets.EnemyBullet.Sdmkun.XiiStag.b3b
+                  FsBulletML.Bullets.EnemyBullet.Sdmkun.KetuiLt.b2boss_winder_crash
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.ChaosSeed.big_monkey_boss
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Guwange.round_4_boss_eye_ball
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Daiouzyou.round_4_boss_2

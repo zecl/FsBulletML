@@ -8,7 +8,7 @@ module GDarius =
 
   /// Gダライアス中のホーミングレーザー by 白い弾幕くん
   /// [G_DARIUS]_homing_laser.xml
-  let ``homing_laser`` =
+  let homing_laser =
     "Gダライアス中のホーミングレーザー by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";

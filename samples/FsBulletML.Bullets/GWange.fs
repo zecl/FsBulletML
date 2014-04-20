@@ -8,7 +8,7 @@ module GWange =
 
   /// G-わんげスレの957氏、回転ガラ by 白い弾幕くん
   /// [G-Wange]_roll_gara.xml
-  let ``_roll_gara`` =
+  let _roll_gara =
     "G-わんげスレの957氏、回転ガラ by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = None;
@@ -56,7 +56,7 @@ module GWange =
 
   /// G-わんげスレの966氏考案、往復ビット by 白い弾幕くん
   /// [G-Wange]_round_trip_bit.xml
-  let ``round_trip_bit`` =
+  let round_trip_bit =
     "G-わんげスレの966氏考案、往復ビット by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = None;

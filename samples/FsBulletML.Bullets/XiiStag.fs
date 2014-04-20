@@ -8,7 +8,7 @@ module XiiStag =
   
   /// トゥエルブスタッグ３ボス by 白い弾幕くん
   /// [XII_STAG]_3b.xml
-  let ``3b`` = 
+  let b3b = 
     "トゥエルブスタッグ３ボス by 白い弾幕くん",
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
