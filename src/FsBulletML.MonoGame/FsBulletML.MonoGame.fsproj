@@ -54,6 +54,7 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets" Condition="Exists('..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" />
   <ItemGroup>
+    <Compile Include="FSharpFunc.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="IBullet.fs" />
     <Compile Include="Manager.fs" />

@@ -18,11 +18,13 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Parser.Tests", "
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Bullets", "samples\FsBulletML.Bullets\FsBulletML.Bullets.fsproj", "{F0BAD024-5C63-4C24-B9C8-3D8326CE8FD7}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Sample", "samples\FsBulletML.Sample\FsBulletML.Sample.fsproj", "{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Docs", "src\FsBulletML.Docs\FsBulletML.Docs.fsproj", "{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.MonoGame", "src\FsBulletML.MonoGame\FsBulletML.MonoGame.fsproj", "{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Sample.MonoGame.FSharp", "samples\FsBulletML.Sample.MonoGame.FSharp\FsBulletML.Sample.MonoGame.FSharp.fsproj", "{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsBulletML.Sample.MonoGame.CSharp", "samples\FsBulletML.Sample.MonoGame.CSharp\FsBulletML.Sample.MonoGame.CSharp.csproj", "{814F6B80-B792-4D24-879F-A7507A7EC9E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +48,6 @@ Global
 		{F0BAD024-5C63-4C24-B9C8-3D8326CE8FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0BAD024-5C63-4C24-B9C8-3D8326CE8FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0BAD024-5C63-4C24-B9C8-3D8326CE8FD7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -58,6 +56,14 @@ Global
 		{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE546E8-D456-40A8-8BE3-E73F2182A1FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814F6B80-B792-4D24-879F-A7507A7EC9E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814F6B80-B792-4D24-879F-A7507A7EC9E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814F6B80-B792-4D24-879F-A7507A7EC9E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814F6B80-B792-4D24-879F-A7507A7EC9E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

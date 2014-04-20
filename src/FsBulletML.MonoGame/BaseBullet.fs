@@ -52,13 +52,16 @@ type BaseBullet () as this =
         let dir = Math.Atan2( float (this.self.TargetEnemy.X - this.self.X), -1. * float (this.self.TargetEnemy.Y - this.self.Y))
         float32 dir
       else
-        for enemy in Manager.enemys do
-          let d = Vector2.Distance (Vector2(this.self.X, this.self.Y), Vector2(enemy.X, enemy.Y))
-          if md > d then
-            this.self.TargetEnemy <- enemy
-            md <- d
-        let dir = Math.Atan2( float (this.self.TargetEnemy.X - this.self.X), -1. * float (this.self.TargetEnemy.Y - this.self.Y))
-        float32 dir
+        if  ((Manager.enemys) :> seq<_>) |> Seq.length <= 0 then
+          0.f
+        else
+          for enemy in Manager.enemys do
+            let d = Vector2.Distance (Vector2(this.self.X, this.self.Y), Vector2(enemy.X, enemy.Y))
+            if md > d then
+              this.self.TargetEnemy <- enemy
+              md <- d
+          let dir = Math.Atan2( float (this.self.TargetEnemy.X - this.self.X), -1. * float (this.self.TargetEnemy.Y - this.self.Y))
+          float32 dir
 
     member this.Init () = 
       this.self.Used <- true

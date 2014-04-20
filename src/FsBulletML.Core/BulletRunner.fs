@@ -409,3 +409,8 @@ module BulletRunner =
       tasks |> List.iter (fun t -> bulletmlTask.FireData.Add(new FireData()))
       bulletmlTask.ActiveTaskIndex <- 0
     bulletmlTask
+
+  [<CompiledName "ConvertBulletmlTaskOption">]
+  let convertBulletmlTaskOption bulletml = 
+    convertBulletmlTask bulletml |> Some
+ 
