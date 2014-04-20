@@ -1,5 +1,6 @@
 ﻿namespace FsBulletML.Sample
 open FsBulletML
+open FsBulletML.MonoGame
 
 type IEnemy =
   inherit IBullet

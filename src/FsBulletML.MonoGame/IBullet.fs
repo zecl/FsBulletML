@@ -1,7 +1,6 @@
-﻿namespace FsBulletML.Sample
+﻿namespace FsBulletML.MonoGame
 open FsBulletML
 open Microsoft.Xna.Framework
-open Microsoft.Xna.Framework.Graphics
 
 type IBullet =
   inherit IBulletmlObject

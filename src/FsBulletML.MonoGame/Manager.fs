@@ -1,4 +1,4 @@
-﻿namespace FsBulletML.Sample
+﻿namespace FsBulletML.MonoGame
 
 open System
 open System.Collections.Generic

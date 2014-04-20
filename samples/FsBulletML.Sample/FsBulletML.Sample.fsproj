@@ -43,9 +43,6 @@
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\packages\MonoGame.3.0.1\build\net40\MonoGame.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,14 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Settings.fs" />
-    <Compile Include="IBullet.fs" />
     <Compile Include="IEnemy.fs" />
-    <Compile Include="Manager.fs" />
-    <Compile Include="BaseBullet.fs" />
-    <Compile Include="EnemyBullet.fs" />
     <Compile Include="Enemy.fs" />
-    <Compile Include="PlayerBullet.fs" />
     <Compile Include="Player.fs" />
     <Compile Include="Fps.fs" />
     <Compile Include="Particle.fs" />
@@ -76,6 +67,11 @@
     <ProjectReference Include="..\..\src\FsBulletML.Core\FsBulletML.Core.fsproj">
       <Name>FsBulletML.Core</Name>
       <Project>{deda69b5-2853-4192-a886-56194610391c}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\FsBulletML.MonoGame\FsBulletML.MonoGame.fsproj">
+      <Name>FsBulletML.MonoGame</Name>
+      <Project>{2e7eb854-10c6-48c8-b389-1410abf0f5f8}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\src\FsBulletML.Parser\FsBulletML.Parser.fsproj">
@@ -106,7 +102,7 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\..\packages\MonoGame.3.0.1\build\net40\MonoGame.targets" Condition="Exists('..\..\packages\MonoGame.3.0.1\build\net40\MonoGame.targets')" />
+  <Import Project="..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets" Condition="Exists('..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

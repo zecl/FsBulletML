@@ -8,6 +8,7 @@ open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Input
 open Microsoft.Xna.Framework.Graphics
 open FsBulletML
+open FsBulletML.MonoGame
  
 type Player () as this =
   [<DefaultValue>]val mutable timer : int

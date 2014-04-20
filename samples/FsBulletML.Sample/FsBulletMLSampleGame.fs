@@ -9,6 +9,7 @@ open Microsoft.Xna.Framework.Input
 open Microsoft.Xna.Framework.Graphics
 
 open FsBulletML
+open FsBulletML.MonoGame
 
 type FsBulletMLSampleGame () as this = 
   inherit Game()

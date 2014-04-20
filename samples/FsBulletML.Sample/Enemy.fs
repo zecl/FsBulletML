@@ -5,6 +5,7 @@ open System.Collections.Generic
 open System.Runtime.Serialization
 open Microsoft.Xna.Framework
 open FsBulletML
+open FsBulletML.MonoGame
  
 type Enemy (life) as this =
   inherit BaseBullet ()

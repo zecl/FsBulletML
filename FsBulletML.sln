@@ -22,6 +22,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Sample", "sample
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.Docs", "src\FsBulletML.Docs\FsBulletML.Docs.fsproj", "{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsBulletML.MonoGame", "src\FsBulletML.MonoGame\FsBulletML.MonoGame.fsproj", "{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCC80F5C-93D0-4891-B90A-5CBFCAF5FAF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E7EB854-10C6-48C8-B389-1410ABF0F5F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

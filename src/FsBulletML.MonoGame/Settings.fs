@@ -1,7 +1,7 @@
-﻿namespace FsBulletML.Sample
+﻿namespace FsBulletML.MonoGame
 
 module Settings =
-  
+
   module Display =
     [<Literal>]
     let public Width = 480.f
@@ -11,6 +11,7 @@ module Settings =
   module Player = 
     [<Literal>]
     let public X = 240.f
+
     [<Literal>]
     let public Y = 600.f
 
