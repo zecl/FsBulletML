@@ -8,9 +8,9 @@ namespace FsBulletML.Sample.MonoGame.CSharp
     class Fps
     {
         public float Value {get; private set;}
-        float interval;
-        float updateTimer;
-        int frameCount;
+        private float interval;
+        private float updateTimer;
+        private int frameCount;
 
         public Fps()
         {

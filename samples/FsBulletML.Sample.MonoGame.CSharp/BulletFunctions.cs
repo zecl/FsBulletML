@@ -10,10 +10,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
     class BulletFunctions : FsBulletML.Processable.IBulletMLManager 
     {
         private static Random rand = new Random();
-        public BulletFunctions ()
-        {
-
-        }
+        public BulletFunctions () { }
 
         public float GetPlayerPosX()
         {

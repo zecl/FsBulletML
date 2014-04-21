@@ -8,9 +8,8 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 {
     public static class EnemyControl
     {
-        public static IEnumerable<Tuple<string,DTD.Bulletml>> Bullets()
+        public static IEnumerable<BulletmlInfo> Bullets()
         {
- 
             yield return FsBulletML.Bullets.EnemyBullet.Sdmkun.Guwange.round_2_boss_circle_fire;
             yield return FsBulletML.Bullets.EnemyBullet.Sdmkun.Psyvariar.b4_D_boss_MZIQ;
             yield return FsBulletML.Bullets.EnemyBullet.Sdmkun.SilverGun.b4D_boss_PENTA;
@@ -78,25 +77,5 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             yield return FsBulletML.Bullets.EnemyBullet.Sdmkun.Daiouzyou.round_6_boss_4;
             yield return FsBulletML.Bullets.EnemyBullet.Sdmkun.Daiouzyou.round_6_boss_5;           
         }
-
-        public static IEnumerable<Tuple<string, Processable.BulletmlTask>> EnemyTasks() 
-        {
-            foreach (var item in EnemyControl.Bullets())
-            {
-                yield return  new Tuple<string, Processable.BulletmlTask>(item.Item1, BulletRunner.ConvertBulletmlTask(item.Item2));
-            }
-        }
-
-        public static IEnumerable<Tuple<Vector2, Tuple<string,Processable.BulletmlTask>>> Enemys(Vector2 enemyDefaultPos, IEnumerable<Tuple<string, Processable.BulletmlTask>> tasks) 
-        {
-            foreach (var task in tasks)
-            {
-                yield return new Tuple<Vector2, Tuple<string, Processable.BulletmlTask>>(enemyDefaultPos, task);
-            }
-        }
-
-  //let enemys enemyDefaultPos (tasks:(string * BulletmlTask) list) = 
-  //  tasks |> List.map (fun task -> enemyDefaultPos, task)  
-
     }
 }

@@ -16,9 +16,9 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 {
     public class Player
     {
-        static Bulletml b2wayLeftBullet = Xml.BulletmlModule.ReadXml(@"..\..\Content\xml\PlayerBullet\2wayLeft.xml");
-        static Bulletml b2wayRightBullet = Xml.BulletmlModule.ReadXml(@"..\..\Content\xml\PlayerBullet\2wayRight.xml");
-        static Bulletml homing = Xml.BulletmlModule.ReadXml(@"..\..\Content\xml\PlayerBullet\homing.xml");
+        private static Bulletml b2wayLeftBullet = Xml.BulletmlModule.ReadXml(@"..\..\Content\xml\PlayerBullet\2wayLeft.xml");
+        private static Bulletml b2wayRightBullet = Xml.BulletmlModule.ReadXml(@"..\..\Content\xml\PlayerBullet\2wayRight.xml");
+        private static Bulletml homing = Xml.BulletmlModule.ReadXml(@"..\..\Content\xml\PlayerBullet\homing.xml");
 
         private int Timer { get; set; }
         public Vector2 Pos { get; set; }
@@ -69,9 +69,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             }
  
             if (this.Timer > 60)
-            {
                 this.Timer = 0;
-            }
         }
 
         private void Shoot2WayLeftBullet () 

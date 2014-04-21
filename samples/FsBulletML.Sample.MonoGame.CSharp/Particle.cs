@@ -9,16 +9,16 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 {
     class Particle
     {
-        public Texture2D texture;
-        public Vector2 position;
-        public Vector2 direction;
-        public Vector2 origin;
-        public float duration;
-        public float scale;
-        public float shrinkRate;
-        public float speed;
-        public bool isActive;
-        public Color colour;
+        private Texture2D texture;
+        private Vector2 position;
+        private Vector2 direction;
+        private Vector2 origin;
+        private float duration;
+        private float scale;
+        private float shrinkRate;
+        private float speed;
+        private Color colour;
+        public bool IsActive { get; set; }
 
         public Particle(Texture2D tex, Vector2 pos, float speed, float angle, float scale, float shrinkRate, float duration, Color colour)
         {
@@ -26,26 +26,26 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             this.position = pos;
             this.scale = scale;
             this.shrinkRate = shrinkRate;
-            this.isActive = true;
             this.duration = duration;
             this.colour = colour;
             this.speed = speed;
+            this.IsActive = true;
 
             this.origin = new Vector2(tex.Width / 2, tex.Height / 2);
             angle = MathHelper.ToRadians(angle);
             this.direction = Vector2.Transform(new Vector2(0, -1.0f), Matrix.CreateRotationZ(angle));
         }
 
-        public void Update(float delta)
+        public void Update(double delta)
         {
-            this.position += this.direction * this.speed * delta;
-            this.scale -= this.shrinkRate * delta;
-
-            this.duration -= delta;
+            var d = (float)delta;
+            this.position += this.direction * this.speed * d;
+            this.scale -= this.shrinkRate * d;
+            this.duration -= d;
 
             if (this.scale <= 0.0f || this.duration <= 0.0f)
             {
-                this.isActive = false;
+                this.IsActive = false;
                 this.position = new Vector2(-100, -100);
             }
         }

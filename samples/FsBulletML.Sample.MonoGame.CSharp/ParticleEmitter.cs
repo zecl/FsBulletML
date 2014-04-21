@@ -9,8 +9,8 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 {
     class ParticleEmitter
     {
-        protected List<Particle> particles;
-        public static Random Rand = new Random();
+        private List<Particle> particles;
+        private static Random Rand = new Random();
  
         public ParticleEmitter()
         {
@@ -33,14 +33,14 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             this.particles.Clear();
         }
 
-        public void Update(float delta)
+        public void Update(double delta)
         {
             List<Particle> toRemove = new List<Particle>();
             for (int i = 0; i < this.particles.Count; i++)
             {
                 this.particles[i].Update(delta);
  
-                if (!this.particles[i].isActive)
+                if (!this.particles[i].IsActive)
                     toRemove.Add(this.particles[i]);
             }
  

@@ -10,11 +10,11 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 {
     public class Background
     {
-        Texture2D texture; 
-        Vector2 position;
-        Vector2 textureOrigin;
-        float scrollSpeed;
-        int screenHeight;
+        private Texture2D texture; 
+        private Vector2 position;
+        private Vector2 textureOrigin;
+        private float scrollSpeed;
+        private int screenHeight;
 
         public Background(Texture2D texture, int screenHeight, float scrollSpeed)
         {

@@ -16,27 +16,24 @@ namespace FsBulletML.Sample.MonoGame.CSharp
     public class FsBulletMLSampleGame : Game
     {
         private static Vector2 EnemyDefaultPos = new Vector2(Settings.Enemy.X, Settings.Enemy.Y);
-        private static IEnumerable<Tuple<Vector2, Tuple<string, Processable.BulletmlTask>>> Enemys = null;
+        private static IEnumerable<BulletmlInfo> EnemyBullets = null;
 
-        GraphicsDeviceManager gmanager;
-        SpriteBatch spriteBatch;
-
-        Texture2D EnemyTexture { get; set; }
-        Texture2D PlayerBulletTexture { get; set; }
-        Texture2D EnemyBulletTexture { get; set; }
-        Texture2D BackgroundTexture { get; set; }
-        Texture2D ParticleTexture { get; set; }
-        string BulletName { get; set; }
-        IEnemy Boss { get; set; }
-        Background Background { get; set; }
-        ParticleEmitter Emitter { get; set; }
-        SpriteFont Font {get; set;}
-        Fps Fps { get; set; }
-
-        KeyboardState CurrentKeyState { get;set;}
-        KeyboardState PrevKeyState { get; set; }
-        int EnemyIndex { get; set; }
-
+        private GraphicsDeviceManager gmanager;
+        private SpriteBatch spriteBatch;
+        private Texture2D EnemyTexture { get; set; }
+        private Texture2D PlayerBulletTexture { get; set; }
+        private Texture2D EnemyBulletTexture { get; set; }
+        private Texture2D BackgroundTexture { get; set; }
+        private Texture2D ParticleTexture { get; set; }
+        private string BulletName { get; set; }
+        private IEnemy Boss { get; set; }
+        private Background Background { get; set; }
+        private ParticleEmitter Emitter { get; set; }
+        private SpriteFont Font { get; set; }
+        private Fps Fps { get; set; }
+        private KeyboardState CurrentKeyState { get; set; }
+        private KeyboardState PrevKeyState { get; set; }
+        private int EnemyIndex { get; set; }
         public static Player Player { get; set; }
 
         public FsBulletMLSampleGame()
@@ -46,10 +43,8 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 
             gmanager.PreferredBackBufferWidth = (int)Settings.Display.Width;
             gmanager.PreferredBackBufferHeight = (int)Settings.Display.Height;
-
             Player = new Player();
             Player.Init();
-
         }
 
         protected override void Initialize()
@@ -59,19 +54,19 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 
         protected override void LoadContent()
         {
-            base.Window.Title = "FsBulletML.Sample";
+            base.LoadContent();
+            base.Window.Title = "FsBulletML.Sample.MonoGame.CSharp";
             spriteBatch = new SpriteBatch(GraphicsDevice);
             this.Font = this.Content.Load<SpriteFont>(@"..\..\Content\font\SpriteFont2");
-            FsBulletMLSampleGame.Enemys = EnemyControl.Enemys(EnemyDefaultPos, EnemyControl.EnemyTasks());
+            FsBulletMLSampleGame.EnemyBullets = EnemyControl.Bullets();
 
             this.Fps = new Fps();
 
             var enemyInfo = GetEnemyInfo(this.EnemyIndex);
             var pos = enemyInfo.Item1;
-            var name = enemyInfo.Item2.Item1;
-            var bm = enemyInfo.Item2.Item2;
-            this.BulletName = name;
-            this.Boss = CreateEnemy(pos, new Tuple<string, Processable.BulletmlTask>(name, bm)); 
+            var bullet = enemyInfo.Item2;
+            this.BulletName = bullet.Name;
+            this.Boss = CreateEnemy(pos, bullet); 
 
             Player.Texture = this.Content.Load<Texture2D>(@"..\..\Content\Sprites\player");
 
@@ -93,6 +88,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
             this.Background.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
             this.Fps.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
@@ -105,11 +101,10 @@ namespace FsBulletML.Sample.MonoGame.CSharp
                 this.EnemyIndex += 1;
                 var enemyInfo = GetEnemyInfo(this.EnemyIndex);
                 var pos = enemyInfo.Item1;
-                var name = enemyInfo.Item2.Item1;
-                var bm = enemyInfo.Item2.Item2;
+                var bullet = enemyInfo.Item2;
                 ((IBullet)this.Boss).Used = false;
-                this.BulletName = name;
-                this.Boss = CreateEnemy(pos, new Tuple<string, Processable.BulletmlTask>(name, bm));
+                this.BulletName = bullet.Name;
+                this.Boss = CreateEnemy(pos, bullet);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -120,18 +115,8 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             Manager.Free();
             Manager.UpdateSpace();
 
-            Action cont1 = () =>
-            {
-                CreateParticle(Player.Pos);
-                Player.DamageCounter += 1;
-            };
-
-            Action cont2 = () =>
-            {
-                CreateParticle(this.Boss.Pos);
-                if (this.Boss.Life > 0)
-                    this.Boss.Life -= 1;                
-            };
+            Action cont1 = () => { CreateParticle(Player.Pos); Player.DamageCounter += 1; };
+            Action cont2 = () => { CreateParticle(this.Boss.Pos); if (this.Boss.Life > 0) this.Boss.Life -= 1; };
 
             Manager.CheckPlayerCollision(Player.Pos, Player.Radius, cont1.ToFSharpFunc());
             Manager.CheckEnemyCollision(this.Boss.Pos, this.Boss.Radius, cont2.ToFSharpFunc());
@@ -193,26 +178,23 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             return this.CurrentKeyState.IsKeyDown(key) && this.PrevKeyState.IsKeyUp(key);
         }
 
-        private Enemy CreateEnemy(Vector2 pos, System.Tuple<string,Processable.BulletmlTask> bulletMove) 
+        private Enemy CreateEnemy(Vector2 pos, BulletmlInfo bulletMove) 
         {
             var enemy = new Enemy();
             Manager.AddEnemy(enemy);
             enemy.pos = pos;
-            var name = bulletMove.Item1;
-            var task = new Microsoft.FSharp.Core.FSharpOption<Processable.BulletmlTask>(bulletMove.Item2);
-            enemy.SetBulletTask(name, task);
+            var name = bulletMove.Name;
+            enemy.SetBulletTask(name, bulletMove.BulletmlTaskOption);
             return enemy;
         }
 
-        private Tuple<Vector2, Tuple<string, Processable.BulletmlTask>> GetEnemyInfo(int index) 
+        private Tuple<Vector2, BulletmlInfo> GetEnemyInfo(int index) 
         {
-            var len = FsBulletMLSampleGame.Enemys.Count();
+            var len = FsBulletMLSampleGame.EnemyBullets.Count();
             if (len <= (index))
                 this.EnemyIndex = 0;
-            var enemy = FsBulletMLSampleGame.Enemys.ElementAt(this.EnemyIndex);
-            var pos = enemy.Item1;
-            return new Tuple<Vector2, Tuple<string, Processable.BulletmlTask>>(pos, enemy.Item2);
-
+            var bullet = FsBulletMLSampleGame.EnemyBullets.ElementAt(this.EnemyIndex);
+            return new Tuple<Vector2, BulletmlInfo>(EnemyDefaultPos, bullet);
         }
 
         private void DrawText(string msg, Vector2 v, Color c)
