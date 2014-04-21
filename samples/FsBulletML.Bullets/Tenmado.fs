@@ -9,7 +9,7 @@ module Tenmado =
   /// tenmadoより、三面ボス「Disconnection」by 白い弾幕くん
   /// [tenmado]_3_boss_2.xml
   let b3_boss_2 =
-    "tenmadoより、三面ボス「Disconnection」by 白い弾幕くん",
+    createBulletmlInfo "tenmadoより、三面ボス「Disconnection」by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -159,7 +159,7 @@ module Tenmado =
   /// tenmadoより、最終ボス「L」第一形態 by 白い弾幕くん
   /// [tenmado]_5_boss_1.xml
   let b5_boss_1 =
-    "tenmadoより、最終ボス「L」第一形態 by 白い弾幕くん",
+    createBulletmlInfo "tenmadoより、最終ボス「L」第一形態 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -235,7 +235,7 @@ module Tenmado =
   /// tenmadoより、最終ボス「L」第三形態 by 白い弾幕くん
   /// [tenmado]_5_boss_3.xml
   let b5_boss_3 =
-    "tenmadoより、最終ボス「L」第三形態 by 白い弾幕くん",
+    createBulletmlInfo "tenmadoより、最終ボス「L」第三形態 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},

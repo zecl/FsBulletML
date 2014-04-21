@@ -9,7 +9,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、地形トラップ風味 by 白い弾幕くん
   /// [MDA]_2f.xml
   let b2f =
-    "紫月飴さんのオリジナル、地形トラップ風味 by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、地形トラップ風味 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -118,7 +118,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、花。by 白い弾幕くん
   /// [MDA]_10flower_2.xml
   let b10flower_2 =
-    "紫月飴さんのオリジナル、花。by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、花。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -168,7 +168,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、棒状バラマキと変則3way by 白い弾幕くん
   /// [MDA]_14b_2-3w.xml
   let b14b_2_3w =
-    "紫月飴さんのオリジナル、棒状バラマキと変則3way by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、棒状バラマキと変則3way by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -273,7 +273,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、糸が降ってきた。 by 白い弾幕くん
   /// [MDA]_75l-42.xml
   let b75l_42 =
-    "紫月飴さんのオリジナル、糸が降ってきた。 by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、糸が降ってきた。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -338,7 +338,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、加速弾と減速弾 by 白い弾幕くん
   /// [MDA]_acc_n_dec.xml
   let acc_n_dec =
-    "紫月飴さんのオリジナル、加速弾と減速弾 by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、加速弾と減速弾 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -396,7 +396,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、四方からと自機狙い。 by 白い弾幕くん
   /// [MDA]_circular.xml
   let circular =
-    "紫月飴さんのオリジナル、四方からと自機狙い。 by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、四方からと自機狙い。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -445,7 +445,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、四方から。 by 白い弾幕くん
   /// [MDA]_circular_model.xml
   let circular_model =
-    "紫月飴さんのオリジナル、四方から。 by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、四方から。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -481,7 +481,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、春っぽい by 白い弾幕くん
   /// [MDA]_circular_sun.xml
   let circular_sun =
-    "紫月飴さんのオリジナル、春っぽい by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、春っぽい by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -524,7 +524,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、全方位弾二回。by 白い弾幕くん             
   /// [MDA]_double_w.xml
   let double_w =
-    "紫月飴さんのオリジナル、全方位弾二回。by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、全方位弾二回。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -559,7 +559,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、袋詰め by 白い弾幕くん
   /// [MDA]_fukuro.xml
   let fukuro =
-    "紫月飴さんのオリジナル、袋詰め by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、袋詰め by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -617,7 +617,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、なんか生々しい。by 白い弾幕くん
   /// [MDA]_gnnnyari.xml
   let gnnnyari =
-    "紫月飴さんのオリジナル、なんか生々しい。by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、なんか生々しい。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -665,7 +665,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、もじゃ。 by 白い弾幕くん
   /// [MDA]_mojya.xml
   let mojya =
-    "紫月飴さんのオリジナル、もじゃ。 by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、もじゃ。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -702,7 +702,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、もっさり。 by 白い弾幕くん
   /// [MDA]_mossari.xml
   let mossari =
-    "紫月飴さんのオリジナル、もっさり。 by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、もっさり。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -792,7 +792,7 @@ module MAD =
   /// 紫月飴さんのオリジナル、どっちも奇数弾。 by 白い弾幕くん
   /// [MDA]_wind_cl.xml
   let wind_cl =
-    "紫月飴さんのオリジナル、どっちも奇数弾。 by 白い弾幕くん",
+    createBulletmlInfo "紫月飴さんのオリジナル、どっちも奇数弾。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},

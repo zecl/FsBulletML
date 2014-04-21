@@ -9,7 +9,7 @@ module Progear =
   /// CAVEのプロギアの嵐、一面ボス。by 白い弾幕くん
   /// [Progear]_round_1_boss_grow_bullets.xml
   let round_1_boss_grow_bullets =
-    "CAVEのプロギアの嵐、一面ボス。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、一面ボス。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletHorizontal;},
@@ -63,7 +63,7 @@ module Progear =
   /// CAVEのプロギアの嵐、二面ボス、発狂モード。by 白い弾幕くん
   /// [Progear]_round_2_boss_struggling.xml
   let round_2_boss_struggling =
-    "CAVEのプロギアの嵐、二面ボス、発狂モード。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、二面ボス、発狂モード。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletHorizontal;},
@@ -95,7 +95,7 @@ module Progear =
   /// CAVEのプロギアの嵐、三面ボス。by 白い弾幕くん
   /// [Progear]_round_3_boss_back_burst.xml
   let round_3_boss_back_burst =
-    "CAVEのプロギアの嵐、三面ボス。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、三面ボス。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletHorizontal;},
@@ -139,7 +139,7 @@ module Progear =
   /// CAVEのプロギアの嵐、三面ボス。by 白い弾幕くん
   /// [Progear]_round_3_boss_wave_bullets.xml
   let round_3_boss_wave_bullets =
-    "CAVEのプロギアの嵐、三面ボス。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、三面ボス。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletHorizontal;},
@@ -179,7 +179,7 @@ module Progear =
   /// CAVEのプロギアの嵐、四面ボス。by 白い弾幕くん
   /// [Progear]_round_4_boss_fast_rocket.xml
   let round_4_boss_fast_rocket =
-    "CAVEのプロギアの嵐、四面ボス。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、四面ボス。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletHorizontal;},
@@ -239,7 +239,7 @@ module Progear =
   /// CAVEのプロギアの嵐、五面ボス。by 白い弾幕くん
   /// [Progear]_round_5_boss_last_round_wave.xml
   let round_5_boss_last_round_wave =
-    "CAVEのプロギアの嵐、五面ボス。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、五面ボス。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletHorizontal;},
@@ -274,7 +274,7 @@ module Progear =
   /// CAVEのプロギアの嵐、五面ボス。by 白い弾幕くん
   /// [Progear]_round_5_middle_boss_rockets.xml
   let round_5_middle_boss_rockets =
-    "CAVEのプロギアの嵐、五面ボス。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、五面ボス。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletHorizontal;},
@@ -308,7 +308,7 @@ module Progear =
   /// CAVEのプロギアの嵐、二周目一面ボス(嘘) by 白い弾幕くん
   /// [Progear]_round_6_boss_parabola_shot.xml
   let round_6_boss_parabola_shot =
-    "CAVEのプロギアの嵐、二周目一面ボス(嘘) by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、二周目一面ボス(嘘) by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletHorizontal;},
@@ -363,7 +363,7 @@ module Progear =
   /// CAVEのプロギアの嵐、二周目四面ボス。by 白い弾幕くん
   /// [Progear]_round_9_boss.xml
   let round_9_boss =
-    "CAVEのプロギアの嵐、二周目四面ボス。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、二周目四面ボス。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -417,7 +417,7 @@ module Progear =
   /// CAVEのプロギアの嵐、ラスボスの雰囲気。by 白い弾幕くん
   /// [Progear]_round_10_boss_before_final.xml
   let round_10_boss_before_final =
-    "CAVEのプロギアの嵐、ラスボスの雰囲気。by 白い弾幕くん",
+    createBulletmlInfo "CAVEのプロギアの嵐、ラスボスの雰囲気。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},

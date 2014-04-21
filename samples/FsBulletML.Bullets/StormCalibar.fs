@@ -9,7 +9,7 @@ module StormCalibar =
   /// ストームキャリバーのラスボス、回転二つ。by 白い弾幕くん
   /// [STORM_CALIBAR]_last_boss_double_roll_bullets.xml
   let last_boss_double_roll_bullets =
-    "ストームキャリバーのラスボス、回転二つ。by 白い弾幕くん",
+    createBulletmlInfo "ストームキャリバーのラスボス、回転二つ。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},

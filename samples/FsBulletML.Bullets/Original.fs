@@ -9,7 +9,7 @@ module Original =
   /// 大原さんのオリジナル、断罪 by 白い弾幕くん
   /// [Original]_accusation.xml
   let accusation = 
-    "大原さんのオリジナル、断罪 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、断罪 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -145,7 +145,7 @@ module Original =
   /// 大原さんのオリジナル、風の精 by 白い弾幕くん
   /// [Original]_air_elemental.xml
   let air_elemental =
-    "大原さんのオリジナル、風の精 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、風の精 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -375,7 +375,7 @@ module Original =
   /// オリジナル。後ろに弾を撃つ人々。 by 白い弾幕くん
   /// [Original]_backfire.xml
   let backfire =
-    "オリジナル。後ろに弾を撃つ人々。 by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。後ろに弾を撃つ人々。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -429,7 +429,7 @@ module Original =
   /// 大原さんのオリジナル、ふきだしボム by 白い弾幕くん
   /// [Original]_balloon_bomb.xml
   let balloon_bomb = 
-    "大原さんのオリジナル、ふきだしボム by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、ふきだしボム by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -543,7 +543,7 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その一 by 白い弾幕くん
   /// [Original]_btb_1.xml
   let btb_1 = 
-    "大原さんのオリジナル、原点回帰その一 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、原点回帰その一 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -669,7 +669,7 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その二 by 白い弾幕くん
   /// [Original]_btb_2.xml
   let btb_2 = 
-    "大原さんのオリジナル、原点回帰その二 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、原点回帰その二 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -901,7 +901,7 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その三 by 白い弾幕くん
   /// [Original]_btb_3.xml
   let btb_3 =
-    "大原さんのオリジナル、原点回帰その三 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、原点回帰その三 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -1007,7 +1007,7 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その四 by 白い弾幕くん
   /// [Original]_btb_4.xml
   let btb_4 = 
-    "大原さんのオリジナル、原点回帰その四 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、原点回帰その四 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -1114,7 +1114,7 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その五 by 白い弾幕くん
   /// [Original]_btb_5.xml
   let btb_5 = 
-    "大原さんのオリジナル、原点回帰その五 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、原点回帰その五 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -1308,7 +1308,7 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その六 by 白い弾幕くん
   /// [Original]_btb_6.xml
   let btb_6 = 
-    "大原さんのオリジナル、原点回帰その六 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、原点回帰その六 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -1427,7 +1427,7 @@ module Original =
   /// 大原さんのオリジナル、検閲済 by 白い弾幕くん
   /// [Original]_censored.xml
   let censored =
-    "大原さんのオリジナル、検閲済 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、検閲済 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -1536,7 +1536,7 @@ module Original =
   /// 大原さんのオリジナル、キメラ by 白い弾幕くん
   /// [Original]_chimera.xml
   let chimera =
-    "大原さんのオリジナル、キメラ by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、キメラ by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -1603,7 +1603,7 @@ module Original =
   /// オリジナル、円を描きながらの自機狙い3way by 白い弾幕くん
   /// [Original]_circle.xml
   let circle = 
-    "オリジナル、円を描きながらの自機狙い3way by 白い弾幕くん",
+    createBulletmlInfo "オリジナル、円を描きながらの自機狙い3way by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -1646,7 +1646,7 @@ module Original =
   /// オリジナル、どかんと一発 by 白い弾幕くん         
   /// [Original]_dokkaan.xml
   let dokkaan =
-    "オリジナル、どかんと一発 by 白い弾幕くん",
+    createBulletmlInfo "オリジナル、どかんと一発 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -1666,7 +1666,7 @@ module Original =
   /// 大原さんのオリジナル、楕円ボム by 白い弾幕くん
   /// [Original]_ellipse_bomb.xml
   let ellipse_bomb =
-    "大原さんのオリジナル、楕円ボム by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、楕円ボム by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -1831,7 +1831,7 @@ module Original =
   /// 大原さんのオリジナル、EntangledSpace by 白い弾幕くん
   /// [Original]_entangled_space.xml
   let entangled_space = 
-    "大原さんのオリジナル、EntangledSpace by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、EntangledSpace by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -1998,7 +1998,7 @@ module Original =
   /// 大原さんのオリジナル、邪眼 by 白い弾幕くん
   /// [Original]_evil_eye.xml
   let evil_eye =
-    "大原さんのオリジナル、邪眼 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、邪眼 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -2110,7 +2110,7 @@ module Original =
   /// 大原さんのオリジナル、偽婦人乱舞 by 白い弾幕くん
   /// [Original]_fujin_ranbu_fake.xml
   let fujin_ranbu_fake = 
-    "大原さんのオリジナル、偽婦人乱舞 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、偽婦人乱舞 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -2243,7 +2243,7 @@ module Original =
   /// 大原さんのオリジナル、真婦人乱舞 by 白い弾幕くん
   /// [Original]_fujin_ranbu_true.xml
   let fujin_ranbu_true =
-    "大原さんのオリジナル、真婦人乱舞 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、真婦人乱舞 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -2376,7 +2376,7 @@ module Original =
   /// オリジナル、ぐるぐる by 白い弾幕くん
   /// [Original]_guruguru.xml
   let guruguru = 
-    "オリジナル、ぐるぐる by 白い弾幕くん",
+    createBulletmlInfo "オリジナル、ぐるぐる by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -2421,7 +2421,7 @@ module Original =
   /// オリジナル。ぐるちょ。 by 白い弾幕くん
   /// [Original]_gurutyo.xml
   let gurutyo = 
-    "オリジナル。ぐるちょ。 by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。ぐるちょ。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -2453,7 +2453,7 @@ module Original =
   /// オリジナル。逆噴射。by 白い弾幕くん
   /// [Original]_gyakuhunsya.xml
   let gyakuhunsya =
-    "オリジナル。逆噴射。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。逆噴射。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -2490,7 +2490,7 @@ module Original =
   /// 大原さんのオリジナル、ハジケリスト by 白い弾幕くん
   /// [Original]_hajike.xml
   let hajike = 
-    "大原さんのオリジナル、ハジケリスト by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、ハジケリスト by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -2578,7 +2578,7 @@ module Original =
   /// オリジナル。はさみ。by 白い弾幕くん
   /// [Original]_hasami.xml
   let hasami = 
-    "オリジナル。はさみ。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。はさみ。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},
@@ -2621,7 +2621,7 @@ module Original =
   /// オリジナル。ひらひら。by 白い弾幕くん  
   /// [Original]_hirahira.xml
   let hirahira = 
-    "オリジナル。ひらひら。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。ひらひら。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -2664,7 +2664,7 @@ module Original =
   /// オリジナル。放水っぽい感じ。by 白い弾幕くん
   /// [Original]_housya.xml
   let housya = 
-    "オリジナル。放水っぽい感じ。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。放水っぽい感じ。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -2696,7 +2696,7 @@ module Original =
   /// 大原さんのオリジナル、カゴメ by 白い弾幕くん
   /// [Original]_kagome.xml
   let kagome = 
-    "大原さんのオリジナル、カゴメ by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、カゴメ by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -2768,7 +2768,7 @@ module Original =
   /// 大原さんのオリジナル、毛玉 by 白い弾幕くん
   /// [Original]_kedama.xml
   let kedama = 
-    "大原さんのオリジナル、毛玉 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、毛玉 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -2816,7 +2816,7 @@ module Original =
   /// 大原さんのオリジナル、弾幕の騎士その一 by 白い弾幕くん
   /// [Original]_knight_1.xml
   let knight_1 =
-    "大原さんのオリジナル、弾幕の騎士その一 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、弾幕の騎士その一 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -2908,7 +2908,7 @@ module Original =
   /// 大原さんのオリジナル、弾幕の騎士その二 by 白い弾幕くん
   /// [Original]_knight_2.xml
   let knight_2 = 
-    "大原さんのオリジナル、弾幕の騎士その二 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、弾幕の騎士その二 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -2961,7 +2961,7 @@ module Original =
   /// 大原さんのオリジナル、弾幕の騎士その三 by 白い弾幕くん
   /// [Original]_knight_3.xml
   let knight_3 = 
-    "大原さんのオリジナル、弾幕の騎士その三 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、弾幕の騎士その三 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -3050,7 +3050,7 @@ module Original =
   /// 大原さんのオリジナル、弾幕の騎士その四 by 白い弾幕くん
   /// [Original]_knight_4.xml
   let knight_4 = 
-    "大原さんのオリジナル、弾幕の騎士その四 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、弾幕の騎士その四 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -3101,7 +3101,7 @@ module Original =
   /// オリジナル。固体。 by 白い弾幕くん
   /// [Original]_kotai.xml
   let kotai = 
-    "オリジナル。固体。 by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。固体。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},
@@ -3151,7 +3151,7 @@ module Original =
   /// 大原さんのオリジナル、鯨幕砲 by 白い弾幕くん
   /// [Original]_kujira.xml
   let kujira = 
-    "大原さんのオリジナル、鯨幕砲 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、鯨幕砲 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -3292,7 +3292,7 @@ module Original =
   /// オリジナル。くねくね。by 白い弾幕くん
   /// [Original]_kunekune.xml
   let kunekune = 
-    "オリジナル。くねくね。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。くねくね。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -3348,7 +3348,7 @@ module Original =
   /// オリジナル。扇状弾二つ。by 白い弾幕くん
   /// [Original]_oogi_hutatsu.xml
   let oogi_hutatsu = 
-    "オリジナル。扇状弾二つ。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。扇状弾二つ。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -3389,7 +3389,7 @@ module Original =
   /// 大原さんのオリジナル、光学探査兵器 by 白い弾幕くん
   /// [Original]_optic_seeker.xml
   let optic_seeker = 
-    "大原さんのオリジナル、光学探査兵器 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、光学探査兵器 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -3462,7 +3462,7 @@ module Original =
   /// オリジナル。ぱん。by 白い弾幕くん
   /// [Original]_pan.xml
   let pan =
-    "オリジナル。ぱん。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。ぱん。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},
@@ -3521,7 +3521,7 @@ module Original =
   /// オリジナル。弱誘導弾から左右に弾幕。by 白い弾幕くん
   /// [Original]_progear_cheap_fake.xml
   let progear_cheap_fake = 
-    "オリジナル。弱誘導弾から左右に弾幕。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。弱誘導弾から左右に弾幕。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -3574,7 +3574,7 @@ module Original =
   /// オリジナル。炸裂弾。by 白い弾幕くん
   /// [Original]_sakuretudan.xml
   let sakuretudan = 
-    "オリジナル。炸裂弾。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。炸裂弾。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -3624,7 +3624,7 @@ module Original =
   /// 大原さんのオリジナル、シューティングスター by 白い弾幕くん
   /// [Original]_shooting_star.xml
   let shooting_star = 
-    "大原さんのオリジナル、シューティングスター by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、シューティングスター by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -3763,7 +3763,7 @@ module Original =
   /// 大原さんのオリジナル、あの空に星を by 白い弾幕くん
   /// [Original]_star_in_the_sky.xml
   let star_in_the_sky = 
-    "大原さんのオリジナル、あの空に星を by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、あの空に星を by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -3825,7 +3825,7 @@ module Original =
   /// オリジナル。池に落ちた石六個。 by 白い弾幕くん
   /// [Original]_stone6.xml
   let stone6 = 
-    "オリジナル。池に落ちた石六個。 by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。池に落ちた石六個。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -3879,7 +3879,7 @@ module Original =
   /// オリジナル。道を探せ。by 白い弾幕くん
   /// [Original]_stop_and_run.xml
   let stop_and_run = 
-    "オリジナル。道を探せ。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。道を探せ。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -3904,7 +3904,7 @@ module Original =
   /// 大原さんのオリジナル、時空転換 by 白い弾幕くん
   /// [Original]_time_twist.xml
   let time_twist = 
-    "大原さんのオリジナル、時空転換 by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、時空転換 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -4130,7 +4130,7 @@ module Original =
   /// 大原さんのオリジナル、津波。by 白い弾幕くん
   /// [Original]_tsunami.xml
   let tsunami = 
-    "大原さんのオリジナル、津波。by 白い弾幕くん",
+    createBulletmlInfo "大原さんのオリジナル、津波。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -4232,7 +4232,7 @@ module Original =
   /// オリジナル。二つ十字。by 白い弾幕くん
   /// [Original]_two_cross.xml
   let two_cross = 
-    "オリジナル。二つ十字。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。二つ十字。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -4277,7 +4277,7 @@ module Original =
   /// オリジナル。うねりを作る。by 白い弾幕くん
   /// [Original]_uneri.xml
   let uneri = 
-    "オリジナル。うねりを作る。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。うねりを作る。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},
@@ -4323,7 +4323,7 @@ module Original =
   /// オリジナル。ワナ。by 白い弾幕くん
   /// [Original]_wana.xml
   let wana = 
-    "オリジナル。ワナ。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。ワナ。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},
@@ -4424,7 +4424,7 @@ module Original =
   /// オリジナル。横加速。by 白い弾幕くん
   /// [Original]_yokokasoku.xml
   let yokokasoku = 
-    "オリジナル。横加速。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。横加速。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = None;},
@@ -4463,7 +4463,7 @@ module Original =
   /// オリジナル。雑魚で突撃。by 白い弾幕くん
   /// [Original]_zako_atack.xml
   let zako_atack = 
-    "オリジナル。雑魚で突撃。by 白い弾幕くん",
+    createBulletmlInfo "オリジナル。雑魚で突撃。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},

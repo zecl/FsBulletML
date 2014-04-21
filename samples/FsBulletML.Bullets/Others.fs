@@ -7,7 +7,7 @@ module Others =
 
   /// 全方位弾
   let AllWay = 
-    "全方位弾",
+    createBulletmlInfo "全方位弾" <|
     Bulletml({ bulletmlXmlns = None; bulletmlType = Some ShootingDirection.BulletVertical;},
         [BulletmlElm.Action ({actionLabel = Some "circle";},
             [Action.Repeat
@@ -25,7 +25,7 @@ module Others =
 
   /// 前方5way弾
   let b5way = 
-    "前方5方向弾",
+    createBulletmlInfo "前方5方向弾" <|
     Bulletml ({bulletmlXmlns = None; bulletmlType = Some BulletVertical;},
         [BulletmlElm.Action ({actionLabel = Some "top";},
             [Fire ({fireLabel = None;},
@@ -42,7 +42,7 @@ module Others =
 
   /// 初期方向Aim弾１発
   let homingOne = 
-    "Aim弾１発",
+    createBulletmlInfo "Aim弾１発" <|
     Bulletml({bulletmlXmlns = None; bulletmlType = None;},
         [BulletmlElm.Action ({actionLabel = Some "top";},
            [Fire ({fireLabel = None;},None,None,

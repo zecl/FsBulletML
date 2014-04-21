@@ -8,62 +8,62 @@ module Bulletsmorph =
 
   /// Bulletsmorphで生成。紋章遺伝学その二。by 白い弾幕くん
   /// [Bulletsmorph]_aba_2.xml
-  let aba_2 =
-    "Bulletsmorphで生成。紋章遺伝学その二。by 白い弾幕くん",
+  let aba_2 =  
+    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その二。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
-       [BulletmlElm.Action
+        [BulletmlElm.Action
           ({actionLabel = Some "top";},
-           [Repeat
+            [Repeat
               (Times "8",
-               Action
-                 ({actionLabel = None;},
+                Action
+                  ({actionLabel = None;},
                   [Action.ActionRef ({actionRefLabel = "center";},["90 * $rand"; "1"]);
-                   Wait "12";
-                   Action.ActionRef ({actionRefLabel = "center";},["90 * $rand"; "-1"]);
-                   Wait "12";
-                   Action.ActionRef ({actionRefLabel = "center";},["30 * $rand"; "1"]);
-                   Wait "12";
-                   Action.ActionRef ({actionRefLabel = "center";},["30 * $rand"; "-1"]);
-                   Wait "12"])); Wait "150"]);
+                    Wait "12";
+                    Action.ActionRef ({actionRefLabel = "center";},["90 * $rand"; "-1"]);
+                    Wait "12";
+                    Action.ActionRef ({actionRefLabel = "center";},["30 * $rand"; "1"]);
+                    Wait "12";
+                    Action.ActionRef ({actionRefLabel = "center";},["30 * $rand"; "-1"]);
+                    Wait "12"])); Wait "150"]);
         BulletmlElm.Action
           ({actionLabel = Some "center";},
-           [Fire
+            [Fire
               ({fireLabel = None;},
-               Some (Direction (Some {directionType = DirectionType.Absolute;},"360 * $rand")),
-               None,BulletRef ({bulletRefLabel = "circle";},["$1"; "$2"]));
+                Some (Direction (Some {directionType = DirectionType.Absolute;},"360 * $rand")),
+                None,BulletRef ({bulletRefLabel = "circle";},["$1"; "$2"]));
             Repeat
               (Times "(4 + 8 * $rank) - 1",
-               Action
-                 ({actionLabel = None;},
+                Action
+                  ({actionLabel = None;},
                   [Fire
-                     ({fireLabel = None;},
+                      ({fireLabel = None;},
                       Some
                         (Direction
-                           (Some {directionType = DirectionType.Sequence;},"360 / (4 + 8 * $rank)")),
+                            (Some {directionType = DirectionType.Sequence;},"360 / (4 + 8 * $rank)")),
                       None,BulletRef ({bulletRefLabel = "circle";},["$1"; "$2"]))]))]);
         BulletmlElm.Bullet
           ({bulletLabel = Some "circle";},None,Some (Speed (None,"1.3")),
-           [Action
+            [Action
               ({actionLabel = None;},
-               [Wait "20";
+                [Wait "20";
                 ChangeDirection
                   (Direction (Some {directionType = DirectionType.Absolute;},"180 + $1 * $2"),
-                   Term "1"); Wait "125 - $1";
+                    Term "1"); Wait "125 - $1";
                 Fire
                   ({fireLabel = None;},
-                   Some (Direction (Some {directionType = Aim;},"0")),None,
-                   BulletRef ({bulletRefLabel = "red";},[])); Vanish])]);
+                    Some (Direction (Some {directionType = Aim;},"0")),None,
+                    BulletRef ({bulletRefLabel = "red";},[])); Vanish])]);
         BulletmlElm.Bullet
           ({bulletLabel = Some "red";},None,Some (Speed (None,"0.1")),
-           [Action
+            [Action
               ({actionLabel = None;},[ChangeSpeed (Speed (None,"4.0"),Term "300")])])])
 
   /// Bulletsmorphで生成。紋章遺伝学その三。by 白い弾幕くん
   /// [Bulletsmorph]_aba_3.xml
   let aba_3 =
-    "Bulletsmorphで生成。紋章遺伝学その三。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その三。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -129,11 +129,11 @@ module Bulletsmorph =
                    Some (Direction (Some {directionType = DirectionType.Relative;},"0")),
                    Some (Speed (Some {speedType = SpeedType.Relative;},"0")),
                    Bullet ({bulletLabel = None;},None,None,[])); Vanish])])])
-  
+
   /// Bulletsmorphで生成。紋章遺伝学その四。by 白い弾幕くん
   /// [Bulletsmorph]_aba_4.xml
   let aba_4 =
-    "Bulletsmorphで生成。紋章遺伝学その四。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その四。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -183,7 +183,7 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その五。by 白い弾幕くん
   /// [Bulletsmorph]_aba_5.xml
   let aba_5 =
-    "Bulletsmorphで生成。紋章遺伝学その五。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その五。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -279,7 +279,7 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その六。by 白い弾幕くん
   /// [Bulletsmorph]_aba_6.xml
   let aba_6 =
-    "Bulletsmorphで生成。紋章遺伝学その六。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その六。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -437,7 +437,7 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その七。by 白い弾幕くん
   /// [Bulletsmorph]_aba_7.xml
   let aba_7 =
-    "Bulletsmorphで生成。紋章遺伝学その七。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その七。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -509,11 +509,11 @@ module Bulletsmorph =
            [Action
               ({actionLabel = None;},
                [Wait "20"; ChangeSpeed (Speed (None,"0.3"),Term "60")])])])
-  
+
   /// Bulletsmorphで生成。収束全方位弾。by 白い弾幕くん
   /// [Bulletsmorph]_convergent.xml
   let convergent = 
-    "Bulletsmorphで生成。収束全方位弾。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。収束全方位弾。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -571,7 +571,7 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。ダブルいろじかけ。by 白い弾幕くん
   /// [Bulletsmorph]_double_seduction.xml
   let double_seduction =
-    "Bulletsmorphで生成。ダブルいろじかけ。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。ダブルいろじかけ。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
         bulletmlType = Some BulletVertical;},
@@ -638,11 +638,11 @@ module Bulletsmorph =
                           Some (Direction (Some {directionType = DirectionType.Sequence;},"0")),
                           Some (Speed (Some {speedType = SpeedType.Sequence;},"0.1")),
                           Bullet ({bulletLabel = None;},None,None,[]))])); Vanish])])])
-  
+
   /// Bulletsmorphで生成。落下するひも。by 白い弾幕くん
   /// [Bulletsmorph]_fallen_string.xml
   let fallen_string = 
-    "Bulletsmorphで生成。落下するひも。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。落下するひも。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},
@@ -733,7 +733,7 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。くねくねと誘導弾。 by 白い弾幕くん                         
   /// [Bulletsmorph]_kunekune_plus_homing.xml
   let kunekune_plus_homing =
-    "Bulletsmorphで生成。くねくねと誘導弾。 by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。くねくねと誘導弾。 by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},
@@ -813,7 +813,7 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。悟君が4人。by 白い弾幕くん
   /// [Bulletsmorph]_satoru4.xml
   let satoru4 =
-    "Bulletsmorphで生成。悟君が4人。by 白い弾幕くん",
+    createBulletmlInfo "Bulletsmorphで生成。悟君が4人。by 白い弾幕くん" <|
     Bulletml
       ({bulletmlXmlns = None;
         bulletmlType = None;},
