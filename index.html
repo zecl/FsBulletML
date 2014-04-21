@@ -42,7 +42,7 @@
 
 <p><code>FsBulletML</code>は、弾幕記述言語<code>BulletML</code>の<code>F#</code>実装です。  <code>MonoGame</code>や<code>Unity(2D or 3D)</code>などで利用することができます。</p>
 
-<p>判別共用体(Discriminated Unions)で弾幕を記述できる内部DSLを提供します。
+<p>判別共用体(Discriminated Unions)で弾幕を記述できる型付き内部DSLを提供します。
 また、<code>XML</code>形式、<code>SXML</code>形式、<code>FSB</code>形式(オフサイドルールの独自形式)の外部DSLを読み込んで実行することもできます。</p>
 
 <p><img src="content/images/sample1.png" alt="sample1" title="sample1" /><img src="content/images/sample2.png" alt="sample2" title="sample2" /><img src="content/images/sample3.png" alt="sample3" title="sample3" /></p>
@@ -296,7 +296,7 @@
   <div class="span1"></div>
 </div>
 
-<h2>Demo</h2>
+<h2><a href="http://monogame.codeplex.com/" target="_blunk">MonoGame</a> Demo</h2>
 
 <div style="text-align:center;">
   <object width="560" height="315">
@@ -304,10 +304,13 @@
       <embed src="https://www.youtube.com/v/S43JUbxeQIs" width="560" height="315" />
       <noembed>プラグインが必要です。</noembed>
   </object><br>
-  サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples" target="_blunk">source</a>)は<a href="http://monogame.codeplex.com/" target="_blunk">MonoGame</a>で動かしています。弾の破棄はガベージコレクションに丸投げです。
+  サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.MonoGame.FSharp" target="_blunk">F#</a>),
+  サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.MonoGame.CSharp" target="_blunk">C#</a>)
 </div>
 
 <br>
+
+<h2><a href="http://japan.unity3d.com/" target="_blunk">Unity</a> Demo</h2>
 
 <div style="text-align:center;">
   <object width="560" height="315">
@@ -344,7 +347,7 @@
 
           <div class="tip" id="fs1">名前空間 FsBulletML</div>
 <div class="tip" id="fs2">val sample : &#39;a<br /><br />完全名: Index.sample<br /><em><br /><br />&#160;全方位弾</em></div>
-<div class="tip" id="fs3">Multiple items<br />共用体ケース Bulletml.Bulletml: BulletmlAttrs * BulletmlElm list -&gt; Bulletml<br /><br />--------------------<br />type Bulletml =<br />&#160;&#160;| Bulletml of BulletmlAttrs * BulletmlElm list<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;| ActionRef of ActionRefAttrs * Params<br />&#160;&#160;| Fire of FireAttrs * Direction option * Speed option * BulletElm<br />&#160;&#160;| FireRef of FireRefAttrs * Params<br />&#160;&#160;| Wait of string<br />&#160;&#160;| Vanish<br />&#160;&#160;| ChangeSpeed of Speed * Term<br />&#160;&#160;| ChangeDirection of Direction * Term<br />&#160;&#160;| Accel of Horizontal option * Vertical option * Term<br />&#160;&#160;...<br />&#160;&#160;member ToNodeString : unit -&gt; string<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.Bulletml</div>
+<div class="tip" id="fs3">Multiple items<br />共用体ケース Bulletml.Bulletml: BulletmlAttrs * BulletmlElm list -&gt; Bulletml<br /><br />--------------------<br />モジュール Bulletml<br /><br />FsBulletML.Xml から<br /><br />--------------------<br />type Bulletml =<br />&#160;&#160;| Bulletml of BulletmlAttrs * BulletmlElm list<br />&#160;&#160;| Action of ActionAttrs * Action list<br />&#160;&#160;| ActionRef of ActionRefAttrs * Params<br />&#160;&#160;| Fire of FireAttrs * Direction option * Speed option * BulletElm<br />&#160;&#160;| FireRef of FireRefAttrs * Params<br />&#160;&#160;| Wait of string<br />&#160;&#160;| Vanish<br />&#160;&#160;| ChangeSpeed of Speed * Term<br />&#160;&#160;| ChangeDirection of Direction * Term<br />&#160;&#160;| Accel of Horizontal option * Vertical option * Term<br />&#160;&#160;...<br />&#160;&#160;member ToNodeString : unit -&gt; string<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.Bulletml</div>
 <div class="tip" id="fs4">共用体ケース Option.None: Option&lt;&#39;T&gt;</div>
 <div class="tip" id="fs5">共用体ケース Option.Some: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
 <div class="tip" id="fs6">type ShootingDirection =<br />&#160;&#160;| BulletNone<br />&#160;&#160;| BulletVertical<br />&#160;&#160;| BulletHorizontal<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;member private ToStructuredDisplay : string<br /><br />完全名: FsBulletML.DTD.ShootingDirection</div>
