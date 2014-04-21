@@ -12,7 +12,7 @@ type Enemy (life) as this =
   [<DefaultValue>]val mutable private self : IEnemy
   [<DefaultValue>]val mutable private timer : int
   [<DefaultValue>]val mutable private bulletName : string
-  [<DefaultValue>]val mutable private bulletBulletmlTask : BulletmlTask
+  [<DefaultValue>]val mutable private bulletBulletmlInfo : BulletmlInfo
   [<DefaultValue>]val mutable private second : bool
   [<DefaultValue>]val mutable private bullet : EnemyBullet
   [<DefaultValue>]val mutable private life : int32
@@ -38,7 +38,7 @@ type Enemy (life) as this =
         this.bullet <- new EnemyBullet()
         (this.bullet :> IBulletmlObject).IsBullet <- true
         Manager.addEnemyBulletPos(this.bullet, Vector2(self.X, self.Y))
-        this.bullet.SetTask(Some this.bulletBulletmlTask) 
+        this.bullet.SetTask(this.bulletBulletmlInfo.BulletmlTaskOption) 
 
     member this.Update () = 
       this.timer <- this.timer + 1       
@@ -56,12 +56,12 @@ type Enemy (life) as this =
     
       base.RunTask()
 
-  member this.SetMoveTask(bulletmlTask) = 
-    (this :> IEnemy).Task <- bulletmlTask
+  member this.SetMoveBulletmlInfo(bulletmlInfo:BulletmlInfo) = 
+    (this :> IEnemy).Task <- bulletmlInfo.BulletmlTaskOption
 
-  member this.SetBulletTask(bulletName, bulletmlTask) = 
+  member this.SetBulletTask(bulletName, bulletmlInfo) = 
     this.bulletName <- bulletName
-    this.bulletBulletmlTask <- bulletmlTask
+    this.bulletBulletmlInfo <- bulletmlInfo
 
 module EnemyControl =
   let bullets = [ FsBulletML.Bullets.EnemyBullet.Sdmkun.Guwange.round_2_boss_circle_fire
