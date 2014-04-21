@@ -6,7 +6,7 @@ FsBulletML(Beta)
 -------------
 ``FsBulletML``は、弾幕記述言語``BulletML``の``F#``実装です。  ``MonoGame``や``Unity(2D or 3D)``などで利用することができます。
   
-判別共用体(Discriminated Unions)で弾幕を記述できる内部DSLを提供します。
+判別共用体(Discriminated Unions)で弾幕を記述できる型付き内部DSLを提供します。
 また、``XML``形式、``SXML``形式、``FSB``形式(オフサイドルールの独自形式)の外部DSLを読み込んで実行することもできます。
 
   ![sample1](content/images/sample1.png "sample1")![sample2](content/images/sample2.png "sample2")![sample3](content/images/sample3.png "sample3")
@@ -172,7 +172,7 @@ bulletml
 *)
 
 (**
-Demo
+<a href="http://monogame.codeplex.com/" target="_blunk">MonoGame</a> Demo
 -------------
 <div style="text-align:center;">
   <object width="560" height="315">
@@ -180,11 +180,14 @@ Demo
       <embed src="https://www.youtube.com/v/S43JUbxeQIs" width="560" height="315" />
       <noembed>プラグインが必要です。</noembed>
   </object><br>
-  サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples" target="_blunk">source</a>)は<a href="http://monogame.codeplex.com/" target="_blunk">MonoGame</a>で動かしています。弾の破棄はガベージコレクションに丸投げです。
+  サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.MonoGame.FSharp" target="_blunk">F#</a>),
+  サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.MonoGame.CSharp" target="_blunk">C#</a>)
 </div>
 
 <br>
 
+<a href="http://japan.unity3d.com/" target="_blunk">Unity</a> Demo
+-------------
 <div style="text-align:center;">
   <object width="560" height="315">
       <param name="movie" value="https://www.youtube.com/v/mWLfbHV7qXc"></param>
