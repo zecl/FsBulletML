@@ -85,6 +85,7 @@
     <Compile Include="IntermediateParser.fs" />
     <Compile Include="BulletRunner.fs" />
     <Compile Include="Xml.fs" />
+    <Compile Include="BulletmlInfo.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
