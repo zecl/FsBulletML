@@ -184,7 +184,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             Manager.AddEnemy(enemy);
             enemy.pos = pos;
             var name = bulletMove.Name;
-            enemy.SetBulletTask(name, bulletMove.BulletmlTaskOption);
+            enemy.SetBulletmlInfo(name, bulletMove);
             return enemy;
         }
 

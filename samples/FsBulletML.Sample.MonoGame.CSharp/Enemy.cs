@@ -10,7 +10,6 @@ using FsBulletML.MonoGame;
 using BulletType = FsBulletML.Processable.BulletType;
 using EnemyBullet = FsBulletML.MonoGame.EnemyBullet;
 using IBulletmlObject = FsBulletML.Processable.IBulletmlObject;
-using BulletmlTask = Microsoft.FSharp.Core.FSharpOption<FsBulletML.Processable.BulletmlTask>;
 
 namespace FsBulletML.Sample.MonoGame.CSharp
 {
@@ -19,7 +18,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
         private FsBulletML.MonoGame.IBullet self = null;
         private int Timer { get; set; }
         string BulletName { get; set; }
-        BulletmlTask BulletBulletmlTask { get; set; }
+        BulletmlInfo BulletmlInfo { get; set; }
         private bool Second { get; set; }
         EnemyBullet Bullet { get; set; }
         public int Life { get; set; }
@@ -42,7 +41,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             this.Bullet = new EnemyBullet();
             ((IBulletmlObject)this.Bullet).IsBullet = true;
             Manager.AddEnemyBulletPos(this.Bullet, new Vector2(self.X, self.Y));
-            this.Bullet.SetTask(this.BulletBulletmlTask);
+            this.Bullet.SetTask(this.BulletmlInfo.BulletmlTaskOption);
           }
         }
 
@@ -78,89 +77,16 @@ namespace FsBulletML.Sample.MonoGame.CSharp
        
         }
 
-        public void SetMoveTask(BulletmlTask bulletmlTask) 
+        public void SetMoveBulletmlInfo(BulletmlInfo bulletmlInfo) 
         {
-            ((IEnemy)this).Task = bulletmlTask;
+            ((IEnemy)this).Task = bulletmlInfo.BulletmlTaskOption;
         }
 
-        public void SetBulletTask(string bulletName, BulletmlTask bulletmlTask) 
+        public void SetBulletmlInfo(string bulletName, BulletmlInfo bulletmlInfo) 
         {
             this.BulletName = bulletName;
-            this.BulletBulletmlTask = bulletmlTask;
+            this.BulletmlInfo = bulletmlInfo;
         }
 
     }
 }
-
-
-/*
- 
- 
-namespace FsBulletML.Sample.MonoGame.FSharp
-
-open System
-open System.Collections.Generic
-open System.Runtime.Serialization
-open Microsoft.Xna.Framework
-open FsBulletML
-open FsBulletML.MonoGame
- 
-type Enemy (life) as this =
-  inherit BaseBullet ()
-  [<DefaultValue>]val mutable private self : IEnemy
-  [<DefaultValue>]val mutable private timer : int
-  [<DefaultValue>]val mutable private bulletName : string
-  [<DefaultValue>]val mutable private bulletBulletmlTask : BulletmlTask
-  [<DefaultValue>]val mutable private second : bool
-  [<DefaultValue>]val mutable private bullet : EnemyBullet
-  [<DefaultValue>]val mutable private life : int32
-    
-  new() = Enemy(2000)
-  do 
-    this.self <- this :> IEnemy
-    this.self.BulletType <- BulletType.Enemy 
-    this.self.Init()
-    this.self.IsBullet <- false
-    this.self.Radius <- 18.f
-    this.life <- life
-
-  member this.Timer with get () = this.timer     
-
-  interface IEnemy with
-    member this.Life with get () = this.life
-                      and set (v) = this.life <- v      
-
-    member this.Shoot () =
-      let self = this :> IEnemy
-      if self.Used then
-        this.bullet <- new EnemyBullet()
-        (this.bullet :> IBulletmlObject).IsBullet <- true
-        Manager.addEnemyBulletPos(this.bullet, Vector2(self.X, self.Y))
-        this.bullet.SetTask(Some this.bulletBulletmlTask) 
-
-    member this.Update () = 
-      this.timer <- this.timer + 1       
-
-      let finish = 
-        if this.bullet :> obj = null then false else
-          (this.bullet:>IBullet).Task |> function
-          | None -> false 
-          | Some x -> x.Finish 
-      if not this.second || finish then
-        this.second <- true
-        this.timer <- 0
-        let self = this :> IEnemy
-        self.Shoot()
-    
-      base.RunTask()
-
-  member this.SetMoveTask(bulletmlTask) = 
-    (this :> IEnemy).Task <- bulletmlTask
-
-  member this.SetBulletTask(bulletName, bulletmlTask) = 
-    this.bulletName <- bulletName
-    this.bulletBulletmlTask <- bulletmlTask 
- 
- 
- 
- */
