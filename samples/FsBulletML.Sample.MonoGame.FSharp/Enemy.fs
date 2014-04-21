@@ -131,10 +131,3 @@ module EnemyControl =
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Daiouzyou.round_6_boss_4
                   FsBulletML.Bullets.EnemyBullet.Sdmkun.Daiouzyou.round_6_boss_5
                 ]
-
-  let enemyTasks = 
-    bullets |> List.map (fun (name, bulletml) -> name,BulletRunner.convertBulletmlTask bulletml)
-
-  let enemys enemyDefaultPos (tasks:(string * BulletmlTask) list) = 
-    tasks |> List.map (fun task -> enemyDefaultPos, task)  
-

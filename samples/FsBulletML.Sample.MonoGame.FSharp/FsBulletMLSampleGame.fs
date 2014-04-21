@@ -20,11 +20,11 @@ type FsBulletMLSampleGame () as this =
   [<DefaultValue>]val mutable background : Background
   [<DefaultValue>]val mutable fps : Fps
   [<DefaultValue>]val mutable bulletName : string
-  [<DefaultValue>]val mutable enemyTasks : (string * BulletmlTask) list
+  [<DefaultValue>]val mutable enemyBullets : BulletmlInfo list
   [<DefaultValue>]val mutable emitter : ParticleEmitter
 
   static let mutable gmanager = null : GraphicsDeviceManager
-  let gametitle, sprite = "FsBulletML.Sample", lazy new SpriteBatch(this.GraphicsDevice)
+  let gametitle, sprite = "FsBulletML.Sample.MonoGame.FSharp", lazy new SpriteBatch(this.GraphicsDevice)
   let bulletTexture,enemyBullet1Texture, enemyBullet2Texture, playerTexture, playerBullet1Texture, playerBullet2Texture, enemyTexture, backgroundTexture, particleTexture, enemyBullet3Texture = 
     ["bullet"; "enemy_bullet1";"enemy_bullet2";"player";"p_bullet_s";"player_bullet2";"enemy1";"background";"particle";"g_bullet_s"] 
     |> List.map (fun name -> lazy this.Content.Load<Texture2D>(@"..\..\Content\Sprites\" + name)) |> function 
@@ -47,13 +47,13 @@ type FsBulletMLSampleGame () as this =
       enemy
 
   let getEnemyInfo = fun index ->
-    let enemys = EnemyControl.enemys enemyDefaultPos (this.enemyTasks)
-    let len = enemys |> List.length 
+    let len = this.enemyBullets |> List.length 
     if len <= (index) then
       this.enemyIndex  <- 0
-    enemys 
+    
+    this.enemyBullets
     |> Seq.nth(this.enemyIndex)
-    |> fun (pos,(name,task)) -> task.Init(); pos, (name,task)
+    |> fun bullet -> bullet.BulletmlTask.Init(); enemyDefaultPos, (bullet.Name, bullet.BulletmlTask)
 
   do 
     gmanager <- new GraphicsDeviceManager(this)
@@ -65,7 +65,7 @@ type FsBulletMLSampleGame () as this =
 
   override this.LoadContent() =
     base.Window.Title <-gametitle
-    this.enemyTasks <- EnemyControl.enemyTasks 
+    this.enemyBullets <- EnemyControl.bullets 
 
     let pos, (name,bm) = getEnemyInfo(this.enemyIndex)
     this.bulletName <- name
