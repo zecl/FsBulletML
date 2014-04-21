@@ -193,13 +193,13 @@ module Xml =
 
 #if NET40
     [<CompiledName "ReadXmlString">]
-    let readXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml = 
+    let readXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]dtdProcessing) : Bulletml = 
       let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
       XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
     [<CompiledName "TryReadXmlString">]
-    let tryReadXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml option = 
+    let tryReadXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]dtdProcessing) : Bulletml option = 
       let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
@@ -220,12 +220,12 @@ module Xml =
 
 #if NET40
     [<CompiledName "ReadXml">]
-    let readXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml =
+    let readXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]dtdProcessing) : Bulletml =
       let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
       use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented dtdProcessing) 
       XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
     [<CompiledName "TryReadXml">]
-    let tryReadXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]?dtdProcessing) : Bulletml option =
+    let tryReadXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]dtdProcessing) : Bulletml option =
       let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
       use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented dtdProcessing) 
       XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
