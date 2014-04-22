@@ -12,7 +12,6 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <Name>FsBulletML.Core</Name>
     <TargetFrameworkProfile />
-    <TargetFSharpCoreVersion>2.3.0.0</TargetFSharpCoreVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -43,7 +42,7 @@
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
     <OutputPath>bin\Release\net40\</OutputPath>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <DefineConstants>TRACE;NET40</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Release\net40\FsBulletML.Core.XML</DocumentationFile>
@@ -88,7 +87,7 @@
     <Compile Include="BulletmlInfo.fs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="FSharp.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
