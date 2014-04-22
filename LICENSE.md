@@ -1,6 +1,6 @@
 The MIT License (MIT)
 ========
-Copyright (c) 2013 zecl(https://twitter.com/zecl)
+Copyright (c) 2013-2014 zecl(https://twitter.com/zecl)
 
 以下に定める条件に従い、本ソフトウェアおよび関連文書のファイル（以下「ソフトウェア」）の複製を取得するすべての人に対し、ソフトウェアを無制限に扱うことを無償で許可します。
 これには、ソフトウェアの複製を使用、複写、変更、結合、掲載、頒布、サブライセンス、および/または販売する権利、およびソフトウェアを提供する相手に同じことを許可する権利も無制限に含まれます。
@@ -16,7 +16,7 @@ http://opensource.org/licenses/mit-license.php
 
 
 *****
-Copyright (c) 2013 zecl(https://twitter.com/zecl)
+Copyright (c) 2013-2014 zecl(https://twitter.com/zecl)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
