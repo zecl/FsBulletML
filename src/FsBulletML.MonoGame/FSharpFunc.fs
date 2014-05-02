@@ -17,6 +17,7 @@ module Action =
   [<Extension; CompiledName "ToFSharpFunc">]
   let toFSharpFunc3 (f: Action<'T1, 'T2, 'T3>) = fun t1 t2 t3 -> f.Invoke(t1, t2, t3)
 
+#if NET40
   [<Extension; CompiledName "ToFSharpFunc">]
   let toFSharpFunc4 (f: Action<'T1, 'T2, 'T3, 'T4>) = fun t1 t2 t3 t4 -> f.Invoke(t1, t2, t3, t4)
 
@@ -55,7 +56,7 @@ module Action =
 
   [<Extension; CompiledName "ToFSharpFunc">]
   let toFSharpFunc16 (f: Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16>) = fun t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15 t16 -> f.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16)
-
+#endif
 
 [<Extension; CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 module Func =
@@ -74,6 +75,7 @@ module Func =
   [<Extension; CompiledName "ToFSharpFunc">]
   let toFSharpFunc4 (f: Func<'T1, 'T2, 'T3, 'T4, 'TResult>) = fun t1 t2 t3 t4 -> f.Invoke(t1, t2, t3, t4)
 
+#if NET40
   [<Extension; CompiledName "ToFSharpFunc">]
   let toFSharpFunc5 (f: Func<'T1, 'T2, 'T3, 'T4, 'T5, 'TResult>) = fun t1 t2 t3 t4 t5 -> f.Invoke(t1, t2, t3, t4, t5)
 
@@ -109,6 +111,7 @@ module Func =
 
   [<Extension; CompiledName "ToFSharpFunc">]
   let toFSharpFunc16 (f: Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16, 'TResult>) = fun t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15 t16 -> f.Invoke(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16)
+#endif
 
 [<Extension; CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 module FSharpFunc =
@@ -127,6 +130,7 @@ module FSharpFunc =
   [<Extension; CompiledName "ToAction">]
   let ToAction4 (f: 'T1 -> 'T2 -> 'T3 -> 'T4 -> unit) = Action<'T1, 'T2, 'T3, 'T4>(f)
 
+#if NET40
   [<Extension; CompiledName "ToAction">]
   let ToAction5 (f: 'T1 -> 'T2 -> 'T3 -> 'T4 -> 'T5 -> unit) = Action<'T1, 'T2, 'T3, 'T4, 'T5>(f)
 
@@ -213,3 +217,4 @@ module FSharpFunc =
 
   [<Extension; CompiledName "ToFunc">]
   let toFunc16 (f: 'T1 -> 'T2 -> 'T3 -> 'T4 -> 'T5 -> 'T6 -> 'T7 -> 'T8 -> 'T9 -> 'T10 -> 'T11 -> 'T12 -> 'T13 -> 'T14 -> 'T15 -> 'T16 -> 'TResult) = Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16, 'TResult>(f)
+#endif

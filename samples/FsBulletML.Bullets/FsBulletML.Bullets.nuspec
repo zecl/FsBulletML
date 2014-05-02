@@ -14,6 +14,9 @@
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Xml"/>
     </frameworkAssemblies>
+    <dependencies>
+        <dependency id="FsBulletML.Core" version="0.8.8"/>
+    </dependencies>
   </metadata>
 
   <files>

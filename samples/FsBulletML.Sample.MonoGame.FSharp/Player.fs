@@ -20,10 +20,10 @@ type Player () as this =
 
   let shoot2WayLeftBullet (player:Player) =
 #if NET35 
-    let ``2wayLeftBullet`` = Bulletml.readXml (@"..\..\Content\xml\PlayerBullet\2wayLeft.xml") |> BulletRunner.convertBulletmlTask |> Some
+    let ``2wayLeftBullet`` = Bulletml.readXml (@"..\..\..\Content\xml\PlayerBullet\2wayLeft.xml") |> BulletRunner.convertBulletmlTask |> Some
 #endif
 #if NET40 
-    let ``2wayLeftBullet`` = Bulletml.readXml (@"..\..\Content\xml\PlayerBullet\2wayLeft.xml", None)  |> BulletRunner.convertBulletmlTask |> Some
+    let ``2wayLeftBullet`` = Bulletml.readXml (@"..\..\..\Content\xml\PlayerBullet\2wayLeft.xml", None)  |> BulletRunner.convertBulletmlTask |> Some
 #endif
     if player.timer > 0 then
       let bullet = new PlayerBullet()
@@ -32,10 +32,10 @@ type Player () as this =
 
   let shoot2WayRightBullet (player:Player) =
 #if NET35 
-    let ``2wayRightBullet`` = Bulletml.readXml (@"..\..\Content\xml\PlayerBullet\2wayRight.xml") |> BulletRunner.convertBulletmlTask |> Some
+    let ``2wayRightBullet`` = Bulletml.readXml (@"..\..\..\Content\xml\PlayerBullet\2wayRight.xml") |> BulletRunner.convertBulletmlTask |> Some
 #endif
 #if NET40 
-    let ``2wayRightBullet`` = Bulletml.readXml (@"..\..\Content\xml\PlayerBullet\2wayRight.xml", None)  |> BulletRunner.convertBulletmlTask |> Some
+    let ``2wayRightBullet`` = Bulletml.readXml (@"..\..\..\Content\xml\PlayerBullet\2wayRight.xml", None)  |> BulletRunner.convertBulletmlTask |> Some
 #endif
     if player.timer > 0 then
       let bullet = new PlayerBullet()
@@ -44,10 +44,10 @@ type Player () as this =
 
   let shootHomingBullet (player:Player) = 
 #if NET35 
-    let homingBullet = Bulletml.readXml (@"..\..\Content\xml\PlayerBullet\homing.xml") |> BulletRunner.convertBulletmlTask |> Some
+    let homingBullet = Bulletml.readXml (@"..\..\..\Content\xml\PlayerBullet\homing.xml") |> BulletRunner.convertBulletmlTask |> Some
 #endif
 #if NET40
-    let homingBullet = Bulletml.readXml (@"..\..\Content\xml\PlayerBullet\homing.xml", None) |> BulletRunner.convertBulletmlTask |> Some
+    let homingBullet = Bulletml.readXml (@"..\..\..\Content\xml\PlayerBullet\homing.xml", None) |> BulletRunner.convertBulletmlTask |> Some
 #endif
     if player.timer > 60 then
       let bullet = new PlayerBullet()
