@@ -38,10 +38,21 @@
         <div class="span9" id="main">
           <h1>Release Notes</h1>
 
+<h2>0.8.8</h2>
+
+<ul>
+<li><code>Unity</code>からの利用を考慮してAPIと機能を変更(breaking change)
+<ul>
+<li><code>BulletmlRunner.run</code>にて、弾の座標(X,Y)を直接変更しないようにし、移動分の値を返すよう変更。</li>
+<li><code>BulletmlRunner.run</code>にて、Tupleではなく<code>RunResult</code>型を返すよう変更。</li>
+<li><code>BulletmlInfo</code>型の<code>BulletmlTask</code>および<code>BulletmlTaskOption</code>をメンバへ変更。</li>
+</ul></li>
+</ul>
+
 <h2>0.8.7</h2>
 
 <ul>
-<li>NuGet packageの不具合対応。FSharp.Coreを特定のバージョンを利用するよう修正。</li>
+<li>NuGet packageの不具合対応。<code>FSharp.Core</code>を特定のバージョンを利用するよう修正。</li>
 </ul>
 
 <h2>0.8.6</h2>
@@ -59,26 +70,26 @@
 
 <ul>
 <li>bug fix</li>
-<li>※FsBulletML.Sample : 弾を進行方向を反映して描画するよう修正。</li>
+<li>※<code>FsBulletML.Sample</code>: 弾を進行方向を反映して描画するよう修正。</li>
 </ul>
 
 <h2>0.8.4</h2>
 
 <ul>
-<li><code>XML</code>形式の外部DSLをFsBulletML.Coreへ含めるよう修正。FsBulletML.Parserでは<code>SXML</code>形式、<code>FSB</code>形式のみ外部DSLを追加拡張する。</li>
+<li><code>XML</code>形式の外部DSLを<code>FsBulletML.Core</code>へ含めるよう修正。<code>FsBulletML.Parser</code>では<code>SXML</code>形式、<code>FSB</code>形式のみ外部DSLを追加拡張する。</li>
 </ul>
 
 <h2>0.8.3</h2>
 
 <ul>
-<li>FsBulletML.Coreを.NET Framework3.5以上に対応</li>
-<li>FsBulletML.Parserは.NET Framework4.0以上に対応</li>
+<li><code>FsBulletML.Core</code>を.NET Framework3.5以上に対応</li>
+<li><code>FsBulletML.Parser</code>は.NET Framework4.0以上に対応</li>
 </ul>
 
 <h2>0.8.2</h2>
 
 <ul>
-<li>StructuredFormatDisplay属性によるBulletml判別共用体の文字列化対応。Bulletml.ToNodeString()メソッドで文字列を取得可。これにより<code>XML</code>形式等から、内部DSLのコードに変換可能に。</li>
+<li><code>StructuredFormatDisplay</code>属性による<code>Bulletml</code>判別共用体の文字列化対応。Bulletml.ToNodeString()メソッドで文字列を取得可。これにより<code>XML</code>形式等から、内部DSLのコードに変換可能に。</li>
 </ul>
 
 <h2>0.8.1</h2>
