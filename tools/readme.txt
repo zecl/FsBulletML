@@ -1,6 +1,6 @@
 FsBulletMLをダウンロードして頂きありがとうございます。
 
-"packages\FsBulletML.Core.0.8.6\tools\Code Snipets"に、コードスニペットがダウンロードされています。
+"packages\FsBulletML.Core.0.8.8\tools\Code Snipets"に、コードスニペットがダウンロードされています。
 
 
 拡張機能「F# snippet(VS2012 or VS2013)」を導入の上ご利用ください。
