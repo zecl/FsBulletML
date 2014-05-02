@@ -144,7 +144,7 @@ type FsBulletMLSampleGame () as this =
     |> Seq.iter (fun bullet -> let textureCenter = new Vector2(enemyBullet1Texture.Width / 2 |> float32, enemyBullet1Texture.Height / 2 |> float32);
                                let position = Manager.getDrawPos bullet.Pos enemyBullet1Texture + textureCenter
                                spriteBatch.Draw(enemyBullet1Texture, position, System.Nullable(), Color.White,bullet.Dir, textureCenter, 1.0f, SpriteEffects.None, 0.f))
-    Manager.enemys 
+    Manager.enemies 
     |> Seq.iter (fun enemy -> spriteBatch.Draw(enemyTexture, Manager.getDrawPos enemy.Pos enemyTexture, Color.AntiqueWhite))
 
     spriteBatch.Draw(ship.texture, Manager.getDrawPos ship.Pos ship.texture, Color.AntiqueWhite)

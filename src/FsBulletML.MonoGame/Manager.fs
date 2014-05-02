@@ -10,7 +10,7 @@ open FsBulletML
 module Manager =
 
   [<CompiledName("Enemys")>]
-  let enemys : List<IBullet> = new List<IBullet>() 
+  let enemies : List<IBullet> = new List<IBullet>() 
 
   [<CompiledName("EnemyBullets")>]
   let enemyBullets : List<IBullet> = new List<IBullet>() 
@@ -32,11 +32,11 @@ module Manager =
 
   [<CompiledName("AddEnemy")>]
   let addEnemy (enemy:IBullet) = 
-    enemys.Add(enemy) 
+    enemies.Add(enemy) 
 
   [<CompiledName("AddEnemyPos")>]
   let addEnemyPos (enemy:IBullet, original:Vector2) = 
-    enemys.Add(enemy) 
+    enemies.Add(enemy) 
     enemy.X <- original.X 
     enemy.Y <- original.Y 
 
@@ -66,7 +66,7 @@ module Manager =
       for i = 0 to source.Count - 1 do
         source.[i].Update()
 
-    [enemys; enemyBullets; playerBullets] |> List.iter update
+    [enemies; enemyBullets; playerBullets] |> List.iter update
 
   [<CompiledName("Free")>]
   let free () = 
@@ -77,11 +77,11 @@ module Manager =
           source.Remove(source.[i]) |> ignore
           i <- i - 1
         i <- i + 1
-    [enemys; enemyBullets;playerBullets] |> List.iter free
+    [enemies; enemyBullets;playerBullets] |> List.iter free
 
   [<CompiledName("RemoveAll")>]
   let removeAll () = 
-    [enemys; enemyBullets; playerBullets] |> Seq.iter (fun x -> x.Clear())
+    [enemies; enemyBullets; playerBullets] |> Seq.iter (fun x -> x.Clear())
     enemyBulletSpaces |> Seq.iter (fun x -> x.Clear())
     playerBulletSpaces |> Array.iter (fun x -> x.Clear())
   
