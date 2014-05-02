@@ -2,6 +2,14 @@
 open System
 open FsBulletML.Processable 
 
+[<StructAttribute>]
+type RunResult =
+  val Processed : bool
+  val X: float32
+  val Y: float32
+  new(processed:bool,x:float32, y: float32) = 
+    { Processed = processed; X = x; Y = y }
+
 module BulletRunner = 
 
   let internal calcDir dir =  
@@ -339,7 +347,7 @@ module BulletRunner =
     match bullet.Task with
     | None -> 
         bullet.Task |> Option.iter(fun task -> task.Finish <- true)
-        true,(bullet.X, bullet.Y)
+        RunResult(true, bullet.X, bullet.Y)
     | Some bulletmlTask ->
       let tasks = bulletmlTask.Tasks
       let mutable bullet = bullet
@@ -368,20 +376,20 @@ module BulletRunner =
 
         let speed = float bullet.Speed
         let direction = float bullet.Dir 
-        let x =  bullet.X + bullet.AccelerationX + (float32 (Math.Sin(direction) * speed))
-        let y =  bullet.Y + bullet.AccelerationY + (float32 (-Math.Cos(direction) * speed))
+        let x = bullet.AccelerationX + (float32 (Math.Sin(direction) * speed))
+        let y = bullet.AccelerationY + (float32 (-Math.Cos(direction) * speed))
 
         if endCount >= List.length tasks then
           if bullet.IsBullet && bullet.BulletRoot then
             bullet.Used <- false
           bullet.Task |> Option.iter(fun task -> task.Finish <- true)
-          true,(x,y)
+          RunResult(true, x, y)
         else
           bullet.Task |> Option.iter(fun task -> task.Finish <- false)
-          false,(x,y)
+          RunResult(false, x, y)
       else
         bullet.Task |> Option.iter(fun task -> task.Finish <- true)
-        true,(bullet.X, bullet.Y)
+        RunResult(true, bullet.X, bullet.Y)
 
   [<CompiledName "ConvertBulletmlTask">]
   let convertBulletmlTask bulletml = 

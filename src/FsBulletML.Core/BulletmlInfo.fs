@@ -4,11 +4,14 @@
 type BulletmlInfo =
   val Name: string
   val Bulletml: Bulletml
-  val BulletmlTask : BulletmlTask
-  val BulletmlTaskOption : BulletmlTask option
   new(name: string, bulletml: Bulletml) = 
-    let task = BulletRunner.convertBulletmlTask bulletml
-    { Name = name; Bulletml = bulletml; BulletmlTask = task; BulletmlTaskOption = Some task }
+    { Name = name; Bulletml = bulletml }
+
+  member this.BulletmlTask () =
+    BulletRunner.convertBulletmlTask this.Bulletml
+
+  member this.BulletmlTaskOption () =
+    BulletRunner.convertBulletmlTask this.Bulletml |> Some
 
 [<AutoOpen>]
 module BulletmlInfoModule =
