@@ -89,6 +89,7 @@
     <Compile Include="XiiStag.fs" />
     <Compile Include="Xsoldier.fs" />
     <Compile Include="Others.fs" />
+    <Compile Include="Player.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\FsBulletML.Core\FsBulletML.Core.fsproj">

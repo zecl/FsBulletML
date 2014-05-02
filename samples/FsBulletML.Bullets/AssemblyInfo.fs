@@ -6,9 +6,9 @@ open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 
 //[<assembly: AssemblyVersion("0.1.*")>]
-[<assembly: AssemblyVersion("0.1.0")>]
-[<assembly: AssemblyFileVersion("0.1.0")>]
-[<assembly: AssemblyInformationalVersion("0.1.0")>]
+[<assembly: AssemblyVersion("0.1.1")>]
+[<assembly: AssemblyFileVersion("0.1.1")>]
+[<assembly: AssemblyInformationalVersion("0.1.1")>]
 
 [<assembly: AssemblyTitle("FsBulletML")>]
 [<assembly: AssemblyDescription("Definition of FsBulletML internal DSL.")>]
