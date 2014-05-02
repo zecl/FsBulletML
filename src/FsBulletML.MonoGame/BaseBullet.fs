@@ -67,19 +67,20 @@ type BaseBullet () as this =
       this.self.Used <- true
       this.self.BulletRoot <- false
 
-    member this.Update () = this.RunTask()
+    member this.Update () = 
+      let apply x y = this.self.X <- this.self.X + x; this.self.Y <- this.self.Y + y
+      this.RunTask(FSharpFunc.ToAction2 apply)
 
-  member this.RunTask() =
-    let apply x y = this.self.X <- x; this.self.Y <- y
-
+  member this.RunTask(apply:Action<_,_>) =
+    let apply = Action.toFSharpFunc2 apply
     match this.self.Task with
     | None -> ()
     | Some task -> 
-      match BulletRunner.run this with
-      | true,(x,y) -> 
-        apply x y
+      let result = BulletRunner.run this
+      if result.Processed then 
+        apply result.X result.Y
         this.self.Task |> Option.iter (fun x -> x.Init())
-      | false,(x,y) -> apply x y
+      else apply result.X result.Y
 
     if (this.pos.X < 0.f || this.pos.X > Settings.Display.Width || this.pos.Y < 0.f || this.pos.Y > Settings.Display.Height) then
       this.self.Used <- false
