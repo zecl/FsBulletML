@@ -158,7 +158,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
                 spriteBatch.Draw(this.EnemyBulletTexture, position, null, Color.White, bullet.Dir, textureCenter, 1.0f, SpriteEffects.None, 0);
             }
 
-            foreach (var enemy in Manager.Enemys)
+            foreach (var enemy in Manager.Enemies)
             {
                 spriteBatch.Draw(this.EnemyTexture, Manager.GetDrawPos(enemy.Pos, this.EnemyTexture), Color.AntiqueWhite);
             }

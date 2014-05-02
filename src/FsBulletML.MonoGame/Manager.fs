@@ -9,7 +9,7 @@ open FsBulletML
 
 module Manager =
 
-  [<CompiledName("Enemys")>]
+  [<CompiledName("Enemies")>]
   let enemies : List<IBullet> = new List<IBullet>() 
 
   [<CompiledName("EnemyBullets")>]
