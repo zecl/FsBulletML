@@ -38,7 +38,7 @@ type Enemy (life) as this =
         this.bullet <- new EnemyBullet()
         (this.bullet :> IBulletmlObject).IsBullet <- true
         Manager.addEnemyBulletPos(this.bullet, Vector2(self.X, self.Y))
-        this.bullet.SetTask(this.bulletBulletmlInfo.BulletmlTaskOption) 
+        this.bullet.SetTask(this.bulletBulletmlInfo.BulletmlTaskOption()) 
 
     member this.Update () = 
       this.timer <- this.timer + 1       
@@ -54,10 +54,11 @@ type Enemy (life) as this =
         let self = this :> IEnemy
         self.Shoot()
     
-      base.RunTask()
+      let apply x y = this.self.X <- this.self.X + x; this.self.Y <- this.self.Y + y
+      base.RunTask(System.Action<_,_>(apply))
 
   member this.SetMoveBulletmlInfo(bulletmlInfo:BulletmlInfo) = 
-    (this :> IEnemy).Task <- bulletmlInfo.BulletmlTaskOption
+    (this :> IEnemy).Task <- bulletmlInfo.BulletmlTaskOption()
 
   member this.SetBulletTask(bulletName, bulletmlInfo) = 
     this.bulletName <- bulletName

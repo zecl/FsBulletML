@@ -53,7 +53,7 @@ type FsBulletMLSampleGame () as this =
     
     this.enemyBullets
     |> Seq.nth(this.enemyIndex)
-    |> fun bullet -> bullet.BulletmlTask.Init(); enemyDefaultPos, (bullet.Name, bullet)
+    |> fun bullet -> bullet.BulletmlTask().Init(); enemyDefaultPos, (bullet.Name, bullet)
 
   do 
     gmanager <- new GraphicsDeviceManager(this)

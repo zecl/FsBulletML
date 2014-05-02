@@ -41,7 +41,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             this.Bullet = new EnemyBullet();
             ((IBulletmlObject)this.Bullet).IsBullet = true;
             Manager.AddEnemyBulletPos(this.Bullet, new Vector2(self.X, self.Y));
-            this.Bullet.SetTask(this.BulletmlInfo.BulletmlTaskOption);
+            this.Bullet.SetTask(this.BulletmlInfo.BulletmlTaskOption());
           }
         }
 
@@ -55,8 +55,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
                 this.Timer = 0;
                 this.Shoot();
             }
-
-            base.RunTask();
+            base.RunTask((x, y) => { this.self.X = this.self.X + x; this.self.Y = this.self.Y + y; });
         }
 
         private bool IsFinish()
@@ -79,7 +78,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 
         public void SetMoveBulletmlInfo(BulletmlInfo bulletmlInfo) 
         {
-            ((IEnemy)this).Task = bulletmlInfo.BulletmlTaskOption;
+            ((IEnemy)this).Task = bulletmlInfo.BulletmlTaskOption();
         }
 
         public void SetBulletmlInfo(string bulletName, BulletmlInfo bulletmlInfo) 
