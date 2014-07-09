@@ -1,0 +1,24 @@
+<bulletml>
+	<action label="circle">
+		<repeat>
+			<times>$1</times>
+			<action>
+				<fire>
+					<direction type="sequence">360/$1</direction>
+					<bullet/>
+				</fire>
+			</action>
+		</repeat>
+	</action>
+	<action label="top">
+		<repeat>
+			<times>30</times>
+			<action>
+				<actionRef label="circle">
+					<param>20</param>
+				</actionRef>
+				<wait>20</wait>
+			</action>
+		</repeat>
+	</action>
+</bulletml>

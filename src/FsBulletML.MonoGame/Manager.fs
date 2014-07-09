@@ -106,7 +106,7 @@ module Manager =
     [playerBullets;] |> List.iter (add playerBulletSpaces)
 
   [<CompiledName("CheckCollision")>]
-  let private checkCollision (pos:Vector2) (radius:float32) (selfSpaces:List<IBullet> array) (targetSpaces:List<IBullet> array) free cont =
+  let private checkCollision (pos:Vector2) (radius:float32) (targetSpaces:List<IBullet> array) free cont =
     let index = getSpaceIndex pos
     let checkCollision (targetSpace:List<IBullet> array) = 
       let targetSpace = targetSpaces.[index]
@@ -119,9 +119,9 @@ module Manager =
 
   [<CompiledName("CheckPlayerCollision")>]
   let checkPlayerCollision playerPos radius cont =
-    checkCollision playerPos radius playerBulletSpaces enemyBulletSpaces (fun target -> target.Used <- false) cont
+    checkCollision playerPos radius enemyBulletSpaces (fun target -> target.Used <- false) cont
 
   [<CompiledName("CheckEnemyCollision")>]
   let checkEnemyCollision enemyPos radius cont =
-    checkCollision enemyPos radius enemySpaces playerBulletSpaces ignore cont
-    checkCollision enemyPos radius enemyBulletSpaces playerBulletSpaces (fun target -> target.Used <- false) cont
+    checkCollision enemyPos radius playerBulletSpaces ignore cont
+    checkCollision enemyPos radius playerBulletSpaces (fun target -> target.Used <- false) cont

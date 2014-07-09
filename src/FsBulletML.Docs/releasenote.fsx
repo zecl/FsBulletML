@@ -7,7 +7,7 @@ Release Notes
 - ``Unity``からの利用を考慮してAPIと機能を変更(breaking change)
     - ``BulletmlRunner.run``にて、弾の座標(X,Y)を直接変更しないようにし、移動分の値を返すよう変更。
     - ``BulletmlRunner.run``にて、Tupleではなく``RunResult``型を返すよう変更。
-    - ``BulletmlInfo``型の``BulletmlTask``および``BulletmlTaskOption``をメンバへ変更。
+    - ``BulletmlInfo``型の``BulletmlTask``および``BulletmlTaskOption``をメソッドへ変更。
 
 0.8.7
 -------------

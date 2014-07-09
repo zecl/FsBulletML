@@ -1,0 +1,64 @@
+<bulletml>
+
+
+    <bullet label="zigzag">
+        <action>
+            <accel>
+                <horizontal type="absolute">5*$1</horizontal>
+                <term>1</term>
+            </accel>
+            <wait>0</wait>
+            <repeat>
+                <times>20</times>
+                <action>
+                    <accel>
+                        <horizontal type="absolute">-5*$1</horizontal>
+                        <term>30</term>
+                    </accel>
+                    <wait>30</wait>
+                    <accel>
+                        <horizontal type="absolute">-5*$1</horizontal>
+                        <term>30</term>
+                    </accel>
+                    <wait>30</wait>
+                    <accel>
+                        <horizontal type="absolute">5*$1</horizontal>
+                        <term>30</term>
+                    </accel>
+                    <wait>30</wait>
+                    <accel>
+                        <horizontal type="absolute">5*$1</horizontal>
+                        <term>30</term>
+                    </accel>
+                    <wait>30</wait>
+                </action>
+            </repeat>
+        </action>
+    </bullet>
+
+
+    <action label="top">
+        <repeat>
+            <times>20</times>
+            <action>
+                <fire>
+                    <direction type="absolute">180</direction>
+                    <speed>1</speed>
+                    <bulletRef label="zigzag">
+                        <param>1</param>
+                    </bulletRef>
+                </fire>
+                <fire>
+                    <direction type="absolute">180</direction>
+                    <speed>1</speed>
+                    <bulletRef label="zigzag">
+                        <param>-1</param>
+                    </bulletRef>
+                </fire>
+                <wait>10</wait>
+            </action>
+        </repeat>
+    </action>
+
+
+</bulletml>

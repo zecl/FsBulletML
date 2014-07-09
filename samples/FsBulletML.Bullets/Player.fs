@@ -25,7 +25,7 @@ module PlayerBullet =
       [BulletmlElm.Action ({actionLabel = Some "top";},
         [Action.Repeat (Times "2", ActionElm.Action ({actionLabel = None;}, 
                          [Action.Fire ({fireLabel = None;}, Some (Direction (None,"(-30+$rand*120)")), None, BulletElm.BulletRef ({bulletRefLabel = "hmgLsr";}, [])); 
-                          Action.Repeat (Times "10", ActionElm.Action ({actionLabel = None;},
+                          Action.Repeat (Times "5", ActionElm.Action ({actionLabel = None;},
                                                        [Action.Wait "1";
                                                         Action.Fire ({fireLabel = None;}, Some (Direction (Some {directionType = DirectionType.Sequence;},"0")), None, BulletElm.BulletRef ({bulletRefLabel = "hmgLsr";}, []))]));
                                                         Action.Wait "10"]))]);

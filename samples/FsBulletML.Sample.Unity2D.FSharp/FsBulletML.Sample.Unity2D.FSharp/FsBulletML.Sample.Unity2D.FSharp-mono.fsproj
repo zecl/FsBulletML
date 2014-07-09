@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0399F97B-BF95-412D-BFBC-D6489A1057E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FsBulletML.Sample.Unity2D.FSharp</RootNamespace>
+    <AssemblyName>FsBulletML.Sample.Unity2D.FSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget />
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <Tailcalls>true</Tailcalls>
+    <ConsolePause>False</ConsolePause>
+    <PlatformTarget />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="FsBulletML.Bullets">
+      <HintPath>..\Assets\FsBulletML\FsBulletML.Bullets.dll</HintPath>
+    </Reference>
+    <Reference Include="FsBulletML.Core">
+      <HintPath>..\Assets\FsBulletML\FsBulletML.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FsBulletML.Unity2D">
+      <HintPath>..\Assets\FsBulletML\FsBulletML.Unity2D.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft F#\v4.0\Microsoft.FSharp.Targets" />
+  <ItemGroup>
+    <Compile Include="BulletFunctions.fs" />
+    <Compile Include="IBullet.fs" />
+    <Compile Include="BaseBullet.fs" />
+    <Compile Include="EnemyBullet.fs" />
+    <Compile Include="PlayerBullet.fs" />
+    <Compile Include="Bomb.fs" />
+    <Compile Include="Enemy.fs" />
+    <Compile Include="Player.fs" />
+    <Compile Include="Informations.fs" />
+    <Compile Include="BgScroll.fs" />
+    <Compile Include="ParticleSortingLayer.fs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>c9d15459-c3f8-4ed0-9312-423b3eb4ce47</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FsBulletML.Sample.Unity2D.FSharp</RootNamespace>
+    <AssemblyName>FsBulletML.Sample.Unity2D.FSharp</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFSharpCoreVersion>2.3.0.0</TargetFSharpCoreVersion>
+    <Name>FsBulletML.Sample.Unity2D.FSharp</Name>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <Tailcalls>false</Tailcalls>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\Debug\FsBulletML.Sample.Unity2D.FSharp.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\Release\FsBulletML.Sample.Unity2D.FSharp.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '11.0'">
+      <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets')">
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets')">
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <Import Project="$(FSharpTargetsPath)" />
+  <PropertyGroup>
+    <PostBuildEvent>echo f | xcopy "$(TargetPath)" "C:\Github\FsBulletML\samples\FsBulletML.Sample.Unity2D.FSharp\Assets\FsBulletML\" /Y
+echo f | xcopy "$(TargetDir)$(TargetName).pdb" "C:\Github\FsBulletML\samples\FsBulletML.Sample.Unity2D.FSharp\Assets\FsBulletML\" /Y
+echo f | xcopy "$(TargetDir)FSharp.Core.dll" "C:\Github\FsBulletML\samples\FsBulletML.Sample.Unity2D.FSharp\Assets\FsBulletML\" /Y
+"C:\Program Files (x86)\Unity\Editor\Data\Mono\lib\mono\2.0\pdb2mdb.exe" "C:\Github\FsBulletML\samples\FsBulletML.Sample.Unity2D.FSharp\Assets\FsBulletML\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BulletFunctions.fs" />
+    <Compile Include="IBullet.fs" />
+    <Compile Include="BaseBullet.fs" />
+    <Compile Include="EnemyBullet.fs" />
+    <Compile Include="PlayerBullet.fs" />
+    <Compile Include="Bomb.fs" />
+    <Compile Include="Enemy.fs" />
+    <Compile Include="Player.fs" />
+    <Compile Include="Informations.fs" />
+    <Compile Include="BgScroll.fs" />
+    <Compile Include="ParticleSortingLayer.fs" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Unity\Editor\Data\PlaybackEngines\windows64standaloneplayer\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\..\..\src\FsBulletML.Core\FsBulletML.Core.fsproj">
+      <Name>FsBulletML.Core</Name>
+      <Project>{deda69b5-2853-4192-a886-56194610391c}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\FsBulletML.Unity2D\FsBulletML.Unity2D.fsproj">
+      <Name>FsBulletML.Unity2D</Name>
+      <Project>{a53355e8-2d44-4fd1-a94a-d852773dae35}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FsBulletML.Bullets\FsBulletML.Bullets.fsproj">
+      <Name>FsBulletML.Bullets</Name>
+      <Project>{f0bad024-5c63-4c24-b9c8-3d8326ce8fd7}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

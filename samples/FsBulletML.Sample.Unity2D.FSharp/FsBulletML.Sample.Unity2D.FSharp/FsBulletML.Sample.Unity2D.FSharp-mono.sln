@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{4925A630-B079-445d-BCD4-3A9C94FE9307}") = "FsBulletML.Sample.Unity2D.FSharp-mono", "FsBulletML.Sample.Unity2D.FSharp-mono.fsproj", "{0399F97B-BF95-412D-BFBC-D6489A1057E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0399F97B-BF95-412D-BFBC-D6489A1057E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0399F97B-BF95-412D-BFBC-D6489A1057E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0399F97B-BF95-412D-BFBC-D6489A1057E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0399F97B-BF95-412D-BFBC-D6489A1057E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = FsBulletML.Sample.Unity2D.FSharp-mono.fsproj
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,27 @@
+<bulletml>
+    <bullet label="downAccel">
+        <action>
+            <accel>
+                <vertical type="sequence">0.1</vertical>
+                <term>99999</term>
+            </accel>
+        </action>
+    </bullet>
+
+
+    <action label="top">
+        <repeat>
+            <times>10</times>
+            <action>
+                <fire>
+                    <direction type="absolute">$rand*60-30</direction>
+                    <speed type="absolute">$rand*2+2</speed>
+                    <bulletRef label="downAccel"/>
+                </fire>
+                <wait>2</wait>
+            </action>
+        </repeat>
+    </action>
+
+
+</bulletml>

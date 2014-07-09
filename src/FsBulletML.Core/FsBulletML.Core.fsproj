@@ -96,6 +96,11 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>echo f | xcopy "$(TargetPath)" "C:\Github\FsBulletML\samples\FsBulletML.Sample.Unity2D.FSharp\Assets\FsBulletML\" /Y
+echo f | xcopy "$(TargetDir)$(TargetName).pdb" "C:\Github\FsBulletML\samples\FsBulletML.Sample.Unity2D.FSharp\Assets\FsBulletML\" /Y
+"C:\Program Files (x86)\Unity\Editor\Data\Mono\lib\mono\2.0\pdb2mdb.exe" "C:\Github\FsBulletML\samples\FsBulletML.Sample.Unity2D.FSharp\Assets\FsBulletML\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

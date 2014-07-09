@@ -1,0 +1,7 @@
+<bulletml type='horizontal'>
+    <action label='top'>
+        <fire>
+            <bullet/>
+        </fire>
+    </action>
+</bulletml>
