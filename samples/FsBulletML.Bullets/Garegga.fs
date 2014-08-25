@@ -9,10 +9,12 @@ module Garegga =
   /// バトルガレッガのBlackHeartMk2のワインダー。by 白い弾幕くん
   /// [Garegga]_black_heart_mk2_winder.xml
   let black_heart_mk2_winder =
-    createBulletmlInfo "バトルガレッガのBlackHeartMk2のワインダー。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "バトルガレッガのBlackHeartMk2のワインダー。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire

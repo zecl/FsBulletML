@@ -261,6 +261,11 @@ module Processable =
     member this.Original with get () = this.original 
                           and set (v) = this.original <- v
     member this.GetFireData () = this.fireData.[this.activeTaskIndex]
+    member this.BulletName
+      with get () = 
+        match this.original with 
+        | Some bulletml -> bulletml.Name  
+        | None -> None
     do
       this.finish <- false
 

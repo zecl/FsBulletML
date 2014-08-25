@@ -9,10 +9,12 @@ module Tenmado =
   /// tenmadoより、三面ボス「Disconnection」by 白い弾幕くん
   /// [tenmado]_3_boss_2.xml
   let b3_boss_2 =
-    createBulletmlInfo "tenmadoより、三面ボス「Disconnection」by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "tenmadoより、三面ボス「Disconnection」by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -159,10 +161,12 @@ module Tenmado =
   /// tenmadoより、最終ボス「L」第一形態 by 白い弾幕くん
   /// [tenmado]_5_boss_1.xml
   let b5_boss_1 =
-    createBulletmlInfo "tenmadoより、最終ボス「L」第一形態 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "tenmadoより、最終ボス「L」第一形態 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -235,10 +239,12 @@ module Tenmado =
   /// tenmadoより、最終ボス「L」第三形態 by 白い弾幕くん
   /// [tenmado]_5_boss_3.xml
   let b5_boss_3 =
-    createBulletmlInfo "tenmadoより、最終ボス「L」第三形態 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "tenmadoより、最終ボス「L」第三形態 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire

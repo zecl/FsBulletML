@@ -169,6 +169,20 @@ bulletml
   </div>
   <div class="span1"></div>
 </div>
+
+
+型プロバイダー利用するには、``FsBulletML.Core``, ``FsBulletML.Parser``に加えて、``FsBulletML.TypeProviders``をインストールします。(.NET Framework4.0以上)
+``XML``形式、``SXML``形式、``FSB``形式のBulletMLの型プロバイダーを利用することができます。
+<div class="row">
+  <div class="span1"></div>
+  <div class="span6">
+    <div class="well well-small" id="nuget">
+      FsBulletML.Parserは<a href="https://nuget.org/packages/FsBulletML.TypeProviders" target="_blunk">NuGet</a>からインストールすることができます。
+      <pre>PM> Install-Package FsBulletML.TypeProviders</pre>
+    </div>
+  </div>
+  <div class="span1"></div>
+</div>
 *)
 
 (**
@@ -186,7 +200,37 @@ bulletml
 
 <br>
 
-<a href="http://japan.unity3d.com/" target="_blunk">Unity</a> Demo
+<a href="http://japan.unity3d.com/" target="_blunk">Unity2D</a> Demo
+-------------
+<center>
+
+<input type="button" onclick="$('#unityPlayer').toggle();" value="表示/非表示">
+<div class="content">
+	<div id="unityPlayer">
+		<div class="missing">
+			<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+				<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+			</a>
+		</div>
+		<div class="broken">
+			<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now! Restart your browser after install.">
+				<img alt="Unity Web Player. Install now! Restart your browser after install." src="http://webplayer.unity3d.com/installation/getunityrestart.png" width="193" height="63" />
+			</a>
+		</div>
+	</div>
+</div>
+<br>
+Move:↑↓←→ 　Shot: Z Key<br>
+<br>
+サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.Unity2D.FSharp" target="_blunk">F#</a>),
+サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.Unity2D.CSharp" target="_blunk">C#</a>)<br>
+</center>
+
+<br>
+
+
+
+<a href="http://japan.unity3d.com/" target="_blunk">Unity3D</a> Demo
 -------------
 <div style="text-align:center;">
   <object width="560" height="315">
@@ -208,7 +252,6 @@ bulletml
 (**
 今後の課題とか（予定は未定）
 -------------
- - Unity用のサンプルプログラムの作成。
  - テストが雑。現状ざっくりとしたパーサのテストしかない。
  - ``BulletML``の構文チェックが中途半端。
  - より型安全な弾幕記述のサポート。
@@ -218,7 +261,6 @@ bulletml
  - APIの改善とか。``C#``等からの使いやすさの向上とか。
  - パフォーマンスの向上とか。
  - ``BulletML``の仕様と互換を持たせつつ、独自仕様を追加。
- - ``BulletML`` 型プロバイダーとか。(``F#``の型を作れるようにならないとツライ)
  - 別枠でカスタム ビジュアライザーの提供とか。
 
  [1]: http://visualstudiogallery.msdn.microsoft.com/d19080ad-d44c-46ae-b65c-55cede5f708b  "F# snippet extension - Visual Studio Gallery - Microsoft"

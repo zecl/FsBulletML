@@ -10,14 +10,17 @@
     <projectUrl>https://github.com/zecl/FsBulletML</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <tags>f# library</tags>
+    <tags>f# library game DSL BulletML</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Xml"/>
     </frameworkAssemblies>
     <dependencies>
-      <group targetFramework="net40">
-        <dependency id="FsBulletML.Core" version="0.8.4"/>
-      </group>
+        <dependency id="FsBulletML.Core" version="0.9.0"/>
     </dependencies>
   </metadata>
+
+  <files>
+    <file src="bin\Release\net45\FsBulletML.Parser.dll" target="lib\net45\FsBulletML.Parser.dll" />
+    <file src="bin\Release\net45\FsBulletML.Parser.xml" target="lib\net45\FsBulletML.Parser.xml" />
+  </files>
 </package>

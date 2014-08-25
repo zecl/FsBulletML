@@ -9,10 +9,12 @@ module Guwange =
   /// ぐわんげ、二面ボス by 白い弾幕くん
   /// [Guwange]_round_2_boss_circle_fire.xml
   let round_2_boss_circle_fire = 
-    createBulletmlInfo "ぐわんげ、二面ボス by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ぐわんげ、二面ボス by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Fire
           ({fireLabel = Some "circle";},
            Some (Direction (Some {directionType = DirectionType.Sequence;},"$1")),
@@ -42,10 +44,12 @@ module Guwange =
   /// ぐわんげ、三面ボス by 白い弾幕くん
   /// [Guwange]_round_3_boss_fast_3way.xml
   let round_3_boss_fast_3way =
-    createBulletmlInfo "ぐわんげ、三面ボス by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ぐわんげ、三面ボス by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -118,10 +122,12 @@ module Guwange =
   /// ぐわんげ、四面ボス by 白い弾幕くん
   /// [Guwange]_round_4_boss_eye_ball.xml
   let round_4_boss_eye_ball =
-    createBulletmlInfo "ぐわんげ、四面ボス by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ぐわんげ、四面ボス by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat

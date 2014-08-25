@@ -1,0 +1,11 @@
+bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" name="前方5way弾"
+    action label="top"
+        fire
+            direction:"-20"
+            bullet
+        repeat
+            times:"4"
+            action
+                fire
+                    direction type="sequence":"10"
+                    bullet

@@ -9,10 +9,12 @@ module KetuiLt =
   /// ケツイロケテより、一面ボスのビット攻撃 by 白い弾幕くん
   /// [Ketui_LT]_1boss_bit.xml
   let b1boss_bit =
-    createBulletmlInfo "ケツイロケテより、一面ボスのビット攻撃 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ケツイロケテより、一面ボスのビット攻撃 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "Dummy";},None,None,
            [Action ({actionLabel = None;},[Vanish])]);
@@ -112,10 +114,12 @@ module KetuiLt =
   /// ケツイロケテより、三ボスのくねくね by 白い弾幕くん
   /// [Ketui_LT]_3boss_kunekune.xml
   let b3boss_kunekune =
-    createBulletmlInfo "ケツイロケテより、三ボスのくねくね by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ケツイロケテより、三ボスのくねくね by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "aimSrc";},None,Some (Speed (None,"3")),
            [Action
@@ -216,10 +220,12 @@ module KetuiLt =
   /// ケツイロケテより、三ボスの自機狙い弾と横殴り弾 by 白い弾幕くん
   /// [Ketui_LT]_3boss_roll_and_aim.xml
   let b3boss_roll_and_aim =
-    createBulletmlInfo "ケツイロケテより、三ボスの自機狙い弾と横殴り弾 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ケツイロケテより、三ボスの自機狙い弾と横殴り弾 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "Dummy";},None,None,
            [Action ({actionLabel = None;},[Vanish])]);
@@ -338,10 +344,12 @@ module KetuiLt =
   /// ケツイロケテより、二面ボスのワインダー？ by 白い弾幕くん
   /// [Ketui_LT]_2boss_winder_crash.xml
   let b2boss_winder_crash =
-    createBulletmlInfo "ケツイロケテより、二面ボスのワインダー？ by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ケツイロケテより、二面ボスのワインダー？ by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "pre";},
            [Fire

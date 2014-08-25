@@ -9,10 +9,12 @@ module GigaWing2 =
   /// ギガウィング2のアークリミかも。by 白い弾幕くん
   /// [GigaWing2]_akurimi.xml
   let akurimi =
-    createBulletmlInfo "ギガウィング2のアークリミかも。by 白い弾幕くん" <| 
+    createBulletmlInfo <| 
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ギガウィング2のアークリミかも。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "add2";},
            [Repeat

@@ -9,10 +9,12 @@ module Xsoldier =
   /// XSoldierの8面ボスの主砲 by 白い弾幕くん
   /// [xsoldier]_8_boss_main.xml
   let b8_boss_main =
-    createBulletmlInfo "XSoldierの8面ボスの主砲 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "XSoldierの8面ボスの主砲 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire

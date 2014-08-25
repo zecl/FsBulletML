@@ -9,10 +9,12 @@ module DragonBlaze =
   /// ドラゴンブレイズのネビュロス第二形態かも。by 白い弾幕くん
   /// [DragonBlaze]_nebyurosu_2.xml
   let nebyurosu_2 =
-    createBulletmlInfo "ドラゴンブレイズのネビュロス第二形態かも。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ドラゴンブレイズのネビュロス第二形態かも。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "add3";},
            [Repeat

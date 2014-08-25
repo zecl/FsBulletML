@@ -9,10 +9,12 @@ module Dodonpachi =
   /// 怒首領蜂、火蜂。by 白い弾幕くん
   /// [Dodonpachi]_hibachi.xml
   let hibachi =
-    createBulletmlInfo "怒首領蜂、火蜂。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "怒首領蜂、火蜂。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "allWay";},
            [Fire
@@ -64,10 +66,12 @@ module Dodonpachi =
   /// 怒首領蜂、最終鬼畜兵器その一。 by 白い弾幕くん
   /// [Dodonpachi]_kitiku_1.xml
   let kitiku_1 =
-    createBulletmlInfo "怒首領蜂、最終鬼畜兵器その一。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "怒首領蜂、最終鬼畜兵器その一。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "fast";},None,Some (Speed (None,"10")),
            [Action
@@ -155,10 +159,12 @@ module Dodonpachi =
   /// 怒首領蜂、最終鬼畜兵器その二。 by 白い弾幕くん
   /// [Dodonpachi]_kitiku_2.xml
   let kitiku_2 =
-    createBulletmlInfo "怒首領蜂、最終鬼畜兵器その二。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "怒首領蜂、最終鬼畜兵器その二。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "feather";},None,Some (Speed (None,"4")),
            [Action
@@ -208,10 +214,12 @@ module Dodonpachi =
   /// 怒首領蜂、最終鬼畜兵器その三。 by 白い弾幕くん
   /// [Dodonpachi]_kitiku_3.xml
   let kitiku_3 =
-    createBulletmlInfo "怒首領蜂、最終鬼畜兵器その三。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "怒首領蜂、最終鬼畜兵器その三。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top1";},
            [Repeat
@@ -282,10 +290,12 @@ module Dodonpachi =
   /// 怒首領蜂、最終鬼畜兵器その五。by 白い弾幕くん
   /// [Dodonpachi]_kitiku_5.xml
   let kitiku_5 =
-    createBulletmlInfo "怒首領蜂、最終鬼畜兵器その五。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "怒首領蜂、最終鬼畜兵器その五。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top1";},
            [Repeat

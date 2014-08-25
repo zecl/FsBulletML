@@ -195,11 +195,13 @@ module IntermediateParser =
           | "horizontal" -> ShootingDirection.BulletHorizontal 
           | x -> new BulletmlDTDViolationException(sprintf "not support ShootingDirection.：[%s]" x) |> raise
         let xmlns = tryFindAttrValue attrs "xmlns"
+        let name = tryFindAttrValue attrs "name"
+        let description = tryFindAttrValue attrs "description"
         match tryFindAttrValue attrs "type" with
         | Some shootingDirection ->
-          return { bulletmlXmlns = xmlns; bulletmlType = shootingDirection |> toShootingDirection |> Some }
+          return { bulletmlXmlns = xmlns; bulletmlType = shootingDirection |> toShootingDirection |> Some; bulletmlName = name; bulletmlDescription = description }
         | None ->
-          return { bulletmlXmlns = xmlns; bulletmlType = None  }}
+          return { bulletmlXmlns = xmlns; bulletmlType = None; bulletmlName = name; bulletmlDescription = description }}
 
       match tryFindBulletmlAttrs with
       | Some attrs ->

@@ -9,10 +9,12 @@ module Noiz2sa =
   /// Noiz2saより、88way。 by 白い弾幕くん
   /// [Noiz2sa]_88way.xml
   let b88way =
-    createBulletmlInfo "Noiz2saより、88way。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Noiz2saより、88way。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -55,10 +57,12 @@ module Noiz2sa =
   /// Noiz2saより、ビットから自機狙い弾。 by 白い弾幕くん
   /// [Noiz2sa]_bit.xml
   let bit =
-    createBulletmlInfo "Noiz2saより、ビットから自機狙い弾。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Noiz2saより、ビットから自機狙い弾。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -107,10 +111,12 @@ module Noiz2sa =
   /// Noiz2saより、回る棒。by 白い弾幕くん
   /// [Noiz2sa]_rollbar.xml
   let rollbar = 
-    createBulletmlInfo "Noiz2saより、回る棒。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Noiz2saより、回る棒。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top1";},
            [Fire

@@ -9,10 +9,12 @@ module EspRade =
   /// エスプレイド、最終面後半「アリスクローン」by 白い弾幕くん
   /// [ESP_RADE]_round_5_alice_clone.xml
   let round_5_alice_clone =
-    createBulletmlInfo "エスプレイド、最終面後半「アリスクローン」by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、最終面後半「アリスクローン」by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Fire
           ({fireLabel = Some "alice";},Some (Direction (None,"$rand*360")),
            Some (Speed (None,"8")),
@@ -37,10 +39,12 @@ module EspRade =
   /// エスプレイド、無敵の軍神アレス第二形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_ares_2.xml
   let round_5_boss_ares_2 = 
-    createBulletmlInfo "エスプレイド、無敵の軍神アレス第二形態 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "エスプレイド、無敵の軍神アレス第二形態 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "Stop";},
            [ChangeSpeed (Speed (None,"0"),Term "1")]);
@@ -234,10 +238,12 @@ module EspRade =
   /// エスプレイド、ガラ婦人第一形態の片方 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_1_a.xml
   let round_5_boss_gara_1_a =
-    createBulletmlInfo "エスプレイド、ガラ婦人第一形態の片方 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、ガラ婦人第一形態の片方 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "sequenceThree";},
            [Fire
@@ -295,10 +301,12 @@ module EspRade =
   /// エスプレイド、ガラ第一形態のもう一方 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_1_b.xml
   let round_5_boss_gara_1_b =
-    createBulletmlInfo "エスプレイド、ガラ第一形態のもう一方 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、ガラ第一形態のもう一方 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "8way2";},
            [Fire
@@ -368,10 +376,12 @@ module EspRade =
   /// エスプレイド、ガラ婦人第二形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_2.xml
   let round_5_boss_gara_2 =
-    createBulletmlInfo "エスプレイド、ガラ婦人第二形態 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、ガラ婦人第二形態 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "featherShot";},None,Some (Speed (None,"6")),
            [Action
@@ -426,10 +436,12 @@ module EspRade =
   /// エスプレイド、ガラ第三形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_3.xml
   let round_5_boss_gara_3 =
-    createBulletmlInfo "エスプレイド、ガラ第三形態 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、ガラ第三形態 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "stop";},
            [Wait "15"; ChangeSpeed (Speed (None,"0"),Term "1"); Wait "1"]);
@@ -566,10 +578,12 @@ module EspRade =
   /// エスプレイド、ガラ婦人第四形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_4.xml
   let round_5_boss_gara_4 =
-    createBulletmlInfo "エスプレイド、ガラ婦人第四形態 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、ガラ婦人第四形態 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "featherShot";},None,Some (Speed (None,"7")),
            [Action
@@ -620,10 +634,12 @@ module EspRade =
   /// エスプレイド、ガラ婦人最終形態 by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_gara_5.xml
   let round_5_boss_gara_5 =
-    createBulletmlInfo "エスプレイド、ガラ婦人最終形態 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、ガラ婦人最終形態 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "accel";},
            [ChangeDirection (Direction (None,"360*$rand"),Term "1");
@@ -696,10 +712,12 @@ module EspRade =
   /// エスプレイド、五行覚師、発狂。by 白い弾幕くん
   /// [ESP_RADE]_round_5_boss_kakusi_hakkyou.xml
   let round_5_boss_kakusi_hakkyou =
-    createBulletmlInfo "エスプレイド、五行覚師、発狂。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、五行覚師、発狂。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "6shots";},None,Some (Speed (None,"3")),
            [Action
@@ -769,10 +787,12 @@ module EspRade =
   /// エスプレイド、1-3面のボスとなる、IZUNA発狂 by 白い弾幕くん
   /// [ESP_RADE]_round_123_boss_izuna_hakkyou.xml
   let round_123_boss_izuna_hakkyou =
-    createBulletmlInfo "エスプレイド、1-3面のボスとなる、IZUNA発狂 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "エスプレイド、1-3面のボスとなる、IZUNA発狂 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "Red";},None,None,[Action ({actionLabel = None;},[])]);
         BulletmlElm.Bullet
@@ -913,10 +933,12 @@ module EspRade =
   /// エスプレイド、1-3面のボスとなる、ペラボーイ発狂 by 白い弾幕くん
   /// [ESP_RADE]_round_123_boss_pelaboy_hakkyou.xml
   let round_123_boss_pelaboy_hakkyou =
-    createBulletmlInfo "エスプレイド、1-3面のボスとなる、ペラボーイ発狂 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "エスプレイド、1-3面のボスとなる、ペラボーイ発狂 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "Red";},None,None,[Action ({actionLabel = None;},[])]);
         BulletmlElm.Bullet
@@ -1122,10 +1144,12 @@ module EspRade =
   /// エスプレイド、1-3面のボスとなる、近江悟君 by 白い弾幕くん
   /// [ESP_RADE]_round_123_boss_satoru_5way.xml
   let round_123_boss_satoru_5way =
-    createBulletmlInfo "エスプレイド、1-3面のボスとなる、近江悟君 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "エスプレイド、1-3面のボスとなる、近江悟君 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "1way";},
            [Fire

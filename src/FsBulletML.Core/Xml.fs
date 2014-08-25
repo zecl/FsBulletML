@@ -14,10 +14,40 @@ open System.Xml.Resolvers
 
 [<AutoOpen>]
 module Xml =
+
+  let read xmlUri reader =
+    let readAttributes (reader : XmlReader) = 
+      if reader.HasAttributes then
+        [ while reader.MoveToNextAttribute() do
+            yield (reader.Name, reader.Value) ]
+      else []
+
+    let rec read (reader : XmlReader)  = 
+      seq {
+        if reader.Read() then
+          match reader.NodeType with
+          | XmlNodeType.EndElement -> ()
+          | XmlNodeType.Element ->
+            let reader' = (reader.ReadSubtree() |> (fun reader' -> reader'.Read() |> ignore; reader'))
+            yield Element (reader.Name, readAttributes reader, reader' |> read |> List.ofSeq)
+            yield! read reader
+          | XmlNodeType.Whitespace ->
+            yield! read reader
+          | XmlNodeType.Text ->
+            yield PCData reader.Value
+            yield! read reader
+          | XmlNodeType.XmlDeclaration 
+          | XmlNodeType.DocumentType ->
+            yield! read reader
+          | _ -> 
+            yield! read reader 
+        else () }
+    reader |> read |> List.ofSeq |> List.head
+
 #if NET40
   let resolver = new XmlPreloadedResolver(new XmlUrlResolver(), XmlKnownDtds.Xhtml10)
-  let readerSettingsIndented dtdProcessing = new XmlReaderSettings(DtdProcessing = dtdProcessing, ValidationType = ValidationType.DTD, XmlResolver = resolver, IgnoreComments = true, IgnoreProcessingInstructions = true)
-  let readerSettingsIgnoreWhitespace dtdProcessing = new XmlReaderSettings(DtdProcessing = dtdProcessing, ValidationType = ValidationType.DTD, XmlResolver = resolver, IgnoreComments = true, IgnoreProcessingInstructions = true, IgnoreWhitespace = true)
+  let readerSettingsIndented = new XmlReaderSettings(DtdProcessing = DtdProcessing.Ignore, ValidationType = ValidationType.DTD, XmlResolver = resolver, IgnoreComments = true, IgnoreProcessingInstructions = true)
+  let readerSettingsIgnoreWhitespace = new XmlReaderSettings(DtdProcessing = DtdProcessing.Ignore, ValidationType = ValidationType.DTD, XmlResolver = resolver, IgnoreComments = true, IgnoreProcessingInstructions = true, IgnoreWhitespace = true)
 #endif
 #if NET35
   let readerSettingsIndented = 
@@ -33,7 +63,7 @@ module Xml =
     settings 
 #endif
 
-  let readXml xmlUri settings = 
+  let loadXml xmlUri settings = 
     let rec read (reader:XmlReader) = 
       seq { 
         if reader.Read() then
@@ -105,43 +135,13 @@ module Xml =
 
 
     [<Extension>]
-    static member Read (xmlUri, reader:XmlReader) = 
-      let readAttributes (reader : XmlReader) = 
-        if reader.HasAttributes then
-          [ while reader.MoveToNextAttribute() do
-              yield (reader.Name, reader.Value) ]
-        else []
-
-      let rec read (reader : XmlReader)  = 
-        seq {
-          if reader.Read() then
-            match reader.NodeType with
-            | XmlNodeType.EndElement -> ()
-            | XmlNodeType.Element ->
-              let reader' = (reader.ReadSubtree() |> (fun reader' -> reader'.Read() |> ignore; reader'))
-              yield Element (reader.Name, readAttributes reader, reader' |> read |> List.ofSeq)
-              yield! read reader
-            | XmlNodeType.Whitespace ->
-              yield! read reader
-            | XmlNodeType.Text ->
-              yield PCData reader.Value
-              yield! read reader
-            | XmlNodeType.XmlDeclaration 
-            | XmlNodeType.DocumentType ->
-              yield! read reader
-            | _ -> 
-              yield! read reader 
-          else () }
-      reader |> read |> List.ofSeq |> List.head
-
-
+    static member Read (xmlUri, reader:XmlReader) =  read xmlUri reader
 
 #if NET40
     [<Extension>]
-    static member ReadXmlString (xml : string, ?dtdProcessing) : AST.XmlNode = 
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
+    static member ReadXmlString (xml : string) : AST.XmlNode = 
       use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
+      use reader = XmlReader.Create(reader, readerSettingsIndented) 
       XmlNode.Read(xml, reader) 
 #endif
 #if NET35
@@ -149,94 +149,76 @@ module Xml =
     static member ReadXmlString (xml : string) : AST.XmlNode = 
       use reader = new System.IO.StringReader(xml)
       use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.Read(xml, reader) 
+      read xml reader
 #endif
 
 #if NET40
     [<Extension>]
-    static member ReadXml (xmlUri : string, ?dtdProcessing) : AST.XmlNode =
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = XmlReader.Create((xmlUri:string), readerSettingsIndented dtdProcessing) 
+    static member ReadXml (xmlUri : string) : AST.XmlNode =
+      use reader = XmlReader.Create((xmlUri:string), readerSettingsIndented) 
       XmlNode.Read(xmlUri, reader) 
 #endif
 #if NET35
     [<Extension>]
     static member ReadXml (xmlUri : string) : AST.XmlNode =
       use reader = XmlReader.Create((xmlUri:string), readerSettingsIndented) 
-      XmlNode.Read(xmlUri, reader) 
+      read xmlUri reader
 #endif
-
 
 #if NET40
     [<Extension>]
-    static member ReadIndentedString (xmlUri : string, ?dtdProcessing) : string = 
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      (xmlUri,readerSettingsIndented dtdProcessing) ||> readXml
+    static member ReadIndentedString (xmlUri : string) : string = 
+      (xmlUri,readerSettingsIndented) ||> loadXml
 #endif
 #if NET35
     static member ReadIndentedString (xmlUri : string) : string = 
-      (xmlUri,readerSettingsIndented) ||> readXml
+      (xmlUri,readerSettingsIndented) ||> loadXml
 #endif
 
 #if NET40
     [<Extension>]
-    static member ReadIgnoreWhitespaceString (xmlUri : string, ?dtdProcessing) : string =
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      (xmlUri,readerSettingsIgnoreWhitespace dtdProcessing) ||> readXml
+    static member ReadIgnoreWhitespaceString (xmlUri : string) : string =
+      (xmlUri,readerSettingsIgnoreWhitespace) ||> loadXml
 #endif
 #if NET35
     static member ReadIgnoreWhitespaceString (xmlUri : string) : string =
-      (xmlUri,readerSettingsIgnoreWhitespace) ||> readXml
-#endif
-  [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
-  module Bulletml =
-
-#if NET40
-    [<CompiledName "ReadXmlString">]
-    let readXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]dtdProcessing) : Bulletml = 
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
-      XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
-    [<CompiledName "TryReadXmlString">]
-    let tryReadXmlString (xml : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]dtdProcessing) : Bulletml option = 
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented dtdProcessing) 
-      XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
-#endif
-#if NET35
-    [<CompiledName "ReadXmlString">]
-    let readXmlString (xml : string) : Bulletml = 
-      use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
-    [<CompiledName "TryReadXmlString">]
-    let tryReadXmlString (xml : string) : Bulletml option = 
-      use reader = new System.IO.StringReader(xml)
-      use reader = XmlReader.Create(reader, readerSettingsIndented) 
-      XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
+      (xmlUri,readerSettingsIgnoreWhitespace) ||> loadXml
 #endif
 
 #if NET40
-    [<CompiledName "ReadXml">]
-    let readXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]dtdProcessing) : Bulletml =
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented dtdProcessing) 
-      XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
-    [<CompiledName "TryReadXml">]
-    let tryReadXml (xmlFile : string, [<Optional; DefaultParameterValue(DtdProcessing.Ignore)>]dtdProcessing) : Bulletml option =
-      let dtdProcessing = defaultArg dtdProcessing DtdProcessing.Ignore
-      use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented dtdProcessing) 
-      XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
+  let readXmlString (xml : string) : Bulletml = 
+    use reader = new System.IO.StringReader(xml)
+    use reader = XmlReader.Create(reader, readerSettingsIndented) 
+    XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
+  let tryReadXmlString (xml : string) : Bulletml option = 
+    use reader = new System.IO.StringReader(xml)
+    use reader = XmlReader.Create(reader, readerSettingsIndented) 
+    XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
 #endif
 #if NET35
-    [<CompiledName "ReadXml">]
-    let readXml (xmlFile : string) : Bulletml =
-      use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
-      XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
-    [<CompiledName "TryReadXml">]
-    let tryReadXml (xmlFile : string) : Bulletml option =
-      use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
-      XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
+  let readXmlString (xml : string) : Bulletml = 
+    use reader = new System.IO.StringReader(xml)
+    use reader = XmlReader.Create(reader, readerSettingsIndented) 
+    XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
+  let tryReadXmlString (xml : string) : Bulletml option = 
+    use reader = new System.IO.StringReader(xml)
+    use reader = XmlReader.Create(reader, readerSettingsIndented) 
+    XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
+#endif
+
+#if NET40
+  let readXml (xmlFile : string) : Bulletml =
+    use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
+    XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
+  let tryReadXml (xmlFile : string) : Bulletml option =
+    use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
+    XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
+#endif
+#if NET35
+  let readXml (xmlFile : string) : Bulletml =
+    use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
+    XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
+  let tryReadXml (xmlFile : string) : Bulletml option =
+    use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
+    XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
 #endif

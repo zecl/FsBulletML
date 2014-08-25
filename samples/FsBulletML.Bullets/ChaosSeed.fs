@@ -9,10 +9,12 @@ module ChaosSeed =
   /// カオスシード、大猿ボス。by 白い弾幕くん
   /// [ChaosSeed]_big_monkey_boss.xml
   let big_monkey_boss =
-    createBulletmlInfo "カオスシード、大猿ボス。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "カオスシード、大猿ボス。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "roll";},None,None,
            [Action
@@ -49,8 +51,7 @@ module ChaosSeed =
                  ({actionLabel = None;},
                   [Fire
                      ({fireLabel = None;},
-                      Some (Direction (Some {directionType = Aim;},"-90+180*$rand"))
-    ,
+                      Some (Direction (Some {directionType = Aim;},"-90+180*$rand")),
                       Some (Speed (None,"$rand*3+1")),
                       BulletRef ({bulletRefLabel = "explosionBullet";},[]));
                    Wait "90-$rank*60"]))])])

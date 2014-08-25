@@ -33,6 +33,12 @@
     <DocumentationFile>bin\Release\net35\FsBulletML.Unity2D.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FsBulletML.Bullets">
+      <HintPath>..\..\samples\FsBulletML.Bullets\bin\Release\net35\FsBulletML.Bullets.dll</HintPath>
+    </Reference>
+    <Reference Include="FsBulletML.Core">
+      <HintPath>..\FsBulletML.Core\bin\Release\net35\FsBulletML.Core.dll</HintPath>
+    </Reference>
     <Reference Include="FSharp.Core">
       <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\FSharp\.NETFramework\v2.0\2.3.0.0\FSharp.Core.dll</HintPath>
       <Private>True</Private>
@@ -41,7 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\Program Files (x86)\Unity\Editor\Data\PlaybackEngines\windows64standaloneplayer\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -53,18 +59,6 @@
     <Compile Include="InstanceManager.fs" />
     <Compile Include="DefaultBullet.fs" />
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\samples\FsBulletML.Bullets\FsBulletML.Bullets.fsproj">
-      <Name>FsBulletML.Bullets</Name>
-      <Project>{f0bad024-5c63-4c24-b9c8-3d8326ce8fd7}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\FsBulletML.Core\FsBulletML.Core.fsproj">
-      <Name>FsBulletML.Core</Name>
-      <Project>{deda69b5-2853-4192-a886-56194610391c}</Project>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

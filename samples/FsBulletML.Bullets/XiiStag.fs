@@ -9,10 +9,12 @@ module XiiStag =
   /// トゥエルブスタッグ３ボス by 白い弾幕くん
   /// [XII_STAG]_3b.xml
   let b3b = 
-    createBulletmlInfo "トゥエルブスタッグ３ボス by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "トゥエルブスタッグ３ボス by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "bara";},["1"]);

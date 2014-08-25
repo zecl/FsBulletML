@@ -9,10 +9,12 @@ module GDarius =
   /// Gダライアス中のホーミングレーザー by 白い弾幕くん
   /// [G_DARIUS]_homing_laser.xml
   let homing_laser =
-    createBulletmlInfo "Gダライアス中のホーミングレーザー by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletHorizontal;},
+        bulletmlType = Some BulletHorizontal;
+        bulletmlName = Some "Gダライアス中のホーミングレーザー by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat

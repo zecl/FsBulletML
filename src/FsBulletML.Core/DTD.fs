@@ -116,7 +116,7 @@ module DTD =
     member private t.ToStructuredDisplay = t.ToString()
     override t.ToString () = stringifyFullName t 
 
-  type BulletmlAttrs = { bulletmlXmlns : string option; bulletmlType : ShootingDirection option}
+  type BulletmlAttrs = { bulletmlXmlns : string option; bulletmlType : ShootingDirection option; bulletmlName : string option; bulletmlDescription : string option }
   and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]ShootingDirection = 
   | BulletNone // Default 
   | BulletVertical 
@@ -534,6 +534,21 @@ module DTD =
     override t.ToString () = stringifyFullName t 
     member this.ToNodeString() = 
       this.ToString().Replace("null","None")
+    member this.Type
+        with get() = 
+            match this with
+            | Bulletml (x,_) -> x.bulletmlType
+            | _ -> None
+    member this.Name
+        with get() = 
+            match this with
+            | Bulletml (x,_) -> x.bulletmlName   
+            | _ -> None
+    member this.Description
+        with get() = 
+            match this with
+            | Bulletml (x,_) -> x.bulletmlDescription 
+            | _ -> None
 
   and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]BulletmlElm =
   | Bullet of BulletAttrs * Direction option * Speed option * ActionElm list 

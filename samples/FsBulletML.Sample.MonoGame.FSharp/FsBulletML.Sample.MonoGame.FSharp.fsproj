@@ -16,6 +16,18 @@
     <TargetFrameworkProfile />
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug 4.5|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
+    <DefineConstants>DEBUG;TRACE;NET40</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>bin\Debug\net45\FsBulletML.Sample.XML</DocumentationFile>
+    <Prefer32Bit>true</Prefer32Bit>
+    <OutputPath>bin\Debug\net45\</OutputPath>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug 4.0|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -40,6 +52,18 @@
     <DocumentationFile>in\Debug\net35\FsBulletML.Sample.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release 4.5|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>bin\Release\net45\FsBulletML.Sample.XML</DocumentationFile>
+    <Prefer32Bit>true</Prefer32Bit>
+    <OutputPath>bin\Release\net45\</OutputPath>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release 4.0|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -62,52 +86,6 @@
     <DocumentationFile>bin\Release\net35\FsBulletML.Sample.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\FSharp\.NETFramework\v4.0\4.3.0.0\FSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="IEnemy.fs" />
-    <Compile Include="Enemy.fs" />
-    <Compile Include="Player.fs" />
-    <Compile Include="Fps.fs" />
-    <Compile Include="Particle.fs" />
-    <Compile Include="ParticleEmitter.fs" />
-    <Compile Include="Background.fs" />
-    <Compile Include="FsBulletMLSampleGame.fs" />
-    <Compile Include="BulletFunctions.fs" />
-    <Compile Include="Program.fs" />
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\FsBulletML.Core\FsBulletML.Core.fsproj">
-      <Name>FsBulletML.Core</Name>
-      <Project>{deda69b5-2853-4192-a886-56194610391c}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\FsBulletML.MonoGame\FsBulletML.MonoGame.fsproj">
-      <Name>FsBulletML.MonoGame</Name>
-      <Project>{2e7eb854-10c6-48c8-b389-1410abf0f5f8}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\FsBulletML.Parser\FsBulletML.Parser.fsproj">
-      <Name>FsBulletML.Parser</Name>
-      <Project>{0094caf8-9f7b-4f2e-948b-dc51ae2ceac6}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\FsBulletML.Bullets\FsBulletML.Bullets.fsproj">
-      <Name>FsBulletML.Bullets</Name>
-      <Project>{f0bad024-5c63-4c24-b9c8-3d8326ce8fd7}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -126,6 +104,57 @@
   <Import Project="$(FSharpTargetsPath)" Condition="Exists('$(FSharpTargetsPath)')" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets" Condition="Exists('..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" />
+  <ItemGroup>
+    <Compile Include="IEnemy.fs" />
+    <Compile Include="Enemy.fs" />
+    <Compile Include="Player.fs" />
+    <Compile Include="Fps.fs" />
+    <Compile Include="Particle.fs" />
+    <Compile Include="ParticleEmitter.fs" />
+    <Compile Include="Background.fs" />
+    <Compile Include="FsBulletMLSampleGame.fs" />
+    <Compile Include="BulletFunctions.fs" />
+    <Compile Include="Program.fs" />
+    <None Include="packages.config" />
+    <Content Include="homing.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FsBulletML.Core\FsBulletML.Core.fsproj">
+      <Name>FsBulletML.Core</Name>
+      <Project>{deda69b5-2853-4192-a886-56194610391c}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\FsBulletML.MonoGame\FsBulletML.MonoGame.fsproj">
+      <Name>FsBulletML.MonoGame</Name>
+      <Project>{2e7eb854-10c6-48c8-b389-1410abf0f5f8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\FsBulletML.Parser\FsBulletML.Parser.fsproj">
+      <Name>FsBulletML.Parser</Name>
+      <Project>{0094caf8-9f7b-4f2e-948b-dc51ae2ceac6}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\FsBulletML.TypeProviders\FsBulletML.TypeProviders.fsproj">
+      <Name>FsBulletML.TypeProviders</Name>
+      <Project>{5dc5e201-d1ee-4f3e-adbc-6f76d6a19cb8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\FsBulletML.Bullets\FsBulletML.Bullets.fsproj">
+      <Name>FsBulletML.Bullets</Name>
+      <Project>{f0bad024-5c63-4c24-b9c8-3d8326ce8fd7}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -9,7 +9,9 @@ module Attribute =
   let actionRefAttr = { actionRefLabel = "actionRefName" } 
   let bulletAttr = { bulletLabel = Some "bulletName" } 
   let bulletmlAttr = { bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml"; 
-                       bulletmlType = Some ShootingDirection.BulletVertical } 
+                       bulletmlType = Some ShootingDirection.BulletVertical 
+                       bulletmlName = Some "No Name"
+                       bulletmlDescription = None} 
   let bulletRefAttr = { bulletRefLabel = "bulletRefName" } 
   let directionAttr = { directionType = DirectionType.Aim } 
   let fireAttr = { fireLabel = Some "fireName" } 
@@ -20,7 +22,7 @@ module Attribute =
 
 [<AutoOpen>]
 module Top = 
-  let bulletml = Bulletml({ bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml"; bulletmlType = Some ShootingDirection.BulletVertical }, 
+  let bulletml = Bulletml({ bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml"; bulletmlType = Some ShootingDirection.BulletVertical; bulletmlName = Some "No Name"; bulletmlDescription = None}, 
                     []) 
   let horizontal = Horizontal ( Some { horizontalType = HorizontalType.Absolute }, "1") 
   let vertical = Vertical ( Some { verticalType = VerticalType.Absolute }, "1") 

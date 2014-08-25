@@ -15,55 +15,95 @@ open FsBulletML.Processable
 [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 module Bulletml = 
 
+  let readXmlString (xml : string) : Bulletml = 
+    use reader = new System.IO.StringReader(xml)
+    use reader = XmlReader.Create(reader, readerSettingsIndented) 
+    XmlNode.Read(xml, reader) |> IntermediateParser.convertBulletmlFromXmlNode
+
+  let tryReadXmlString (xml : string) : Bulletml option = 
+    use reader = new System.IO.StringReader(xml)
+    use reader = XmlReader.Create(reader, readerSettingsIndented) 
+    XmlNode.Read(xml, reader) |> IntermediateParser.tryBulletmlFromXmlNode
+
+  let readXml (xmlFile : string) : Bulletml =
+    use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
+    XmlNode.Read(xmlFile, reader) |> IntermediateParser.convertBulletmlFromXmlNode
+
+  let tryReadXml (xmlFile : string) : Bulletml option =
+    use reader = XmlReader.Create((xmlFile:string), readerSettingsIndented) 
+    XmlNode.Read(xmlFile, reader) |> IntermediateParser.tryBulletmlFromXmlNode
+
+  let readSxmlString (sxml : string) : Bulletml =
+    match Sxml.parse sxml with 
+    | Success (r,_,_) -> r |> IntermediateParser.convertBulletmlFromXmlNode 
+    | Failure (_,_,_) -> failwith "sxml parse error"
+
+  let tryReadSxmlString (sxml : string) : Bulletml option =
+    match Sxml.parse sxml with 
+    | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode 
+    | Failure (_,_,_) -> None
+
+  let readSxml (sxmlFile : string) : Bulletml =
+    match Sxml.parseFromFile sxmlFile with 
+    | Success (r,_,_) -> r |> IntermediateParser.convertBulletmlFromXmlNode 
+    | Failure (_,_,_) -> failwith "sxml parse error"
+
+  let tryReadSxml (sxmlFile : string) : Bulletml option =
+    match Sxml.parseFromFile sxmlFile with 
+    | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode 
+    | Failure (_,_,_) -> None
+
+  let readFsbString (fsb: string) : Bulletml =
+    match Offside.parse fsb with 
+    | Success (r,_,_) -> r |> IntermediateParser.convertBulletmlFromXmlNode
+    | Failure (_,_,_) -> failwith "fsb parse error"
+
+  let tryReadFsbString (fsb: string) : Bulletml option =
+    match Offside.parse fsb with 
+    | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode
+    | Failure (_,_,_) -> None
+
+  let readFsb (fsbFile : string) : Bulletml =
+    match Offside.parseFromFile fsbFile with 
+    | Success (r,_,_) -> r |> IntermediateParser.convertBulletmlFromXmlNode
+    | Failure (_,_,_) -> failwith "fsb parse error"
+
+  let tryReadFsb (fsbFile : string) : Bulletml option =
+    match Offside.parseFromFile fsbFile with 
+    | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode
+    | Failure (_,_,_) -> None
+
   type Bulletml with
 
+    [<CompiledName "ReadXmlString">]
+    static member ReadXmlString (xml : string) : Bulletml = readXmlString xml
+
+    [<CompiledName "TryReadXmlString">]
+    static member TryReadXmlString (xml : string) : Bulletml option = tryReadXmlString xml
+
     [<CompiledName "ReadSxmlString">]
-    static member ReadSxmlString (sxml : string) : Bulletml =
-      match Sxml.parse sxml with 
-      | Success (r,_,_) -> r |> IntermediateParser.convertBulletmlFromXmlNode 
-      | Failure (_,_,_) -> failwith "sxml parse error"
+    static member ReadSxmlString (sxml : string) : Bulletml = readSxmlString sxml
 
     [<CompiledName "TryReadSxmlString">]
-    static member TryReadSxmlString (sxml : string) : Bulletml option =
-      match Sxml.parse sxml with 
-      | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode 
-      | Failure (_,_,_) -> None
+    static member TryReadSxmlString (sxml : string) : Bulletml option = tryReadSxmlString sxml
 
     [<CompiledName "ReadSxml">]
-    static member ReadSxml (sxmlFile : string) : Bulletml =
-      match Sxml.parseFromFile sxmlFile with 
-      | Success (r,_,_) -> r |> IntermediateParser.convertBulletmlFromXmlNode 
-      | Failure (_,_,_) -> failwith "sxml parse error"
+    static member ReadSxml (sxmlFile : string) : Bulletml = readSxml sxmlFile
 
     [<CompiledName "TryReadSxml">]
-    static member TryReadSxml (sxmlFile : string) : Bulletml option =
-      match Sxml.parseFromFile sxmlFile with 
-      | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode 
-      | Failure (_,_,_) -> None
+    static member TryReadSxml (sxmlFile : string) : Bulletml option = tryReadSxml sxmlFile
 
     [<CompiledName "ReadFsbString">]
-    static member ReadFsbString (fsb: string) : Bulletml =
-      match Offside.parse fsb with 
-      | Success (r,_,_) -> r |> IntermediateParser.convertBulletmlFromXmlNode
-      | Failure (_,_,_) -> failwith "fsb parse error"
+    static member ReadFsbString (fsb: string) : Bulletml = readFsbString fsb
 
     [<CompiledName "TryReadFsbString">]
-    static member TryReadFsbString (fsb: string) : Bulletml option =
-      match Offside.parse fsb with 
-      | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode
-      | Failure (_,_,_) -> None
+    static member TryReadFsbString (fsb: string) : Bulletml option = tryReadFsbString fsb
 
     [<CompiledName "ReadFsb">]
-    static member ReadFsb (fsbFile : string) : Bulletml =
-      match Offside.parseFromFile fsbFile with 
-      | Success (r,_,_) -> r |> IntermediateParser.convertBulletmlFromXmlNode
-      | Failure (_,_,_) -> failwith "fsb parse error"
+    static member ReadFsb (fsbFile : string) : Bulletml = readFsb fsbFile
 
     [<CompiledName "TryReadFsb">]
-    static member TryReadFsb (fsbFile : string) : Bulletml option =
-      match Offside.parseFromFile fsbFile with 
-      | Success (r,_,_) -> r |> IntermediateParser.tryBulletmlFromXmlNode
-      | Failure (_,_,_) -> None
+    static member TryReadFsb (fsbFile : string) : Bulletml option = tryReadFsb fsbFile
 
     member this.ToXmlString() =
       let recBulletml = this |> IntermediateParser.convertRecBulletml 

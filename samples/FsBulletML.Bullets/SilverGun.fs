@@ -9,10 +9,12 @@ module SilverGun =
   /// レイディアントシルバーガン4Dボス、PENTA。by 白い弾幕くん
   /// [SilverGun]_4D_boss_PENTA.xml
   let b4D_boss_PENTA =
-    createBulletmlInfo "レイディアントシルバーガン4Dボス、PENTA。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "レイディアントシルバーガン4Dボス、PENTA。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire

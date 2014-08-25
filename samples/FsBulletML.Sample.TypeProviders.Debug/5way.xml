@@ -1,0 +1,19 @@
+<bulletml type="vertical" name="前方5way弾">
+    <action label='top'>
+        <fire>
+            <direction type="relative">-20</direction>
+            <speed>10</speed>
+            <bullet/>
+        </fire>
+        <repeat>
+            <times>777</times>
+            <action>
+                <fire>
+                    <direction type='sequence'>10</direction>
+                    <speed>10</speed>
+                    <bullet/>
+                </fire>
+            </action>
+        </repeat>
+    </action>
+</bulletml>

@@ -9,10 +9,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その二。by 白い弾幕くん
   /// [Bulletsmorph]_aba_2.xml
   let aba_2 =  
-    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その二。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Bulletsmorphで生成。紋章遺伝学その二。by 白い弾幕くん";
+        bulletmlDescription = None},
         [BulletmlElm.Action
           ({actionLabel = Some "top";},
             [Repeat
@@ -63,10 +65,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その三。by 白い弾幕くん
   /// [Bulletsmorph]_aba_3.xml
   let aba_3 =
-    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その三。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Bulletsmorphで生成。紋章遺伝学その三。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -133,10 +137,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その四。by 白い弾幕くん
   /// [Bulletsmorph]_aba_4.xml
   let aba_4 =
-    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その四。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Bulletsmorphで生成。紋章遺伝学その四。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -183,10 +189,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その五。by 白い弾幕くん
   /// [Bulletsmorph]_aba_5.xml
   let aba_5 =
-    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その五。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Bulletsmorphで生成。紋章遺伝学その五。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -279,10 +287,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その六。by 白い弾幕くん
   /// [Bulletsmorph]_aba_6.xml
   let aba_6 =
-    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その六。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Bulletsmorphで生成。紋章遺伝学その六。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "allway";},[]);
@@ -437,10 +447,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。紋章遺伝学その七。by 白い弾幕くん
   /// [Bulletsmorph]_aba_7.xml
   let aba_7 =
-    createBulletmlInfo "Bulletsmorphで生成。紋章遺伝学その七。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Bulletsmorphで生成。紋章遺伝学その七。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -513,10 +525,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。収束全方位弾。by 白い弾幕くん
   /// [Bulletsmorph]_convergent.xml
   let convergent = 
-    createBulletmlInfo "Bulletsmorphで生成。収束全方位弾。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Bulletsmorphで生成。収束全方位弾。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -571,10 +585,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。ダブルいろじかけ。by 白い弾幕くん
   /// [Bulletsmorph]_double_seduction.xml
   let double_seduction =
-    createBulletmlInfo "Bulletsmorphで生成。ダブルいろじかけ。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "Bulletsmorphで生成。ダブルいろじかけ。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -642,10 +658,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。落下するひも。by 白い弾幕くん
   /// [Bulletsmorph]_fallen_string.xml
   let fallen_string = 
-    createBulletmlInfo "Bulletsmorphで生成。落下するひも。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "Bulletsmorphで生成。落下するひも。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -733,10 +751,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。くねくねと誘導弾。 by 白い弾幕くん                         
   /// [Bulletsmorph]_kunekune_plus_homing.xml
   let kunekune_plus_homing =
-    createBulletmlInfo "Bulletsmorphで生成。くねくねと誘導弾。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "Bulletsmorphで生成。くねくねと誘導弾。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -813,10 +833,12 @@ module Bulletsmorph =
   /// Bulletsmorphで生成。悟君が4人。by 白い弾幕くん
   /// [Bulletsmorph]_satoru4.xml
   let satoru4 =
-    createBulletmlInfo "Bulletsmorphで生成。悟君が4人。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "Bulletsmorphで生成。悟君が4人。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "impl:100";},[]); Wait "80"]);

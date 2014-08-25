@@ -9,10 +9,12 @@ module Psyvariar =
   /// サイヴァリア4-Dボス、MZIQかも。by 白い弾幕くん
   /// [Psyvariar]_4-D_boss_MZIQ.xml
   let b4_D_boss_MZIQ =
-    createBulletmlInfo "サイヴァリア4-Dボス、MZIQかも。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "サイヴァリア4-Dボス、MZIQかも。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "add11";},
            [Repeat
@@ -53,10 +55,12 @@ module Psyvariar =
   /// サイヴァリア、多分最終面ボス。by 白い弾幕くん
   /// [Psyvariar]_X-A_boss_opening.xml
   let X_A_boss_opening =
-    createBulletmlInfo "サイヴァリア、多分最終面ボス。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "サイヴァリア、多分最終面ボス。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -72,10 +76,12 @@ module Psyvariar =
   /// サイヴァリア、多分最終面ボス。by 白い弾幕くん
   /// [Psyvariar]_X-A_boss_winder.xml
   let X_A_boss_winder =
-    createBulletmlInfo "サイヴァリア、多分最終面ボス。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "サイヴァリア、多分最終面ボス。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "winderBullet";},None,Some (Speed (None,"3")),[]);
         BulletmlElm.Fire

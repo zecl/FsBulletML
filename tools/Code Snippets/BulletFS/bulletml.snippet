@@ -24,9 +24,21 @@
               <Default>BulletVertical</Default>
               <Function></Function>
             </Literal>
+            <Literal Editable="true">
+              <ID>param3</ID>
+              <ToolTip>bulletml name</ToolTip>
+              <Default>No Name</Default>
+              <Function></Function>
+            </Literal>
+            <Literal Editable="true">
+              <ID>param4</ID>
+              <ToolTip>bulletml description</ToolTip>
+              <Default>None</Default>
+              <Function></Function>
+            </Literal>
           </Declarations>
           <Code Language="fsharp">
-            <![CDATA[Bulletml({ bulletmlXmlns = Some "$param1$"; bulletmlType = Some ShootingDirection.$param2$ }, 
+            <![CDATA[Bulletml({ bulletmlXmlns = Some "$param1$"; bulletmlType = Some ShootingDirection.$param2$; bulletmlName = Some "$param3$"; bulletmlDescription = $param4$ }, 
     []) $end$]]>
           </Code>
         </Snippet>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>FsBulletML.TypeProviders</title>
+    <authors>zecl</authors>
+    <owners>zecl</owners>
+    <licenseUrl>https://github.com/zecl/FsBulletML/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/zecl/FsBulletML</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <tags>f# library game DSL BulletML TypeProvider</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Xml"/>
+      <frameworkAssembly assemblyName="System.Xml.Linq"/>
+    </frameworkAssemblies>
+    <dependencies>
+        <dependency id="FsBulletML.Core" version="0.9.0"/>
+        <dependency id="FsBulletML.Parser" version="0.8.6"/>
+    </dependencies>
+  </metadata>
+
+  <files>
+    <file src="bin\Release\net45\FsBulletML.TypeProviders.dll" target="lib\net45\FsBulletML.TypeProviders.dll" />
+    <file src="bin\Release\net45\FsBulletML.TypeProviders.xml" target="lib\net45\FsBulletML.TypeProviders.xml" />
+  </files>
+</package>

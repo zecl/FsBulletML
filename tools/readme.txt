@@ -1,7 +1,7 @@
-FsBulletML‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä’¸‚«‚ ‚è‚ª‚Æ‚¤‚²‚´‚¢‚Ü‚·B
+FsBulletMLã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦é ‚ãã‚ã‚ŠãŒã¨ã†ã”ã–ã„ã¾ã™ã€‚
 
-"packages\FsBulletML.Core.0.8.8\tools\Code Snipets"‚ÉAƒR[ƒhƒXƒjƒyƒbƒg‚ªƒ_ƒEƒ“ƒ[ƒh‚³‚ê‚Ä‚¢‚Ü‚·B
+"packages\FsBulletML.Core.*.*.*\tools\Code Snipets"ã«ã€ã‚³ãƒ¼ãƒ‰ã‚¹ãƒ‹ãƒšãƒƒãƒˆãŒãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ã¾ã™ã€‚
 
 
-Šg’£‹@”\uF# snippet(VS2012 or VS2013)v‚ð“±“ü‚Ìã‚²—˜—p‚­‚¾‚³‚¢B
+æ‹¡å¼µæ©Ÿèƒ½ã€ŒF# snippet(VS2012 or VS2013)ã€ã‚’å°Žå…¥ã®ä¸Šã”åˆ©ç”¨ãã ã•ã„ã€‚
 http://visualstudiogallery.msdn.microsoft.com/d19080ad-d44c-46ae-b65c-55cede5f708b

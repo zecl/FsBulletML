@@ -9,10 +9,12 @@ module Xevious =
   /// ゼビウス、らしい。 by 白い弾幕くん
   /// [XEVIOUS]_garu_zakato.xml
   let garu_zakato =
-    createBulletmlInfo "ゼビウス、らしい。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "ゼビウス、らしい。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat

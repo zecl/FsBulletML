@@ -9,10 +9,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、地形トラップ風味 by 白い弾幕くん
   /// [MDA]_2f.xml
   let b2f =
-    createBulletmlInfo "紫月飴さんのオリジナル、地形トラップ風味 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、地形トラップ風味 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [FireRef
@@ -118,10 +120,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、花。by 白い弾幕くん
   /// [MDA]_10flower_2.xml
   let b10flower_2 =
-    createBulletmlInfo "紫月飴さんのオリジナル、花。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、花。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -168,10 +172,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、棒状バラマキと変則3way by 白い弾幕くん
   /// [MDA]_14b_2-3w.xml
   let b14b_2_3w =
-    createBulletmlInfo "紫月飴さんのオリジナル、棒状バラマキと変則3way by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、棒状バラマキと変則3way by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [FireRef ({fireRefLabel = "seed_a";},[]);
@@ -273,10 +279,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、糸が降ってきた。 by 白い弾幕くん
   /// [MDA]_75l-42.xml
   let b75l_42 =
-    createBulletmlInfo "紫月飴さんのオリジナル、糸が降ってきた。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、糸が降ってきた。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -338,10 +346,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、加速弾と減速弾 by 白い弾幕くん
   /// [MDA]_acc_n_dec.xml
   let acc_n_dec =
-    createBulletmlInfo "紫月飴さんのオリジナル、加速弾と減速弾 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、加速弾と減速弾 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -396,10 +406,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、四方からと自機狙い。 by 白い弾幕くん
   /// [MDA]_circular.xml
   let circular =
-    createBulletmlInfo "紫月飴さんのオリジナル、四方からと自機狙い。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、四方からと自機狙い。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -445,10 +457,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、四方から。 by 白い弾幕くん
   /// [MDA]_circular_model.xml
   let circular_model =
-    createBulletmlInfo "紫月飴さんのオリジナル、四方から。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、四方から。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [FireRef ({fireRefLabel = "seed";},["90"; "2"; "355"]);
@@ -481,10 +495,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、春っぽい by 白い弾幕くん
   /// [MDA]_circular_sun.xml
   let circular_sun =
-    createBulletmlInfo "紫月飴さんのオリジナル、春っぽい by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、春っぽい by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [ChangeSpeed (Speed (Some {speedType = SpeedType.Absolute;},"0.75"),Term "1");
@@ -524,10 +540,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、全方位弾二回。by 白い弾幕くん             
   /// [MDA]_double_w.xml
   let double_w =
-    createBulletmlInfo "紫月飴さんのオリジナル、全方位弾二回。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、全方位弾二回。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "seed";},["0.31"]);
@@ -559,10 +577,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、袋詰め by 白い弾幕くん
   /// [MDA]_fukuro.xml
   let fukuro =
-    createBulletmlInfo "紫月飴さんのオリジナル、袋詰め by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、袋詰め by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [ChangeDirection
@@ -617,10 +637,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、なんか生々しい。by 白い弾幕くん
   /// [MDA]_gnnnyari.xml
   let gnnnyari =
-    createBulletmlInfo "紫月飴さんのオリジナル、なんか生々しい。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、なんか生々しい。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "seed";},[]); Wait "120"]);
@@ -665,10 +687,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、もじゃ。 by 白い弾幕くん
   /// [MDA]_mojya.xml
   let mojya =
-    createBulletmlInfo "紫月飴さんのオリジナル、もじゃ。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、もじゃ。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -702,10 +726,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、もっさり。 by 白い弾幕くん
   /// [MDA]_mossari.xml
   let mossari =
-    createBulletmlInfo "紫月飴さんのオリジナル、もっさり。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、もっさり。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "seed";},["-2"; "0"]);
@@ -792,10 +818,12 @@ module MAD =
   /// 紫月飴さんのオリジナル、どっちも奇数弾。 by 白い弾幕くん
   /// [MDA]_wind_cl.xml
   let wind_cl =
-    createBulletmlInfo "紫月飴さんのオリジナル、どっちも奇数弾。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "紫月飴さんのオリジナル、どっちも奇数弾。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [FireRef ({fireRefLabel = "side";},["120"]);

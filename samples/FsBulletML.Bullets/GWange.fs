@@ -9,10 +9,12 @@ module GWange =
   /// G-わんげスレの957氏、回転ガラ by 白い弾幕くん
   /// [G-Wange]_roll_gara.xml
   let _roll_gara =
-    createBulletmlInfo "G-わんげスレの957氏、回転ガラ by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "G-わんげスレの957氏、回転ガラ by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top1";},
            [Repeat
@@ -57,10 +59,12 @@ module GWange =
   /// G-わんげスレの966氏考案、往復ビット by 白い弾幕くん
   /// [G-Wange]_round_trip_bit.xml
   let round_trip_bit =
-    createBulletmlInfo "G-わんげスレの966氏考案、往復ビット by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "G-わんげスレの966氏考案、往復ビット by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire

@@ -6,9 +6,9 @@ open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 
 //[<assembly: AssemblyVersion("0.8.*")>]
-[<assembly: AssemblyVersion("0.8.8")>]
-[<assembly: AssemblyFileVersion("0.8.8")>]
-[<assembly: AssemblyInformationalVersion("0.8.8")>]
+[<assembly: AssemblyVersion("0.9.0")>]
+[<assembly: AssemblyFileVersion("0.9.0")>]
+[<assembly: AssemblyInformationalVersion("0.9.0")>]
 
 [<assembly: AssemblyTitle("FsBulletML")>]
 [<assembly: AssemblyDescription("F# implementation of BulletML for internal DSL, and Xml.")>]

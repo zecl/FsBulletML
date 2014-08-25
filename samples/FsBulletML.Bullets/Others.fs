@@ -7,8 +7,8 @@ module Others =
 
   /// 全方位弾
   let AllWay = 
-    createBulletmlInfo "全方位弾" <|
-    Bulletml({ bulletmlXmlns = None; bulletmlType = Some ShootingDirection.BulletVertical;},
+    createBulletmlInfo <|
+    Bulletml({ bulletmlXmlns = None; bulletmlType = Some ShootingDirection.BulletVertical; bulletmlName = Some "全方位弾"; bulletmlDescription = None},
         [BulletmlElm.Action ({actionLabel = Some "circle";},
             [Action.Repeat
                 (Times "$1",
@@ -25,8 +25,8 @@ module Others =
 
   /// 前方5way弾
   let b5way = 
-    createBulletmlInfo "前方5方向弾" <|
-    Bulletml ({bulletmlXmlns = None; bulletmlType = Some BulletVertical;},
+    createBulletmlInfo <|
+    Bulletml ({bulletmlXmlns = None; bulletmlType = Some BulletVertical; bulletmlName = Some "前方5way弾"; bulletmlDescription = None},
         [BulletmlElm.Action ({actionLabel = Some "top";},
             [Fire ({fireLabel = None;},
                 Some (Direction (Some {directionType = DirectionType.Relative;},"-20+180")),
@@ -42,8 +42,8 @@ module Others =
 
   /// 初期方向Aim弾１発
   let homingOne = 
-    createBulletmlInfo "Aim弾１発" <|
-    Bulletml({bulletmlXmlns = None; bulletmlType = None;},
+    createBulletmlInfo <|
+    Bulletml({bulletmlXmlns = None; bulletmlType = None; bulletmlName = Some "初期方向Aim弾１発"; bulletmlDescription = None},
         [BulletmlElm.Action ({actionLabel = Some "top";},
            [Fire ({fireLabel = None;},None,None,
                 Bullet ({bulletLabel = None;},None,None,[]))])])

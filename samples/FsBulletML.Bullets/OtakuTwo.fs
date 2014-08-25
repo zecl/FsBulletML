@@ -9,10 +9,12 @@ module OtakuTwo =
   /// おたくツーさん作、円形発射弾・花火型 by 白い弾幕くん
   /// [OtakuTwo]_circle_fireworks.xml
   let circle_fireworks =
-    createBulletmlInfo "おたくツーさん作、円形発射弾・花火型 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "おたくツーさん作、円形発射弾・花火型 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [ChangeDirection
@@ -61,10 +63,12 @@ module OtakuTwo =
   /// おたくツーさん作、円形発射弾・花火型弐式 by 白い弾幕くん
   /// [OtakuTwo]_circle_fireworks2.xml
   let circle_fireworks2 =
-    createBulletmlInfo "おたくツーさん作、円形発射弾・花火型弐式 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "おたくツーさん作、円形発射弾・花火型弐式 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [ChangeDirection
@@ -113,10 +117,12 @@ module OtakuTwo =
   /// おたくツーさん作、円形発射弾・速度変化型 by 白い弾幕くん
   /// [OtakuTwo]_circle_trap.xml
   let circle_trap =
-    createBulletmlInfo "おたくツーさん作、円形発射弾・速度変化型 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "おたくツーさん作、円形発射弾・速度変化型 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -179,10 +185,12 @@ module OtakuTwo =
   /// 最臭鬼畜兵器「非蜂」１：ニオイ波動 by 白い弾幕くん
   /// [OtakuTwo]_dis_bee_1.xml
   let dis_bee_1 = 
-    createBulletmlInfo "最臭鬼畜兵器「非蜂」１：ニオイ波動 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "最臭鬼畜兵器「非蜂」１：ニオイ波動 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef
@@ -266,10 +274,12 @@ module OtakuTwo =
   /// 最臭鬼畜兵器「非蜂」２：壁花火 by 白い弾幕くん
   /// [OtakuTwo]_dis_bee_2.xml
   let dis_bee_2 =
-    createBulletmlInfo "最臭鬼畜兵器「非蜂」２：壁花火 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "最臭鬼畜兵器「非蜂」２：壁花火 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "move";},["180"]);
@@ -324,10 +334,12 @@ module OtakuTwo =
   /// 最臭鬼畜兵器「非蜂」３：ぐるぐる風車 by 白い弾幕くん
   /// [OtakuTwo]_dis_bee_3.xml
   let dis_bee_3 =
-    createBulletmlInfo "最臭鬼畜兵器「非蜂」３：ぐるぐる風車 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "最臭鬼畜兵器「非蜂」３：ぐるぐる風車 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -427,10 +439,12 @@ module OtakuTwo =
   /// おたくツーさん作、回転砲台・鶚型 by 白い弾幕くん
   /// [OtakuTwo]_roll_misago.xml
   let roll_misago = 
-    createBulletmlInfo "おたくツーさん作、回転砲台・鶚型 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "おたくツーさん作、回転砲台・鶚型 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [ChangeDirection
@@ -545,10 +559,12 @@ module OtakuTwo =
   /// 回転発射弾・四段風車形 by 白い弾幕くん
   /// [OtakuTwo]_self-0012.xml
   let self_0012 =
-    createBulletmlInfo "回転発射弾・四段風車形 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "回転発射弾・四段風車形 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top1";},
            [Fire
@@ -706,10 +722,12 @@ module OtakuTwo =
   /// 自機拘束弾・不規則回転型 by 白い弾幕くん
   /// [OtakuTwo]_self-0062.xml
   let self_0062 =
-    createBulletmlInfo "自機拘束弾・不規則回転型 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "自機拘束弾・不規則回転型 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "move";},["180"]);
@@ -759,10 +777,12 @@ module OtakuTwo =
   /// 自機拘束弾・不規則回転型改 by 白い弾幕くん
   /// [OtakuTwo]_self-0063.xml
   let self_0063 =
-    createBulletmlInfo "自機拘束弾・不規則回転型改 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "自機拘束弾・不規則回転型改 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "move";},["180"]);
@@ -848,10 +868,12 @@ module OtakuTwo =
   /// 回転砲台・鶚型副産物 by 白い弾幕くん
   /// [OtakuTwo]_self-0071.xml
   let self_0071 =
-    createBulletmlInfo "回転砲台・鶚型副産物 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "回転砲台・鶚型副産物 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "move";},["180"]);
@@ -921,10 +943,12 @@ module OtakuTwo =
   /// 加速弾・巨大弾落下型 by 白い弾幕くん
   /// [OtakuTwo]_self-0081.xml
   let self_0081 = 
-    createBulletmlInfo "加速弾・巨大弾落下型 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "加速弾・巨大弾落下型 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -979,10 +1003,12 @@ module OtakuTwo =
   /// 「緋蜂のような物体」超速青弾part1 by 白い弾幕くん
   /// [OtakuTwo]_self-1020.xml
   let self_1020 =
-    createBulletmlInfo "「緋蜂のような物体」超速青弾part1 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "「緋蜂のような物体」超速青弾part1 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -1076,10 +1102,12 @@ module OtakuTwo =
   /// 「緋蜂のような物体」超速青弾part2 by 白い弾幕くん
   /// [OtakuTwo]_self-1021.xml
   let self_1021 =
-    createBulletmlInfo "「緋蜂のような物体」超速青弾part2 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "「緋蜂のような物体」超速青弾part2 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top1";},
            [Wait "10"; Action.ActionRef ({actionRefLabel = "cyclone";},["0.1+$rand"; " 1"])]);
@@ -1168,10 +1196,12 @@ module OtakuTwo =
   /// rRootageより妄想　Part01 by 白い弾幕くん
   /// [OtakuTwo]_self-2010.xml
   let self_2010 = 
-    createBulletmlInfo "rRootageより妄想　Part01 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "rRootageより妄想　Part01 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "main";},["$rand"; " 1"; " 1"; " 1"; " 1"]);
@@ -1237,10 +1267,12 @@ module OtakuTwo =
   /// rRootageより妄想　Part01-ANOTHER by 白い弾幕くん
   /// [OtakuTwo]_self-2011.xml
   let self_2011 =
-    createBulletmlInfo "rRootageより妄想　Part01-ANOTHER by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "rRootageより妄想　Part01-ANOTHER by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "main";},["$rand"; " 1"; " 1"; " 1"; " 1"]);
@@ -1346,10 +1378,12 @@ module OtakuTwo =
   /// rRootageより妄想　Part02 by 白い弾幕くん
   /// [OtakuTwo]_self-2020.xml
   let self_2020 =
-    createBulletmlInfo "rRootageより妄想　Part02 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "rRootageより妄想　Part02 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [ChangeDirection
@@ -1409,10 +1443,12 @@ module OtakuTwo =
   /// おたくツーさん作、自機拘束弾・低速移動型 by 白い弾幕くん
   /// [OtakuTwo]_slow_move.xml
   let slow_move = 
-    createBulletmlInfo "おたくツーさん作、自機拘束弾・低速移動型 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "おたくツーさん作、自機拘束弾・低速移動型 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [FireRef ({fireRefLabel = "lr";},[" 90"; "1.5"]);
@@ -1481,8 +1517,3 @@ module OtakuTwo =
           ({fireLabel = Some "winder";},
            Some (Direction (Some {directionType = DirectionType.Relative;},"$1")),
            Some (Speed (None,"8")),Bullet ({bulletLabel = None;},None,None,[]))])
-
-
-
-
-

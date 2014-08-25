@@ -9,10 +9,12 @@ module Original =
   /// 大原さんのオリジナル、断罪 by 白い弾幕くん
   /// [Original]_accusation.xml
   let accusation = 
-    createBulletmlInfo "大原さんのオリジナル、断罪 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、断罪 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -145,10 +147,12 @@ module Original =
   /// 大原さんのオリジナル、風の精 by 白い弾幕くん
   /// [Original]_air_elemental.xml
   let air_elemental =
-    createBulletmlInfo "大原さんのオリジナル、風の精 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、風の精 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -375,10 +379,12 @@ module Original =
   /// オリジナル。後ろに弾を撃つ人々。 by 白い弾幕くん
   /// [Original]_backfire.xml
   let backfire =
-    createBulletmlInfo "オリジナル。後ろに弾を撃つ人々。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "オリジナル。後ろに弾を撃つ人々。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -429,10 +435,12 @@ module Original =
   /// 大原さんのオリジナル、ふきだしボム by 白い弾幕くん
   /// [Original]_balloon_bomb.xml
   let balloon_bomb = 
-    createBulletmlInfo "大原さんのオリジナル、ふきだしボム by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、ふきだしボム by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -543,10 +551,12 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その一 by 白い弾幕くん
   /// [Original]_btb_1.xml
   let btb_1 = 
-    createBulletmlInfo "大原さんのオリジナル、原点回帰その一 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、原点回帰その一 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -669,10 +679,12 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その二 by 白い弾幕くん
   /// [Original]_btb_2.xml
   let btb_2 = 
-    createBulletmlInfo "大原さんのオリジナル、原点回帰その二 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、原点回帰その二 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -901,10 +913,12 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その三 by 白い弾幕くん
   /// [Original]_btb_3.xml
   let btb_3 =
-    createBulletmlInfo "大原さんのオリジナル、原点回帰その三 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、原点回帰その三 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -1007,10 +1021,12 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その四 by 白い弾幕くん
   /// [Original]_btb_4.xml
   let btb_4 = 
-    createBulletmlInfo "大原さんのオリジナル、原点回帰その四 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、原点回帰その四 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -1114,10 +1130,12 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その五 by 白い弾幕くん
   /// [Original]_btb_5.xml
   let btb_5 = 
-    createBulletmlInfo "大原さんのオリジナル、原点回帰その五 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、原点回帰その五 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -1308,10 +1326,12 @@ module Original =
   /// 大原さんのオリジナル、原点回帰その六 by 白い弾幕くん
   /// [Original]_btb_6.xml
   let btb_6 = 
-    createBulletmlInfo "大原さんのオリジナル、原点回帰その六 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、原点回帰その六 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -1427,10 +1447,12 @@ module Original =
   /// 大原さんのオリジナル、検閲済 by 白い弾幕くん
   /// [Original]_censored.xml
   let censored =
-    createBulletmlInfo "大原さんのオリジナル、検閲済 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、検閲済 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -1536,10 +1558,12 @@ module Original =
   /// 大原さんのオリジナル、キメラ by 白い弾幕くん
   /// [Original]_chimera.xml
   let chimera =
-    createBulletmlInfo "大原さんのオリジナル、キメラ by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、キメラ by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -1603,10 +1627,12 @@ module Original =
   /// オリジナル、円を描きながらの自機狙い3way by 白い弾幕くん
   /// [Original]_circle.xml
   let circle = 
-    createBulletmlInfo "オリジナル、円を描きながらの自機狙い3way by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル、円を描きながらの自機狙い3way by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "5sp";},
            [Fire
@@ -1646,10 +1672,12 @@ module Original =
   /// オリジナル、どかんと一発 by 白い弾幕くん         
   /// [Original]_dokkaan.xml
   let dokkaan =
-    createBulletmlInfo "オリジナル、どかんと一発 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル、どかんと一発 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -1666,10 +1694,12 @@ module Original =
   /// 大原さんのオリジナル、楕円ボム by 白い弾幕くん
   /// [Original]_ellipse_bomb.xml
   let ellipse_bomb =
-    createBulletmlInfo "大原さんのオリジナル、楕円ボム by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、楕円ボム by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -1831,10 +1861,12 @@ module Original =
   /// 大原さんのオリジナル、EntangledSpace by 白い弾幕くん
   /// [Original]_entangled_space.xml
   let entangled_space = 
-    createBulletmlInfo "大原さんのオリジナル、EntangledSpace by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、EntangledSpace by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -1998,10 +2030,12 @@ module Original =
   /// 大原さんのオリジナル、邪眼 by 白い弾幕くん
   /// [Original]_evil_eye.xml
   let evil_eye =
-    createBulletmlInfo "大原さんのオリジナル、邪眼 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、邪眼 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -2110,10 +2144,12 @@ module Original =
   /// 大原さんのオリジナル、偽婦人乱舞 by 白い弾幕くん
   /// [Original]_fujin_ranbu_fake.xml
   let fujin_ranbu_fake = 
-    createBulletmlInfo "大原さんのオリジナル、偽婦人乱舞 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、偽婦人乱舞 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -2243,10 +2279,12 @@ module Original =
   /// 大原さんのオリジナル、真婦人乱舞 by 白い弾幕くん
   /// [Original]_fujin_ranbu_true.xml
   let fujin_ranbu_true =
-    createBulletmlInfo "大原さんのオリジナル、真婦人乱舞 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、真婦人乱舞 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -2376,10 +2414,12 @@ module Original =
   /// オリジナル、ぐるぐる by 白い弾幕くん
   /// [Original]_guruguru.xml
   let guruguru = 
-    createBulletmlInfo "オリジナル、ぐるぐる by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル、ぐるぐる by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "issyuu";},
            [Repeat
@@ -2421,10 +2461,12 @@ module Original =
   /// オリジナル。ぐるちょ。 by 白い弾幕くん
   /// [Original]_gurutyo.xml
   let gurutyo = 
-    createBulletmlInfo "オリジナル。ぐるちょ。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。ぐるちょ。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Fire
           ({fireLabel = Some "gurutyo";},
            Some (Direction (Some {directionType = DirectionType.Absolute;},"90")),
@@ -2453,10 +2495,12 @@ module Original =
   /// オリジナル。逆噴射。by 白い弾幕くん
   /// [Original]_gyakuhunsya.xml
   let gyakuhunsya =
-    createBulletmlInfo "オリジナル。逆噴射。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。逆噴射。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "gyakuhunsya";},
            [ChangeDirection
@@ -2490,10 +2534,12 @@ module Original =
   /// 大原さんのオリジナル、ハジケリスト by 白い弾幕くん
   /// [Original]_hajike.xml
   let hajike = 
-    createBulletmlInfo "大原さんのオリジナル、ハジケリスト by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、ハジケリスト by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -2578,10 +2624,12 @@ module Original =
   /// オリジナル。はさみ。by 白い弾幕くん
   /// [Original]_hasami.xml
   let hasami = 
-    createBulletmlInfo "オリジナル。はさみ。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。はさみ。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "curve";},
            [Fire
@@ -2621,10 +2669,12 @@ module Original =
   /// オリジナル。ひらひら。by 白い弾幕くん  
   /// [Original]_hirahira.xml
   let hirahira = 
-    createBulletmlInfo "オリジナル。ひらひら。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。ひらひら。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "5way";},
            [Repeat
@@ -2664,10 +2714,12 @@ module Original =
   /// オリジナル。放水っぽい感じ。by 白い弾幕くん
   /// [Original]_housya.xml
   let housya = 
-    createBulletmlInfo "オリジナル。放水っぽい感じ。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。放水っぽい感じ。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -2696,10 +2748,12 @@ module Original =
   /// 大原さんのオリジナル、カゴメ by 白い弾幕くん
   /// [Original]_kagome.xml
   let kagome = 
-    createBulletmlInfo "大原さんのオリジナル、カゴメ by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、カゴメ by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -2768,10 +2822,12 @@ module Original =
   /// 大原さんのオリジナル、毛玉 by 白い弾幕くん
   /// [Original]_kedama.xml
   let kedama = 
-    createBulletmlInfo "大原さんのオリジナル、毛玉 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、毛玉 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -2816,10 +2872,12 @@ module Original =
   /// 大原さんのオリジナル、弾幕の騎士その一 by 白い弾幕くん
   /// [Original]_knight_1.xml
   let knight_1 =
-    createBulletmlInfo "大原さんのオリジナル、弾幕の騎士その一 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、弾幕の騎士その一 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -2908,10 +2966,12 @@ module Original =
   /// 大原さんのオリジナル、弾幕の騎士その二 by 白い弾幕くん
   /// [Original]_knight_2.xml
   let knight_2 = 
-    createBulletmlInfo "大原さんのオリジナル、弾幕の騎士その二 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、弾幕の騎士その二 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -2961,10 +3021,12 @@ module Original =
   /// 大原さんのオリジナル、弾幕の騎士その三 by 白い弾幕くん
   /// [Original]_knight_3.xml
   let knight_3 = 
-    createBulletmlInfo "大原さんのオリジナル、弾幕の騎士その三 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、弾幕の騎士その三 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -3050,10 +3112,12 @@ module Original =
   /// 大原さんのオリジナル、弾幕の騎士その四 by 白い弾幕くん
   /// [Original]_knight_4.xml
   let knight_4 = 
-    createBulletmlInfo "大原さんのオリジナル、弾幕の騎士その四 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、弾幕の騎士その四 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -3101,10 +3165,12 @@ module Original =
   /// オリジナル。固体。 by 白い弾幕くん
   /// [Original]_kotai.xml
   let kotai = 
-    createBulletmlInfo "オリジナル。固体。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。固体。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "src";},None,None,
            [Action
@@ -3151,10 +3217,12 @@ module Original =
   /// 大原さんのオリジナル、鯨幕砲 by 白い弾幕くん
   /// [Original]_kujira.xml
   let kujira = 
-    createBulletmlInfo "大原さんのオリジナル、鯨幕砲 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、鯨幕砲 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -3292,10 +3360,12 @@ module Original =
   /// オリジナル。くねくね。by 白い弾幕くん
   /// [Original]_kunekune.xml
   let kunekune = 
-    createBulletmlInfo "オリジナル。くねくね。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。くねくね。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "fire";},
            [Fire
@@ -3348,10 +3418,12 @@ module Original =
   /// オリジナル。扇状弾二つ。by 白い弾幕くん
   /// [Original]_oogi_hutatsu.xml
   let oogi_hutatsu = 
-    createBulletmlInfo "オリジナル。扇状弾二つ。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。扇状弾二つ。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "oogiSeq";},
            [Repeat
@@ -3389,10 +3461,12 @@ module Original =
   /// 大原さんのオリジナル、光学探査兵器 by 白い弾幕くん
   /// [Original]_optic_seeker.xml
   let optic_seeker = 
-    createBulletmlInfo "大原さんのオリジナル、光学探査兵器 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、光学探査兵器 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -3462,10 +3536,12 @@ module Original =
   /// オリジナル。ぱん。by 白い弾幕くん
   /// [Original]_pan.xml
   let pan =
-    createBulletmlInfo "オリジナル。ぱん。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。ぱん。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "pan";},None,None,
            [Action
@@ -3521,10 +3597,12 @@ module Original =
   /// オリジナル。弱誘導弾から左右に弾幕。by 白い弾幕くん
   /// [Original]_progear_cheap_fake.xml
   let progear_cheap_fake = 
-    createBulletmlInfo "オリジナル。弱誘導弾から左右に弾幕。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。弱誘導弾から左右に弾幕。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Fire
           ({fireLabel = Some "weekHoming";},
            Some (Direction (Some {directionType = Aim;},"0")),
@@ -3574,10 +3652,12 @@ module Original =
   /// オリジナル。炸裂弾。by 白い弾幕くん
   /// [Original]_sakuretudan.xml
   let sakuretudan = 
-    createBulletmlInfo "オリジナル。炸裂弾。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。炸裂弾。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -3624,10 +3704,12 @@ module Original =
   /// 大原さんのオリジナル、シューティングスター by 白い弾幕くん
   /// [Original]_shooting_star.xml
   let shooting_star = 
-    createBulletmlInfo "大原さんのオリジナル、シューティングスター by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、シューティングスター by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -3763,10 +3845,12 @@ module Original =
   /// 大原さんのオリジナル、あの空に星を by 白い弾幕くん
   /// [Original]_star_in_the_sky.xml
   let star_in_the_sky = 
-    createBulletmlInfo "大原さんのオリジナル、あの空に星を by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、あの空に星を by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -3825,10 +3909,12 @@ module Original =
   /// オリジナル。池に落ちた石六個。 by 白い弾幕くん
   /// [Original]_stone6.xml
   let stone6 = 
-    createBulletmlInfo "オリジナル。池に落ちた石六個。 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "オリジナル。池に落ちた石六個。 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Fire
@@ -3879,10 +3965,12 @@ module Original =
   /// オリジナル。道を探せ。by 白い弾幕くん
   /// [Original]_stop_and_run.xml
   let stop_and_run = 
-    createBulletmlInfo "オリジナル。道を探せ。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "オリジナル。道を探せ。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Bullet
           ({bulletLabel = Some "stopAndRun";},None,None,
            [Action
@@ -3904,10 +3992,12 @@ module Original =
   /// 大原さんのオリジナル、時空転換 by 白い弾幕くん
   /// [Original]_time_twist.xml
   let time_twist = 
-    createBulletmlInfo "大原さんのオリジナル、時空転換 by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、時空転換 by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Action.ActionRef ({actionRefLabel = "ancient";},[]); Wait "60 - 40 * $rank";
@@ -4130,10 +4220,12 @@ module Original =
   /// 大原さんのオリジナル、津波。by 白い弾幕くん
   /// [Original]_tsunami.xml
   let tsunami = 
-    createBulletmlInfo "大原さんのオリジナル、津波。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = Some BulletVertical;},
+        bulletmlType = Some BulletVertical;
+        bulletmlName = Some "大原さんのオリジナル、津波。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
@@ -4232,10 +4324,12 @@ module Original =
   /// オリジナル。二つ十字。by 白い弾幕くん
   /// [Original]_two_cross.xml
   let two_cross = 
-    createBulletmlInfo "オリジナル。二つ十字。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。二つ十字。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "add3";},
            [Repeat
@@ -4277,10 +4371,12 @@ module Original =
   /// オリジナル。うねりを作る。by 白い弾幕くん
   /// [Original]_uneri.xml
   let uneri = 
-    createBulletmlInfo "オリジナル。うねりを作る。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。うねりを作る。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "src";},
            [Fire
@@ -4323,10 +4419,12 @@ module Original =
   /// オリジナル。ワナ。by 白い弾幕くん
   /// [Original]_wana.xml
   let wana = 
-    createBulletmlInfo "オリジナル。ワナ。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。ワナ。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "XWayFan";},
            [Repeat
@@ -4424,10 +4522,12 @@ module Original =
   /// オリジナル。横加速。by 白い弾幕くん
   /// [Original]_yokokasoku.xml
   let yokokasoku = 
-    createBulletmlInfo "オリジナル。横加速。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = Some "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml";
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。横加速。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Fire
           ({fireLabel = Some "accelShot";},
            Some (Direction (Some {directionType = DirectionType.Absolute;},"90")),
@@ -4463,10 +4563,12 @@ module Original =
   /// オリジナル。雑魚で突撃。by 白い弾幕くん
   /// [Original]_zako_atack.xml
   let zako_atack = 
-    createBulletmlInfo "オリジナル。雑魚で突撃。by 白い弾幕くん" <|
+    createBulletmlInfo <|
     Bulletml
       ({bulletmlXmlns = None;
-        bulletmlType = None;},
+        bulletmlType = None;
+        bulletmlName = Some "オリジナル。雑魚で突撃。by 白い弾幕くん";
+        bulletmlDescription = None},
        [BulletmlElm.Action
           ({actionLabel = Some "top";},
            [Repeat
