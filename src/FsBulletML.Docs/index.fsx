@@ -177,7 +177,7 @@ bulletml
   <div class="span1"></div>
   <div class="span6">
     <div class="well well-small" id="nuget">
-      FsBulletML.Parserは<a href="https://nuget.org/packages/FsBulletML.TypeProviders" target="_blunk">NuGet</a>からインストールすることができます。
+      FsBulletML.TypeProvidersは<a href="https://nuget.org/packages/FsBulletML.TypeProviders" target="_blunk">NuGet</a>からインストールすることができます。
       <pre>PM> Install-Package FsBulletML.TypeProviders</pre>
     </div>
   </div>
