@@ -91,7 +91,12 @@ public class AudioManager : MonoBehaviour
 
     public static void PlaySE(int index)
     {
-        if (0 > index || self.Se.Length <= index)
+        PlaySE(index, 1f);
+    }
+
+    public static void PlaySE(int index, float volumeScale)
+    {
+        if (self == null || 0 > index || self.Se.Length <= index)
         {
             Debug.LogError("PlaySE:out of index");
             return;
@@ -101,7 +106,7 @@ public class AudioManager : MonoBehaviour
         {
             if (false == source.isPlaying)
             {
-                source.PlayOneShot(self.Se[index]);
+                source.PlayOneShot(self.Se[index], volumeScale);
                 return;
             }
         }

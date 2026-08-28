@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections;
@@ -73,36 +73,32 @@ public class Player : MonoBehaviour
             counter = 0;
     }
 
-    private GameObject GetBulletPrefubInstance(Vector3 position, Quaternion rotation)
-    {
-        return InstanceManager.InstantiatePrefab(this.Bullet, position, rotation);
-    }
-
     private void Shoot2WayLeftBullet()
     {
         var position = this.transform.position + new Vector3(-0.1f, 0.1f, 0);
-        var bullet = this.GetBulletPrefubInstance(position, this.transform.rotation);
-        bullet.SendMessage("SetTask", Player.b2wayLeftBulletTask);
+        BulletEntityFactory.SpawnPlayer(position, Player.b2wayLeftBulletTask);
     }
 
     private void Shoot2WayRightBullet()
     {
         var position = this.transform.position + new Vector3(0.1f, 0.1f, 0);
-        var bullet = this.GetBulletPrefubInstance(position, this.transform.rotation);
-        bullet.SendMessage("SetTask", Player.b2wayRightBulletTask);
+        BulletEntityFactory.SpawnPlayer(position, Player.b2wayRightBulletTask);
     }
 
     private void ShootHomingBullet()
     {
         if (counter > 60)
         {
-            var bullet = this.GetBulletPrefubInstance(this.transform.position, this.transform.rotation);
-            bullet.SendMessage("Init");
-            bullet.SendMessage("SetTask", Player.hommingTask);
+            BulletEntityFactory.SpawnPlayer(this.transform.position, Player.hommingTask);
         }
     }
 
     void OnTriggerEnter2D(Collider2D collier)
+    {
+        HitByEnemyBullet();
+    }
+
+    public void HitByEnemyBullet()
     {
         if (isBomb) Bomb.GenerateBomb(BombType, this.transform.position);
         this.Damage += 1;

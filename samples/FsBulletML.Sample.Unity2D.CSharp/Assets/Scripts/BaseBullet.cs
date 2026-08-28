@@ -14,6 +14,7 @@ public abstract class BaseBullet : MonoBehaviour, FsBulletML.Processable.IBullet
     public bool Root { get; set; }
     private GameObject TargetEnemy;
     public abstract GameObject GetBulletPrefubInstance();
+    public GameObject BulletPrefab => bulletObject;
 
     public BaseBullet() : base() {}
 
@@ -117,8 +118,18 @@ public abstract class BaseBullet : MonoBehaviour, FsBulletML.Processable.IBullet
             }
             else
             {
-                var nearEnemy = enemies.Select(enemy => new { Enemy = enemy, Distance = Vector2.Distance(this.transform.position, enemy.transform.position) }).Min();
-                this.TargetEnemy = nearEnemy.Enemy;
+                GameObject near = enemies[0];
+                float nearDist = Vector2.Distance(this.transform.position, near.transform.position);
+                for (int i = 1; i < enemies.Length; i++)
+                {
+                    var d = Vector2.Distance(this.transform.position, enemies[i].transform.position);
+                    if (d < nearDist)
+                    {
+                        nearDist = d;
+                        near = enemies[i];
+                    }
+                }
+                this.TargetEnemy = near;
                 return Mathf.Atan2(this.TargetEnemy.transform.position.x - this.X, this.TargetEnemy.transform.position.y - this.Y);
             }
         }
@@ -127,8 +138,7 @@ public abstract class BaseBullet : MonoBehaviour, FsBulletML.Processable.IBullet
     public Processable.IBulletmlObject GetNewBullet()
     {
         this.BulletRoot = true;
-        var bullet = this.GetBulletPrefubInstance();
-        return bullet.GetComponent(typeof(Processable.IBulletmlObject)) as Processable.IBulletmlObject;
+        return BulletEntityFactory.SpawnFromEmitter(this);
     }
 
     public float AccelerationX { get; set; }

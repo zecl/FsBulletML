@@ -22,8 +22,8 @@ x64/
 # Document
 docs/output/
 
-# NuGet package
-packages/
+# NuGet package restore at repo root only (do not ignore Unity Packages/)
+/packages/
 nuget/*.nupkg
 
 # Others

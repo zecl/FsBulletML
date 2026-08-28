@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+// Leftover GameObject bullet. Spawned shots are ECS entities (BulletSim).
+// Kept so the prefab still compiles if opened; nothing instantiates this at runtime.
+using UnityEngine;
 using System.Collections;
 using Microsoft.FSharp.Core;
 using FsBulletML;
@@ -42,7 +44,7 @@ public class PlayerBullet : BaseBullet
 
     public override GameObject GetBulletPrefubInstance()
     {
-        return InstanceManager.InstantiatePrefab(this.bulletObject, this.transform.position, this.transform.rotation);
+        return null;
     }
 
     void OnTriggerEnter2D(Collider2D collier)
