@@ -1,25 +1,32 @@
 using UnityEngine;
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using FsBulletML;
 using Microsoft.FSharp.Core;
+using R3;
+using R3.Triggers;
 
 public class Enemy : BaseBullet
 {
     public GameObject BombType;
 
     private static List<BulletmlInfo> bullets;
-    public string BulletName { get; private set; }
-    public int BulletIndex { get; set; }
+    public readonly ReactiveProperty<int> BulletIndexRp = new(0);
+    public readonly ReactiveProperty<int> LifeRp = new(2000);
+    public readonly ReactiveProperty<string> BulletNameRp = new("");
     private BulletmlInfo BulletmlInfo { get; set; }
     private BulletSim RootSim { get; set; }
     public int MaxLife = 2000;
-    public int Life = 2000;
     public bool isBomb = true;
-    private bool Second { get; set; }
+
+    public int BulletIndex => BulletIndexRp.Value;
+    public string BulletName => BulletNameRp.Value;
+    public int Life
+    {
+        get => LifeRp.Value;
+        set => LifeRp.Value = value;
+    }
 
     public Enemy()
         : base()
@@ -33,43 +40,58 @@ public class Enemy : BaseBullet
     void Start()
     {
         bullets = GetBulletml().ToList();
-        SetBulletmlInfo();
-    }
+        var update = Observable.EveryUpdate(destroyCancellationToken);
 
-    void OnTriggerEnter2D(Collider2D collier)
-    {
-        HitByPlayerBullet();
+        BulletIndexRp
+            .Subscribe(_ => ApplyPattern())
+            .AddTo(this);
+
+        BulletIndexRp
+            .Select(i => bullets[i].Name)
+            .Subscribe(name => BulletNameRp.Value = name)
+            .AddTo(this);
+
+        var shootOnPattern = BulletIndexRp
+            .Select(_ => update.Take(1));
+
+        var shootOnFinish = update
+            .Where(_ => IsFinish());
+
+        shootOnPattern
+            .Switch()
+            .Merge(shootOnFinish)
+            .Subscribe(_ => Shoot());
+
+        LifeRp
+            .Pairwise()
+            .Where(p => p.Current == p.Previous - 1)
+            .Subscribe(_ =>
+            {
+                if (isBomb) Bomb.GenerateBomb(BombType, transform.position);
+            })
+            .AddTo(this);
+
+        LifeRp
+            .Where(x => x <= 0)
+            .Subscribe(_ => Next())
+            .AddTo(this);
+
+        update
+            .Where(_ => Input.GetKeyDown(KeyCode.Return))
+            .Subscribe(_ => Next());
+
+        this.OnTriggerEnter2DAsObservable()
+            .Subscribe(_ => HitByPlayerBullet())
+            .AddTo(this);
     }
 
     public void HitByPlayerBullet()
     {
-        if (isBomb) Bomb.GenerateBomb(BombType, this.transform.position);
-        this.Life -= 1;
-        if (this.Life <= 0)
-        {
-            Next();
-        }
-    }
-
-    public override void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Next();
-        };
-
-        if (!this.Second || this.IsFinish())
-        {
-            this.Second = true;
-            this.Shoot();
-        }
-
-        base.Update();
+        LifeRp.Value -= 1;
     }
 
     public override GameObject GetBulletPrefubInstance()
     {
-        // Spawned bullets are ECS entities; GameObject instantiate path is unused.
         return null;
     }
 
@@ -89,67 +111,44 @@ public class Enemy : BaseBullet
         {
             return false;
         }
-        else
+
+        var task = this.RootSim.Task;
+        if (Microsoft.FSharp.Core.OptionModule.IsNone(task))
         {
-            var task = this.RootSim.Task;
-            if (Microsoft.FSharp.Core.OptionModule.IsNone(task))
-            {
-                return false;
-            }
-            if (task.Value.Finish)
-            {
-                BulletEntityFactory.Destroy(this.RootSim);
-                this.RootSim = null;
-            }
-            return task.Value.Finish;
+            return false;
         }
+        if (task.Value.Finish)
+        {
+            BulletEntityFactory.Destroy(this.RootSim);
+            this.RootSim = null;
+        }
+        return task.Value.Finish;
     }
 
     public void Next()
     {
-        DestroyEnemyBullet();
-        if (this.BulletIndex + 1 >= bullets.Count())
-        {
-            this.BulletIndex = 0;
-        }
-        else
-        {
-            this.BulletIndex += 1;
-        }
-
-        this.Life = MaxLife;
-        this.Second = false;
-        SetBulletmlInfo();
+        var n = bullets.Count;
+        BulletIndexRp.Value = (BulletIndexRp.Value + 1) % n;
     }
 
     public void Prev()
     {
-        DestroyEnemyBullet();
-        if (this.BulletIndex == 0)
-        {
-            this.BulletIndex = bullets.Count() - 1;
-        }
-        else
-        {
-            this.BulletIndex -= 1;
-        }
+        var n = bullets.Count;
+        BulletIndexRp.Value = (BulletIndexRp.Value + n - 1) % n;
+    }
 
-        this.Life = MaxLife;
-        this.Second = false;
-        SetBulletmlInfo();
+    private void ApplyPattern()
+    {
+        DestroyEnemyBullet();
+        var bulletmlInfo = bullets[BulletIndexRp.Value];
+        BulletmlInfo = bulletmlInfo;
+        LifeRp.Value = MaxLife;
     }
 
     private void DestroyEnemyBullet()
     {
         BulletEntityFactory.DestroyAllEnemy();
         this.RootSim = null;
-    }
-
-    private void SetBulletmlInfo()
-    {
-        var bulletmlInfo = bullets[this.BulletIndex];
-        this.BulletName = bulletmlInfo.Name;
-        this.BulletmlInfo = bulletmlInfo;
     }
 
     public static IEnumerable<FsBulletML.BulletmlInfo> GetBulletml()
@@ -163,5 +162,12 @@ public class Enemy : BaseBullet
         yield return FsBulletML.Bullets.EnemyBullet.Sdmkun.Noiz2sa.b88way;
         yield return FsBulletML.Bullets.EnemyBullet.Sdmkun.Noiz2sa.bit;
         yield return FsBulletML.Bullets.EnemyBullet.Sdmkun.Noiz2sa.rollbar;
+    }
+
+    void OnDestroy()
+    {
+        BulletIndexRp.Dispose();
+        BulletNameRp.Dispose();
+        LifeRp.Dispose();
     }
 }

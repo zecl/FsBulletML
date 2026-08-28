@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using FsBulletML;
 using Microsoft.FSharp.Core;
+using R3;
 
 public abstract class BaseBullet : MonoBehaviour, FsBulletML.Processable.IBulletmlObject
 {
@@ -18,9 +19,18 @@ public abstract class BaseBullet : MonoBehaviour, FsBulletML.Processable.IBullet
 
     public BaseBullet() : base() {}
 
-    public virtual void Update()
+    IDisposable simSub;
+
+    protected virtual void OnEnable()
     {
-        RunTask();
+        simSub = Observable.EveryUpdate(destroyCancellationToken)
+            .Subscribe(_ => RunTask());
+    }
+
+    protected virtual void OnDisable()
+    {
+        simSub?.Dispose();
+        simSub = null;
     }
 
     protected void RunTask()

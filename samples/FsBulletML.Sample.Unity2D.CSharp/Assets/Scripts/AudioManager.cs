@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using R3;
 
 public class AudioManager : MonoBehaviour
 {
@@ -40,28 +41,40 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void Update()
+    void Start()
     {
-        BGMsource.mute = volume.Mute;
+        volume.Mute.Subscribe(ApplyMute).AddTo(this);
+        volume.Bgm.Subscribe(v => BGMsource.volume = v).AddTo(this);
+        volume.Se.Subscribe(ApplySeVolume).AddTo(this);
+        volume.Voice.Subscribe(ApplyVoiceVolume).AddTo(this);
+    }
+
+    void ApplyMute(bool mute)
+    {
+        BGMsource.mute = mute;
         foreach (AudioSource source in SEsources)
         {
-            source.mute = volume.Mute;
+            source.mute = mute;
         }
-
         foreach (AudioSource source in VoiceSources)
         {
-            source.mute = volume.Mute;
+            source.mute = mute;
         }
+    }
 
-        BGMsource.volume = volume.Bgm;
+    void ApplySeVolume(float se)
+    {
         foreach (AudioSource source in SEsources)
         {
-            source.volume = volume.Se;
+            source.volume = se;
         }
+    }
 
+    void ApplyVoiceVolume(float voice)
+    {
         foreach (AudioSource source in VoiceSources)
         {
-            source.volume = volume.Voice;
+            source.volume = voice;
         }
     }
 

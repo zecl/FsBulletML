@@ -57,6 +57,12 @@ namespace UnityEngine
         public static float Abs(float v) => Math.Abs(v);
     }
 
+    public enum FindObjectsInactive
+    {
+        Exclude,
+        Include
+    }
+
     public class Object
     {
         public string name { get; set; }
@@ -68,6 +74,9 @@ namespace UnityEngine
         public static void DestroyObject(Object obj) { }
         public static T FindObjectOfType<T>() where T : Object => default;
         public static T FindFirstObjectByType<T>() where T : Object => default;
+        public static T FindAnyObjectByType<T>() where T : Object => default;
+        public static T[] FindObjectsByType<T>() where T : Object => System.Array.Empty<T>();
+        public static T[] FindObjectsByType<T>(FindObjectsInactive findObjectsInactive) where T : Object => System.Array.Empty<T>();
     }
 
     public class GameObject : Object
@@ -81,6 +90,7 @@ namespace UnityEngine
         public static GameObject Find(string name) => null;
         public static GameObject[] FindGameObjectsWithTag(string tag) => Array.Empty<GameObject>();
         public static new T FindObjectOfType<T>() where T : Object => default;
+        public static new T FindAnyObjectByType<T>() where T : Object => default;
     }
 
     public class Component : Object

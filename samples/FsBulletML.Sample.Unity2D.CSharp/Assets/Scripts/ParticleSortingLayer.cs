@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using R3;
 
 public class ParticleSortingLayer : MonoBehaviour
 {
@@ -8,14 +8,11 @@ public class ParticleSortingLayer : MonoBehaviour
         var r = GetComponent<ParticleSystemRenderer>();
         r.sortingLayerName = "Bomb";
         r.sortingOrder = 2;
-    }
 
-    void Update()
-    {
         var ps = GetComponent<ParticleSystem>();
-        if (!ps.IsAlive())
-        {
-            InstanceManager.Destroy(gameObject);
-        }
+        Observable.EveryUpdate(destroyCancellationToken)
+            .Where(_ => !ps.IsAlive())
+            .Take(1)
+            .Subscribe(_ => InstanceManager.Destroy(gameObject));
     }
 }

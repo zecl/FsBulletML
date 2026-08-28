@@ -6,11 +6,11 @@ using FsBulletML;
 
 public class BulletFunctions : FsBulletML.Processable.IBulletMLManager
 {
-    private static GameObject player;
+    private static Player player;
 
     public BulletFunctions()
     {
-        player = GameObject.Find("player");
+        player = UnityEngine.Object.FindAnyObjectByType<Player>();
     }
 
     private static System.Random rand = new System.Random();
@@ -26,11 +26,11 @@ public class BulletFunctions : FsBulletML.Processable.IBulletMLManager
 
     public float GetPlayerPosX()
     {
-        return player.transform.position.x;
+        return player != null ? player.PositionRp.Value.x : 0f;
     }
 
     public float GetPlayerPosY()
     {
-        return player.transform.position.y;
+        return player != null ? player.PositionRp.Value.y : 0f;
     }
 }

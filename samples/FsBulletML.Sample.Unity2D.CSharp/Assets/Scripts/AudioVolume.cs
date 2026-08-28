@@ -1,25 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
+using R3;
 
 [Serializable]
 public class AudioVolume
 {
-    [Range(0, 2.0f)]
-    public float Bgm = 1.0f;
-
-    [Range(0, 2.0f)]
-    public float Se = 1.0f;
-
-    [Range(0, 2.0f)]
-    public float Voice = 1.0f;
-
-    public bool Mute = false;
+    public SerializableReactiveProperty<float> Bgm = new(1.0f);
+    public SerializableReactiveProperty<float> Se = new(1.0f);
+    public SerializableReactiveProperty<float> Voice = new(1.0f);
+    public SerializableReactiveProperty<bool> Mute = new(false);
 
     public void Init()
     {
-        Bgm = 1.0f;
-        Se = 1.0f;
-        Voice = 1.0f;
-        Mute = false;
+        Bgm.Value = 1.0f;
+        Se.Value = 1.0f;
+        Voice.Value = 1.0f;
+        Mute.Value = false;
     }
 }

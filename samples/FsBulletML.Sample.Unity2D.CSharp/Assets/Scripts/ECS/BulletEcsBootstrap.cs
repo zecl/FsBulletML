@@ -15,7 +15,7 @@ public class BulletEcsBootstrap : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void AutoCreate()
     {
-        if (FindFirstObjectByType<BulletEcsBootstrap>() != null)
+        if (FindAnyObjectByType<BulletEcsBootstrap>() != null)
         {
             return;
         }
@@ -34,8 +34,8 @@ public class BulletEcsBootstrap : MonoBehaviour
     {
         UrpPlayModeCompat.Apply();
 
-        var player = FindFirstObjectByType<Player>();
-        var enemy = FindFirstObjectByType<Enemy>();
+        var player = FindAnyObjectByType<Player>();
+        var enemy = FindAnyObjectByType<Enemy>();
         BulletEcsRuntime.Player = player;
         BulletEcsRuntime.Enemy = enemy;
 
@@ -76,7 +76,7 @@ public class BulletEcsBootstrap : MonoBehaviour
         var cam = Camera.main;
         if (cam == null)
         {
-            cam = FindFirstObjectByType<Camera>();
+            cam = FindAnyObjectByType<Camera>();
         }
 
         if (cam != null)
