@@ -5,6 +5,16 @@ Release Notes
 
 FsBulletML.Core
 -------------
+0.10.0
+-------------
+- .NET 10 対応。``FsBulletML.Core`` は ``net10.0`` と ``netstandard2.1``。``FsBulletML.Parser`` は ``net10.0``。
+- ビルドは ``FsBulletML.Library.sln`` を使用（旧 ``FsBulletML.sln`` は .NET Framework 時代のまま）。
+- ``BinaryFormatter`` によるタスクの clone をやめた。
+- MonoGame は ``MonoGame.Framework.DesktopGL`` 3.8.5。
+- Unity 2D サンプルは Unity 6。Unity Web Player は使わない。
+- TypeProviders / Docs プロジェクトは未移行。
+
+
 0.8.9
 -------------
 - Xml読込みについて .NET Framework4.0 と .NET Framework3.5 の　APIを揃えた。

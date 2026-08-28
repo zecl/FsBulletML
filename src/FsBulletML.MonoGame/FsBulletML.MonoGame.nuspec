@@ -15,7 +15,7 @@
       <frameworkAssembly assemblyName="System.Xml"/>
     </frameworkAssemblies>
     <dependencies>
-      <group targetFramework="net40">
+      <group targetFramework="net10.0">
         <dependency id="FsBulletML.Core" version="0.8.8"/>
       </group>
     </dependencies>
