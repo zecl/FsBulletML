@@ -23,26 +23,30 @@ module ``文字列からのパース`` =
 module ``XMLファイル:BulletML DTDに基づくパース`` = 
 
   let parse xmlFile =
-    let ignoreWhitespace = XmlNode.ReadIgnoreWhitespaceString xmlFile
-    let indented = XmlNode.ReadIndentedString xmlFile 
-    let xml = XmlNode.ReadXml xmlFile 
-    let bulletml = tryBulletmlFromXmlNode xml
-    let bml = xml |> convertBulletmlFromXmlNode 
-    let x = bml |> (fun x -> x.ToIndentedXmlStringForTest(), x.ToXmlStringForTest())
-    x |> should equal (xml.ToIndentedXmlString(), xml.ToXmlString())
-    x |> should equal (indented, ignoreWhitespace)
+    withExpectedException (fun () ->
+      let xmlFile = resolveTestPath xmlFile
+      let ignoreWhitespace = XmlNode.ReadIgnoreWhitespaceString xmlFile
+      let indented = XmlNode.ReadIndentedString xmlFile
+      let xml = XmlNode.ReadXml xmlFile
+      let bulletml = tryBulletmlFromXmlNode xml
+      let bml = xml |> convertBulletmlFromXmlNode
+      let x = bml |> (fun x -> x.ToIndentedXmlStringForTest(), x.ToXmlStringForTest())
+      x |> should equal (xml.ToIndentedXmlString(), xml.ToXmlString())
+      x |> should equal (indented, ignoreWhitespace))
 
   let parseDeclaration xmlFile =
-    let ignoreWhitespace = XmlNode.ReadIgnoreWhitespaceString xmlFile
-    let indented = XmlNode.ReadIndentedString xmlFile
-    let xml = XmlNode.ReadXml xmlFile  
-    let bulletml = tryBulletmlFromXmlNode xml
-    match bulletml with 
-    | Some bulletml ->
-      let x = bulletml |> (fun x -> x.ToIndentedXmlStringForTest(encodingAndDoctype=EncodingAndDoctype.Exist), x.ToXmlStringForTest(EncodingAndDoctype.Exist))
-      x |> should equal (xml.ToIndentedXmlString(encodingAndDoctype=EncodingAndDoctype.Exist), xml.ToXmlString(EncodingAndDoctype.Exist))
-      x |> should equal (indented, ignoreWhitespace)
-    | None -> failwith "convert error."
+    withExpectedException (fun () ->
+      let xmlFile = resolveTestPath xmlFile
+      let ignoreWhitespace = XmlNode.ReadIgnoreWhitespaceString xmlFile
+      let indented = XmlNode.ReadIndentedString xmlFile
+      let xml = XmlNode.ReadXml xmlFile
+      let bulletml = tryBulletmlFromXmlNode xml
+      match bulletml with
+      | Some bulletml ->
+        let x = bulletml |> (fun x -> x.ToIndentedXmlStringForTest(encodingAndDoctype=EncodingAndDoctype.Exist), x.ToXmlStringForTest(EncodingAndDoctype.Exist))
+        x |> should equal (xml.ToIndentedXmlString(encodingAndDoctype=EncodingAndDoctype.Exist), xml.ToXmlString(EncodingAndDoctype.Exist))
+        x |> should equal (indented, ignoreWhitespace)
+      | None -> failwith "convert error.")
 
   // <!ELEMENT vertical (#PCDATA)>
   let VerticalElementsCase =

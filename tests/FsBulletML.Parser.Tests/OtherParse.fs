@@ -10,9 +10,9 @@ open FsUnit
 
 module ``XML, SXML, FSBファイルパース結果比較`` = 
   let parse file =
-    let xmlFile = String.Format( file, "xml")
-    let sxmlFile = String.Format( file, "sxml")
-    let fsbFile = String.Format( file, "fsb")
+    let xmlFile = resolveTestPath (String.Format( file, "xml"))
+    let sxmlFile = resolveTestPath (String.Format( file, "sxml"))
+    let fsbFile = resolveTestPath (String.Format( file, "fsb"))
     let xml = XmlNode.ReadXml xmlFile 
     let sxml = match Sxml.parseFromFile sxmlFile with 
                | Success (r,_,_) -> r

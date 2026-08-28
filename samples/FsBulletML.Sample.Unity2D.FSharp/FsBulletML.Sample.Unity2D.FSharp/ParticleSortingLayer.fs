@@ -7,9 +7,11 @@ type ParticleSortingLayer () =
   inherit MonoBehaviour ()
 
   member this.Start () = 
-    this.particleSystem.renderer.sortingLayerName <- "Bomb"
-    this.particleSystem.renderer.sortingOrder <- 2
+    let r = this.GetComponent<ParticleSystemRenderer>()
+    r.sortingLayerName <- "Bomb"
+    r.sortingOrder <- 2
 
   member this.Update () =
-    if (this.particleSystem.IsAlive() |> not) then
+    let ps = this.GetComponent<ParticleSystem>()
+    if (ps.IsAlive() |> not) then
       InstanceManager.Destroy(this.gameObject)

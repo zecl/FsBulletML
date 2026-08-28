@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>FsBulletML.Sample.MonoGame.Font</RootNamespace>
+    <AssemblyName>FsBulletML.Sample.MonoGame.Font</AssemblyName>
+    <Description>Runtime SpriteFont baker used when MonoGame 3.2 XNB fonts fail to load on DesktopGL 3.8.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.5.1" />
+    <PackageReference Include="StbTrueTypeSharp" Version="1.26.13" />
+  </ItemGroup>
+</Project>

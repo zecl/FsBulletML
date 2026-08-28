@@ -33,8 +33,22 @@ nuget/*.nupkg
 /*.csproj
 /*.unityproj
 /*.sln
+!/FsBulletML.Library.sln
 /*.suo
 /*.user
 /*.userprefs
 /*.pidb
 /*.booproj
+# Unity generated / machine-local (samples)
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Mm]emoryCaptures/
+**/.vs/
+**/.vsconfig
+samples/**/Assembly-CSharp*.csproj
+samples/**/*.slnx
+samples/**/*.csproj.user
+
+# leftover from Unity IAP default package
+**/BillingMode.json
+**/BillingMode.json.meta

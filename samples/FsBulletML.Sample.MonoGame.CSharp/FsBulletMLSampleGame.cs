@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Input;
 using FsBulletML;
 using FsBulletML.MonoGame;
 using Settings = FsBulletML.MonoGame.Settings;
-using unit = Microsoft.FSharp.Core.Unit;
 
 namespace FsBulletML.Sample.MonoGame.CSharp
 {
@@ -39,10 +38,13 @@ namespace FsBulletML.Sample.MonoGame.CSharp
         public FsBulletMLSampleGame()
         {
             gmanager = new GraphicsDeviceManager(this);
-            //Content.RootDirectory = "Content";
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+            Window.AllowUserResizing = true;
 
             gmanager.PreferredBackBufferWidth = (int)Settings.Display.Width;
             gmanager.PreferredBackBufferHeight = (int)Settings.Display.Height;
+            gmanager.SynchronizeWithVerticalRetrace = true;
             Player = new Player();
             Player.Init();
         }
@@ -57,7 +59,7 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             base.LoadContent();
             base.Window.Title = "FsBulletML.Sample.MonoGame.CSharp";
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            this.Font = this.Content.Load<SpriteFont>(@"..\..\Content\font\SpriteFont2");
+            this.Font = LoadSpriteFont();
             FsBulletMLSampleGame.EnemyBullets = EnemyControl.Bullets();
 
             this.Fps = new Fps();
@@ -68,13 +70,13 @@ namespace FsBulletML.Sample.MonoGame.CSharp
             this.BulletName = bullet.Name;
             this.Boss = CreateEnemy(pos, bullet); 
 
-            Player.Texture = this.Content.Load<Texture2D>(@"..\..\Content\Sprites\player");
+            Player.Texture = this.Content.Load<Texture2D>("Sprites/player");
 
-            this.EnemyTexture = this.Content.Load<Texture2D>(@"..\..\Content\Sprites\enemy1");
-            this.PlayerBulletTexture = this.Content.Load<Texture2D>(@"..\..\Content\Sprites\p_bullet_s");
-            this.EnemyBulletTexture = this.Content.Load<Texture2D>(@"..\..\Content\Sprites\g_bullet_s");
-            this.BackgroundTexture = this.Content.Load<Texture2D>(@"..\..\Content\Sprites\background");
-            this.ParticleTexture = this.Content.Load<Texture2D>(@"..\..\Content\Sprites\particle");
+            this.EnemyTexture = this.Content.Load<Texture2D>("Sprites/enemy1");
+            this.PlayerBulletTexture = this.Content.Load<Texture2D>("Sprites/p_bullet_s");
+            this.EnemyBulletTexture = this.Content.Load<Texture2D>("Sprites/g_bullet_s");
+            this.BackgroundTexture = this.Content.Load<Texture2D>("Sprites/background");
+            this.ParticleTexture = this.Content.Load<Texture2D>("Sprites/particle");
 
             this.Emitter = new ParticleEmitter();
             this.Background = new Background(this.BackgroundTexture, gmanager.PreferredBackBufferHeight, 64);
@@ -171,6 +173,19 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 
             this.Emitter.Draw(spriteBatch);
             spriteBatch.End();
+        }
+
+        private SpriteFont LoadSpriteFont()
+        {
+            try
+            {
+                return this.Content.Load<SpriteFont>("font/SpriteFont2");
+            }
+            catch (System.Exception ex)
+            {
+                System.Console.Error.WriteLine("SpriteFont XNB load failed (" + ex.Message + "); baking a DejaVu fallback.");
+                return FsBulletML.Sample.MonoGame.Font.RuntimeSpriteFont.Bake(GraphicsDevice, 14f);
+            }
         }
 
         private bool IsPressed(Keys key)

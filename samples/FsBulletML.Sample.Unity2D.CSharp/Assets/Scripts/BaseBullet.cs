@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ public abstract class BaseBullet : MonoBehaviour, FsBulletML.Processable.IBullet
 {
     [SerializeField]
     protected GameObject bulletObject;
-    [SerializeField]
+    [field: SerializeField]
     public bool Root { get; set; }
     private GameObject TargetEnemy;
     public abstract GameObject GetBulletPrefubInstance();

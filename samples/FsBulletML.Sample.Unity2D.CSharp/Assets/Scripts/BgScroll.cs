@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class BgScroll : MonoBehaviour
 {
@@ -6,8 +6,9 @@ public class BgScroll : MonoBehaviour
     private float scrollSpeed1 = 0.1f;
     void Update()
     {
-        var newTextureOffset = this.renderer.material.mainTextureOffset;
-        newTextureOffset.y = this.renderer.material.mainTextureOffset.y - Time.deltaTime * scrollSpeed1;
-        this.renderer.material.mainTextureOffset = newTextureOffset;
+        var r = GetComponent<Renderer>();
+        var newTextureOffset = r.material.mainTextureOffset;
+        newTextureOffset.y = r.material.mainTextureOffset.y - Time.deltaTime * scrollSpeed1;
+        r.material.mainTextureOffset = newTextureOffset;
     }
 }

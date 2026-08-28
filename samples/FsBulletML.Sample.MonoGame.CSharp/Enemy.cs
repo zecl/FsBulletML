@@ -45,6 +45,8 @@ namespace FsBulletML.Sample.MonoGame.CSharp
           }
         }
 
+        void IBullet.Update() { this.Update(); }
+
         public void Update()
         { 
             this.Timer += 1;

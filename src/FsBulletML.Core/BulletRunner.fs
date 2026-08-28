@@ -67,7 +67,7 @@ module BulletRunner =
       let value = getValue v
       bullet.Speed <- value
     | None -> ()
-    let tasks = deepCopyClone children
+    let tasks = children |> List.map cloneProcessable
     let bulletmlTask = new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
     if bulletmlTask.FireData :> obj = null then
       bulletmlTask.FireData  <- new System.Collections.Generic.List<FireData>()
@@ -78,26 +78,26 @@ module BulletRunner =
 
   let internal getFinish task = 
     match task with
-    | Processable.Accel(pa) -> pa.finish
-    | Processable.Action (pa,_) -> pa.finish
-    | Processable.Fire(pf,_) -> pf.finish
-    | Processable.ChangeDirection(pd) -> pd.finish 
-    | Processable.ChangeSpeed(ps) -> ps.finish 
-    | Processable.Wait(pw) -> pw.finish 
-    | Processable.Vanish(pv) -> pv.finish 
-    | Processable.Repeat(pr,_) -> pr.finish 
+    | ProcessableBulletml.Accel(pa) -> pa.finish
+    | ProcessableBulletml.Action (pa,_) -> pa.finish
+    | ProcessableBulletml.Fire(pf,_) -> pf.finish
+    | ProcessableBulletml.ChangeDirection(pd) -> pd.finish 
+    | ProcessableBulletml.ChangeSpeed(ps) -> ps.finish 
+    | ProcessableBulletml.Wait(pw) -> pw.finish 
+    | ProcessableBulletml.Vanish(pv) -> pv.finish 
+    | ProcessableBulletml.Repeat(pr,_) -> pr.finish 
     | _ -> false
 
   let internal setFinish task = 
     match task with
-    | Processable.Accel(pa) -> pa.finish <- true
-    | Processable.Action (pa,_) -> pa.finish <- true
-    | Processable.Fire(pf,_) -> pf.finish <- true
-    | Processable.ChangeDirection(pd) -> pd.finish <- true 
-    | Processable.ChangeSpeed(ps) -> ps.finish <- true 
-    | Processable.Wait(pw) -> pw.finish <- true
-    | Processable.Vanish(pv) -> pv.finish <- true 
-    | Processable.Repeat(pr,_) -> pr.finish <- true 
+    | ProcessableBulletml.Accel(pa) -> pa.finish <- true
+    | ProcessableBulletml.Action (pa,_) -> pa.finish <- true
+    | ProcessableBulletml.Fire(pf,_) -> pf.finish <- true
+    | ProcessableBulletml.ChangeDirection(pd) -> pd.finish <- true 
+    | ProcessableBulletml.ChangeSpeed(ps) -> ps.finish <- true 
+    | ProcessableBulletml.Wait(pw) -> pw.finish <- true
+    | ProcessableBulletml.Vanish(pv) -> pv.finish <- true 
+    | ProcessableBulletml.Repeat(pr,_) -> pr.finish <- true 
     | _ -> ()
 
   let rec internal runCommand (task:ProcessableBulletml) (bulletmlTask:BulletmlTask) (bullet:IBulletmlObject) =
@@ -136,7 +136,7 @@ module BulletRunner =
       let mutable bullet, stop, continue' = bullet, false, false
       while pr.repeatNum < times && not stop && not continue' do
         let pa, tasks = actionElm |> function
-          | Processable.Action (pa, tasks) -> pa,tasks
+          | ProcessableBulletml.Action (pa, tasks) -> pa,tasks
           | _ -> failwith "error"
         if not pa.finish then
           let c,r = actionCommand tasks bullet
@@ -205,7 +205,7 @@ module BulletRunner =
         newBullet.Task <- createTask bulletElm bulletmlTask newBullet |> Some 
        
         match bulletElm with
-        | Processable.Bullet(attr,_,speed,_) -> 
+        | ProcessableBulletml.Bullet(attr,_,speed,_) -> 
           match speed with
           | Some (Speed(attr,s)) -> 
             newBullet.Speed  <- getValue s
@@ -331,10 +331,10 @@ module BulletRunner =
 
     match task with
     | ProcessableBulletml.Repeat(pr, actionElm) -> repeatCommand pr actionElm
-    | Processable.Action(pa,tasks) -> 
+    | ProcessableBulletml.Action(pa,tasks) -> 
       if pa.finish then bullet, RunState.End 
       else actionCommand tasks bullet 
-    | Processable.Wait (pw) -> waitCommand pw
+    | ProcessableBulletml.Wait (pw) -> waitCommand pw
     | ProcessableBulletml.Fire (pf,bulletElm) -> fireCommand pf bulletElm
     | ProcessableBulletml.Vanish pv -> vanishCommand pv
     | ProcessableBulletml.Accel(pa) -> accelCommand pa
@@ -357,7 +357,7 @@ module BulletRunner =
         while i < len && not stop do
           let task,pa = 
             match tasks.[i] with
-            | Processable.Action (pa,_) -> tasks.[i],pa
+            | ProcessableBulletml.Action (pa,_) -> tasks.[i],pa
             | _ -> failwith "error"
           i <- i + 1
           if not pa.finish then 

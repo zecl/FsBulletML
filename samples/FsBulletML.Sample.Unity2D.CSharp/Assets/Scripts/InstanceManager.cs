@@ -113,6 +113,6 @@ public class InstanceManager : MonoBehaviour
             self.activeCachedObjects[objectToDestroy.name] = false;
             return;
         }
-        GameObject.DestroyObject(objectToDestroy);
+        Object.Destroy(objectToDestroy);
     }
 }

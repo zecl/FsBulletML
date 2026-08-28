@@ -2,18 +2,13 @@
 
 open System
 open System.IO 
-open System.Runtime.Serialization.Formatters.Binary
 open System.Runtime.CompilerServices
 
 [<AutoOpen>]
 module internal Util = 
-  let deepCopyClone<'a> (target:'a) =
-    let clone : Object = null;
-    use stream = new MemoryStream()
-    let formatter = new BinaryFormatter()
-    formatter.Serialize(stream, target)
-    stream.Position <- 0L
-    formatter.Deserialize(stream) :?> 'a
+  // BinaryFormatter was removed on modern .NET (throws / does not compile on netstandard2.1).
+  // ProcessableBulletml trees are cloned by Processable.cloneProcessable (BulletRunner.createTask).
+  // TODO: do not bring BinaryFormatter back; add a typed clone if another type needs a deep copy.
 
   open System.Diagnostics
   let dprintf fmt = Printf.ksprintf Debug.Write fmt
@@ -42,12 +37,12 @@ module internal TryParse =
     | true, v    -> Some v
     | false, _   -> None
 
-  let parseDate = tryParseWith System.DateTime.TryParse
-  let parseInt32 = tryParseWith System.Int32.TryParse
-  let parseInt64 = tryParseWith System.Int64.TryParse
-  let parseSingle = tryParseWith System.Single.TryParse
-  let parseDouble = tryParseWith System.Double.TryParse
-  let parseDecimal = tryParseWith System.Decimal.TryParse 
+  let parseDate = tryParseWith (fun (s: string) -> System.DateTime.TryParse(s))
+  let parseInt32 = tryParseWith (fun (s: string) -> System.Int32.TryParse(s))
+  let parseInt64 = tryParseWith (fun (s: string) -> System.Int64.TryParse(s))
+  let parseSingle = tryParseWith (fun (s: string) -> System.Single.TryParse(s))
+  let parseDouble = tryParseWith (fun (s: string) -> System.Double.TryParse(s))
+  let parseDecimal = tryParseWith (fun (s: string) -> System.Decimal.TryParse(s))
   let parseEval = tryParseWith tryEval
 
 [<AutoOpen>]
