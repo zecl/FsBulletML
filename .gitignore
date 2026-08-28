@@ -52,3 +52,8 @@ samples/**/*.csproj.user
 # leftover from Unity IAP default package
 **/BillingMode.json
 **/BillingMode.json.meta
+
+# Unity accidentally creates these if the repo root or F# lib is opened as a project
+/ProjectSettings/
+src/FsBulletML.Unity2D/ProjectSettings/
+src/FsBulletML.Unity2D/Packages/
