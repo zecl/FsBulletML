@@ -22,6 +22,7 @@
     <Compile Include="Degenerate.fs" />
     <Compile Include="Expressions.fs" />
     <Compile Include="ShootingType.fs" />
+    <Compile Include="Culture.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\**\*">

@@ -210,6 +210,76 @@ BulletmlDTDViolationException: not support ShootingDirection.：[diagonal]
 
 ---
 
+## 6. 小数点がカンマのカルチャでは、式の評価が落ちる
+
+固めた場所: `Culture.fs` / 控え `culture-decimal.txt` `culture-literal.txt`
+
+見つけたのは planner（本人は「未測定・推論」と明記）。こちらで走らせて測った。
+**読みは当たっていて、実際の壊れ方は予想より硬かった。** 値が狂うのではなく落ちる。
+
+```
+en-US    10/4=2.500  1/3=0.333  0-2.5=-2.500  2*1.5=3.000
+ja-JP    10/4=2.500  1/3=0.333  0-2.5=-2.500  2*1.5=3.000
+de-DE    全部 XPathException
+fr-FR    FormatException（2*1.5 だけ XPathException）
+```
+
+小数リテラル `2.5` を単体で書いただけでも落ちる。
+
+```fsharp
+// Util.fs:27-33
+let eval (expression:string) =
+  ...
+  let ev = nav.Evaluate(String.Format("number({0})", xexpr)) |> string
+  Single.Parse(ev)          // CultureInfo を渡していない
+```
+
+**測ったのは `Thread.CurrentThread.CurrentCulture` を差し替えた場合だけ。**
+`CurrentUICulture` や OS の既定は触っていない。
+
+### 「小数のときだけ」ではなかった
+
+最初「落ちるのは小数が出るときだけ」と書きかけたが、**測っていない断定だった**。
+整数だけの式も測ったら、de-DE / fr-FR では**全部落ちた**。
+
+```
+de-DE / fr-FR   1+2*3  (1+2)*3  7%3  0-3  8/4   すべて XPathException
+```
+
+### 落ちている式は、こちらが書いた式ではなかった
+
+例外のメッセージまで取ったら、失敗している式が `<speed>` ではなく `<wait>` の値だった。
+
+```
+XPathException: Function 'number' in 'number(10,0000000000)' has an invalid number of arguments.
+```
+
+`<wait>` の値を振って確かめた。`wait=3` なら `3,0000000000`、`wait=7` なら `7,0000000000`。
+**値が float を経由して小数 10 桁で文字列化され、カンマが XPath の引数区切りと読まれている。**
+
+### 出どころは 4 か所
+
+```
+IntermediateParser.fs:632   (single:float32).ToString("F10")           カルチャ指定なし
+IntermediateParser.fs:959   (Processable.getValue x).ToString("F10")   カルチャ指定なし
+Processable.fs:116          rand.ToString() / rank.ToString()          カルチャ指定なし
+Util.fs:33                  Single.Parse(ev)                           カルチャ指定なし
+```
+
+上 3 つが**カンマを作る側**、いちばん下が**カンマを読み違える側**。
+planner が最初に見つけたのは `Util.fs:33` で、これは下流のほう。
+上流を直さないと `ToString("F10")` がカンマを作り続ける。
+
+`Processable.fs:116` は `$rand` / `$rank` の置換なので、
+de-DE では `0,5` が式に入ることになる。**この経路はまだ測っていない**
+（控えの `$rand` を使うテストは en-US 相当で走っている）。
+
+fr-FR で `2.5` のときだけ `FormatException` が出るのは、
+`ToString("F10")` を通らずに `Single.Parse` へ直行する経路があるためと思われる。
+**推論。** 直すときに測り直すこと。
+
+---
+
 ## 測り方について
 
 - 継ぎ目は既にインターフェースとして空いていたので、**本体は 1 行も触っていない**
