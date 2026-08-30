@@ -1,0 +1,4 @@
+DTD の定め: <!ATTLIST bulletml type (none|vertical|horizontal) "none"> （省略可・既定 none）
+実装: 落ちない。軌跡が出た（先頭 2 行）
+f00
+  b0 P- x=0.000 y=0.000 d=0.000 s=0.000

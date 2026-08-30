@@ -208,6 +208,35 @@ Unity2D   DefaultBullet.fs:30       member val ... = BulletHorizontal
 BulletmlDTDViolationException: not support ShootingDirection.：[diagonal]
 ```
 
+### 既定値が 3 つある
+
+見つけたのは planner。同じ問いに 3 つ別の答えがある。
+
+```
+DTD       none        DTD.fs:141  <!ATTLIST bulletml type (none|vertical|horizontal) "none">
+Core      vertical    BulletRunner.fs:404  | None -> ShootingDirection.BulletVertical
+フロント   horizontal  BaseBullet.fs:28 / DefaultBullet.fs:30  member val ... = BulletHorizontal
+```
+
+**Core の枝は届く。** `type` を省いた BulletML を食わせても落ちず、
+`IntermediateParser.fs:200-204` が `bulletmlType = None` を返すので `:404` に入る。
+（最初こちらは「省くと例外が飛ぶので届かない枝」と読んだが、**測ったら落ちなかった**。
+`IntermediateParser.fs:221` の `None` は type 属性ではなく attrs レコード全体にかかっている。）
+
+いまは `type` 自体が挙動に効かないので、この食い違いは見えない。
+**効くようにした瞬間に、3 つのうちどれを採るかを決めることになる。**
+
+### ついでに、例外のメッセージが条件と合っていない
+
+```fsharp
+// IntermediateParser.fs:221
+| None -> new BulletmlDTDViolationException("this element should have ShootingDirection attribute.") |> raise
+```
+
+条件は `tryFindBulletmlAttrs` が `None` のとき、つまり
+**`bulletml` 要素の属性が取れなかったとき**であって、`type` 属性の有無ではない。
+`type` を省いても、この例外は飛ばない（上で測ったとおり）。
+
 ---
 
 ## 6. 小数点がカンマのカルチャでは、式の評価が落ちる

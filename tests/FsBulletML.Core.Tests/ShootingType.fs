@@ -60,6 +60,43 @@ type ShootingType() =
     // 3 つとも同じなので、代表 1 本だけ控えに残す
     none |> Golden.check "shooting-type-no-effect"
 
+  /// DTD は type を省略可（既定 "none"）と定めている。実装がそれに従うかを見る。
+  ///
+  /// 測った結果は「落ちない」。IntermediateParser.fs:200-204 が
+  /// 属性が無ければ bulletmlType = None を返すので、
+  /// BulletRunner.fs:404 の `None -> BulletVertical` に**届く**。
+  ///
+  /// つまり同じ問いに 3 つ別の答えがある。
+  ///   DTD       none          （DTD.fs:141 のコメント）
+  ///   Core      vertical      （BulletRunner.fs:404。省略時に届く）
+  ///   フロント   horizontal    （BaseBullet.fs:28 / DefaultBullet.fs:30）
+  ///
+  /// いまは type 自体が挙動に効かないので見えない。効くようにした瞬間に効いてくる。
+  ///
+  /// なお IntermediateParser.fs:221 の例外は
+  /// 「this element should have ShootingDirection attribute.」と言うが、
+  /// 条件は type 属性ではなく attrs レコードが None のとき。**メッセージが実際の条件と違う。**
+  [<Test>]
+  member _.``type を省くとどうなるか``() =
+    let noType = """<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/bulletml.dtd">
+<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+<action label="top">
+  <fire><direction type="absolute">30</direction><speed>2</speed><bullet/></fire>
+  <wait>3</wait>
+</action>
+</bulletml>"""
+    let result =
+      try
+        let t = Trace.run noType 4
+        sprintf "落ちない。軌跡が出た（先頭 2 行）\n%s" (t.Split('\n') |> Array.truncate 2 |> String.concat "\n")
+      with e ->
+        let rec inner (x: exn) = if isNull x.InnerException then x else inner x.InnerException
+        let i = inner e
+        sprintf "%s: %s" (i.GetType().Name) (i.Message.Replace("\r", "").Replace("\n", " "))
+    sprintf "DTD の定め: <!ATTLIST bulletml type (none|vertical|horizontal) \"none\"> （省略可・既定 none）\n実装: %s" result
+    |> Golden.check "shooting-type-omitted"
+
   [<Test>]
   member _.``type に知らない値を書くと DTD 違反で落ちる``() =
     let ex =
