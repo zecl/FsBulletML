@@ -1,0 +1,5 @@
+en-US $rand   0.500
+de-DE $rand   Function 'number' in 'number(0,0000000000)' has an invalid number of arguments.
+de-DE $rank   Function 'number' in 'number(0,0000000000)' has an invalid number of arguments.
+de-DE 2       Function 'number' in 'number(0,0000000000)' has an invalid number of arguments.
+fr-FR $rand   Function 'number' in 'number(0,0000000000)' has an invalid number of arguments.

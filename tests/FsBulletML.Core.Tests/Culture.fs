@@ -139,6 +139,62 @@ type Culture() =
     |> String.concat "\n"
     |> Golden.check "culture-which-value"
 
+  /// $rand / $rank の経路（Processable.fs:113-116）もカルチャ依存か。
+  /// rand.ToString() にカルチャを渡していないので de-DE では 0,5 が式に入るはず、
+  /// というのが planner の読み（本人は未実測と明記）。
+  ///
+  /// **どこで落ちるかが要点。** 上流の ToString("F10") で先に落ちるなら
+  /// wait と同じメッセージになるし、$rand のほうが先なら 0,5 が出るはず。
+  [<Test>]
+  member _.``rand と rank の置換はカルチャ依存か``() =
+    let probe expr =
+      try
+        let t = Trace.run (bml expr) 3
+        let m = Regex.Match(t, @"\+b1 d=[-\d.]+ s=([-\d.]+)")
+        if m.Success then m.Groups.[1].Value else "撃っていない"
+      with e ->
+        let rec inner (x: exn) = if isNull x.InnerException then x else inner x.InnerException
+        (inner e).Message.Replace("\r", "").Replace("\n", " ")
+    [ sprintf "en-US $rand      %s" (under "en-US" (fun () -> probe "$rand"))
+      sprintf "de-DE $rand      %s" (under "de-DE" (fun () -> probe "$rand"))
+      sprintf "de-DE $rank      %s" (under "de-DE" (fun () -> probe "$rank"))
+      sprintf "de-DE 1+$rand*2  %s" (under "de-DE" (fun () -> probe "1+$rand*2"))
+      sprintf "fr-FR $rand      %s" (under "fr-FR" (fun () -> probe "$rand")) ]
+    |> String.concat "\n"
+    |> Golden.check "culture-rand-rank"
+
+  /// 上は <wait>10</wait> が先に落ちて $rand まで届かなかった。
+  /// wait を外して $rand だけを通し、この経路が単独で落ちるのかを見る。
+  [<Test>]
+  member _.``wait を外して rand だけを通す``() =
+    let noWait expr =
+      sprintf """<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/bulletml.dtd">
+<bulletml type="vertical" xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+<action label="top">
+  <fire>
+    <direction type="absolute">0</direction>
+    <speed>%s</speed>
+    <bullet/>
+  </fire>
+</action>
+</bulletml>""" expr
+    let probe expr =
+      try
+        let t = Trace.run (noWait expr) 2
+        let m = Regex.Match(t, @"\+b1 d=[-\d.]+ s=([-\d.]+)")
+        if m.Success then m.Groups.[1].Value else "撃っていない"
+      with e ->
+        let rec inner (x: exn) = if isNull x.InnerException then x else inner x.InnerException
+        (inner e).Message.Replace("\r", "").Replace("\n", " ")
+    [ sprintf "en-US $rand   %s" (under "en-US" (fun () -> probe "$rand"))
+      sprintf "de-DE $rand   %s" (under "de-DE" (fun () -> probe "$rand"))
+      sprintf "de-DE $rank   %s" (under "de-DE" (fun () -> probe "$rank"))
+      sprintf "de-DE 2       %s" (under "de-DE" (fun () -> probe "2"))
+      sprintf "fr-FR $rand   %s" (under "fr-FR" (fun () -> probe "$rand")) ]
+    |> String.concat "\n"
+    |> Golden.check "culture-rand-isolated"
+
   /// XML に書いた小数リテラルのほうもカルチャで揺れるか。
   /// こちらは eval に入る前の文字列なので、揺れるなら別経路。
   [<Test>]
