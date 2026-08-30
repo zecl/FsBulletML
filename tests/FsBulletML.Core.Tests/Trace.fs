@@ -31,8 +31,12 @@ module Trace =
     let r = if r = 0.0 then 0.0 else r   // -0.000 を 0.000 に寄せる
     r.ToString("F" + string digits, CultureInfo.InvariantCulture)
 
-  /// XML 文字列を frames フレーム回した軌跡を返す
-  let run (xml: string) (frames: int) : string =
+  /// XML 文字列を frames フレーム回した軌跡を返す。
+  ///
+  /// onFrame はそのフレームを回す**前**に呼ばれる（引数はフレーム番号）。
+  /// 走行の途中で $rank や自機位置を動かすために置いた。
+  /// **1 回だけ焼き付けたか毎回読み直しているかは、動かさないと割れない。**
+  let runWith (onFrame: int -> unit) (xml: string) (frames: int) : string =
     let born = List<FakeBullet>()
     let root = FakeBullet(0, born)
     let o = root :> IBulletmlObject
@@ -62,6 +66,7 @@ module Trace =
           sb.AppendLine() |> ignore
 
     for i in 0 .. frames - 1 do
+      onFrame i
       sb.AppendLine(sprintf "f%02d" i) |> ignore
       // このフレームで回す顔ぶれを先に固める。途中で産まれた弾は次のフレームから
       let live = Array.append [| root |] (born.ToArray())
@@ -74,3 +79,5 @@ module Trace =
         seen <- seen + 1
 
     sb.ToString().Replace("\r\n", "\n")
+
+  let run (xml: string) (frames: int) : string = runWith ignore xml frames

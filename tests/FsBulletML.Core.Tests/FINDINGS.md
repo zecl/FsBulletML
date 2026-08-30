@@ -14,6 +14,7 @@
 | [8](#8-相互参照でスタックが溢れプロセスごと落ちる) | 参照が輪になると `StackOverflow` でプロセス死 | 直せば読めるようになる |
 | [9](#9-top-が複数あっても先頭に-wait-があると後ろが-1-度も走らない) | 複数の `top*` のうち先頭しか走らない | 変わる |
 | [10](#10-同梱のサンプルを全部走らせた結果) | 同梱サンプル 227 本を全部走らせた結果 | — |
+| [11](#11-ref-の-param-に入れた値は展開のときに数へ潰される) | `ref` の `param` が展開のとき数へ潰され、`$rank` が凍る | 変わる |
 
 **8 は zecl から「当時の妥協。今回の改修で直せたら直したい」**（2026-08-31）。
 
@@ -575,6 +576,86 @@ git が追跡している    906 個
 
 ---
 
+## 11. `ref` の `param` に入れた値は、展開のときに数へ潰される
+
+planner から「`existRandomParam` が `$rank` を見ていない（未測定）」と渡された件。
+**測った。割れた。** そして原因は `$rank` を見ていないことではなかった。
+
+### 測ったもの
+
+走行の途中で manager の値を差し替えて、撃った弾の速さが追随するかを見る。
+`Trace.runWith` にフレームごとのフックを足した（**動かさないと、毎回読み直しているのと
+最初の 1 回を持ち回っているのが同じ控えになる**）。フレーム 4 で `0.2` から `0.7` へ。
+
+| 書き方 | 追随するか |
+|---|---|
+| `<speed>1+$rank*10</speed>` を直に書く | ○ 3.0 → 8.0 |
+| `<speed>1+$rand*10</speed>` を直に書く | ○ 3.0 → 8.0 |
+| `actionRef` を挟むが `param` 無し。先に `$rank` | ○ 3.0 → 8.0 |
+| `<param>$rank</param>` 経由 | ✗ **0.2 のまま** |
+| `<param>1+$rank*10</param>` 経由 | ✗ **3.0 のまま** |
+| `<param>$rand</param>` 経由 | ○ 0.2 → 0.7 |
+
+上の 3 行が校正点。**`actionRef` を挟むこと自体は凍らせない。**
+凍らせているのは `param` の置き換えのほうで、`$rand` だけが例外的に助かっている。
+
+### 原因は `IntermediateParser.fs:959`
+
+```fsharp
+let mapEval expr = List.map (fun x -> (Processable.getValue x).ToString("F10")) expr
+```
+
+`param` は子へ渡す前に **`getValue` で数へ潰される**。`$rank` は
+そこで `"0.2000000000"` になり、以後ただの数字なので二度と読み直されない。
+
+`$rand` が助かるのは、`BulletRunner.fs:409` の `existRandomParam` が
+`$rand` を含む `ref` を見つけると `Original` に生の XML を持たせ、
+`BulletmlTask.Init()` が**毎周まるごと展開し直す**ため（`Processable.fs:272`）。
+機構そのものを直に測った控えが `freeze-original-flag`。
+
+```
+<param>3</param>         Original = None（持ち回る）
+<param>$rand</param>     Original = Some（作り直す）
+<param>$rank</param>     Original = None（持ち回る）
+<param>1+$rand*2</param> Original = Some（作り直す）
+<param>1+$rank*2</param> Original = None（持ち回る）
+```
+
+`judge` が見ているのは `x.Contains("$rand")` の 1 行だけ（`IntermediateParser.fs:842`）。
+
+### `$rand` も、守られているのは「ひと回りに 1 回」まで
+
+作り直しが起きるのは `task.Init()`、つまり `top` がひと回りしたとき。
+**ひと回りの中で何発撃っても、展開は 1 回**。
+
+```xml
+<repeat><times>3</times>
+  <action><actionRef label="shoot"><param>$rand</param></actionRef></action>
+</repeat>
+```
+
+毎フレーム `$rand` を動かしながら走らせて、**3 発とも `s=0.200`**（`freeze-rand-within-loop`）。
+`param` で `$rand` を撒く「ばらけた弾」は、ひと回りの中では**全部同じ値**になる。
+
+### 直すときに
+
+`mapEval` を外して `param` を**文字のまま**渡せば、`$rand` も `$rank` も
+`getValue` が読む位置まで生き残る（`Param.replace` はもともと文字の置き換え）。
+そうすると `existRandomParam` と `Original` の仕組みは要らなくなる。
+
+ただし **`param` に入れた式を評価する時点が変わる**ので、既存の弾幕の見た目は動く。
+`$1` を何度も使う `action` では、いまは 1 回ぶんの値が共有されているが、
+文字のまま渡すと使うたびに転がることになる。**どちらが正しいかは仕様の話。**
+
+`mapEval` の `ToString("F10")` は [6](#6-小数点がカンマのカルチャでは式の評価が落ちる) の
+出どころの 1 つでもある。**同じ 1 行に 2 つの不具合が載っている。**
+
+控え: `freeze-direct-rank` / `freeze-direct-rand` / `freeze-ref-noparam-rank` /
+`freeze-param-rank` / `freeze-param-rank-expr` / `freeze-param-rand` /
+`freeze-rand-within-loop` / `freeze-original-flag`（`RefParamFreeze.fs`）
+
+---
+
 ## この網が本当に守るのかを、壊して確かめた
 
 控えが 58 本そろったところで、**本体を実際に変えて何件赤くなるか**を測った。
@@ -596,6 +677,41 @@ FsBulletML.Parser.Tests   失敗  0 / 合格 346    ← 既存のテストは 1 
 埋めたかったのはこの穴そのものだった。
 
 戻して両方緑に戻ることも確かめてある。
+
+### [11](#11-ref-の-param-に入れた値は展開のときに数へ潰される) で網を広げたので、測り直した
+
+```
+控え 66 本  失敗 16 / 合格 50     捕まえた数は同じ 16
+```
+
+**足した 8 本はこの壊し方に反応しない。** どれも `direction type="absolute">0` を撃つので、
+係数が何であれ 0 度は 0 ラジアンのまま。増えたのは合格のほうだけ。
+
+### 測り直しのついでに、`revise` がもう 1 か所あるのに気づいた
+
+最初にこの節を書いたとき「変えたのは 1 文字」としたが、**同じ式が
+`BulletRunner.fs:177` と `:194` の 2 か所にある**。前回どちらを変えたかは記録が無い。
+今回は 177 だけを変えて 16、**194 だけを変えると 0**（両方とも緑のまま）だった。
+
+これは網の穴ではない。**194 の `revise` は誰も使っていない。**
+
+```fsharp
+| None ->
+  let revise = (float32 Math.PI) / 180.f     // ← 束縛するだけ
+  if bullet.BulletType = BulletType.Player then
+    ... <- bullet.GetEnemyAimDir()           // ← revise を使わない
+  else
+    ... <- bullet.GetAimDir()                // ← こちらも使わない
+```
+
+`<direction>` を書かなかったときの枝で、向きは狙い撃ちの角度そのものになる。
+度からラジアンへ直す相手が無いので、束縛が余っている。
+[3](#3-run-に絶対値を返す枝が-2-つある届かなかった) と同じ「死んだもの」の仲間で、
+**消しても挙動は変わらない**（F# は使われない `let` を警告しない）。
+
+★**「壊しても赤くならない」には 2 通りある。** 網が届いていないのと、
+壊した先がもともと何もしていないの。**今回は後者だった**ので、
+先に「網の穴だ」と読まずに、その行が誰に読まれているかを見ること。
 
 ---
 

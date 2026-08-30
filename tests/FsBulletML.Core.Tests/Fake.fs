@@ -15,6 +15,30 @@ type FixedManager(rand: float32, rank: float32, playerX: float32, playerY: float
     member _.GetPlayerPosX() = playerX
     member _.GetPlayerPosY() = playerY
 
+/// 走行の途中で $rand / $rank を動かせる manager。
+///
+/// 焼き付けの有無は、値が動かないと割れない。FixedManager では
+/// 「毎回読み直している」と「最初の 1 回を持ち回っている」が同じ控えになる。
+/// 呼ばれた回数も持つ（getValue は式の中身に関わらず両方を毎回呼ぶ）。
+type MutableManager(rand: float32, rank: float32, playerX: float32, playerY: float32) =
+  let mutable r = rand
+  let mutable k = rank
+  let mutable randCalls = 0
+  let mutable rankCalls = 0
+  member _.Rand with get () = r and set v = r <- v
+  member _.Rank with get () = k and set v = k <- v
+  member _.RandCalls = randCalls
+  member _.RankCalls = rankCalls
+  interface IBulletMLManager with
+    member _.GetRandom() =
+      randCalls <- randCalls + 1
+      r
+    member _.GetRank() =
+      rankCalls <- rankCalls + 1
+      k
+    member _.GetPlayerPosX() = playerX
+    member _.GetPlayerPosY() = playerY
+
 /// GetEnemyAimDir が狙う相手の位置。自機（FixedManager が持つ）と区別できる場所に置く。
 /// 原点に置くと根の弾も原点なので atan2(0, -0) = π になり、
 /// ライブラリの値ではなく偽の弾の副作用が控えに出る。
