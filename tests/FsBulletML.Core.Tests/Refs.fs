@@ -148,3 +148,35 @@ type Refs() =
       Trace.run x 6
       + "\n前の dup なら d=0.000 s=1.000、後ろの dup なら d=1.571 s=9.000"
     |> Golden.check "now-duplicate-label-first-wins"
+
+  /// 上は兄弟に 2 つ置いた形。**リポジトリに実在するのは入れ子のほう**（planner）。
+  ///
+  ///   tests/TestData/xml/bulletRef/elements/success/bulletRef-param-nothing.xml
+  ///   tests/TestData/xml/fireRef/elements/success/fireRef-param-nothing.xml
+  ///     どちらも <action label="top"> の中に <action label="top">
+  ///
+  /// この 2 本を使っているのは `XmlParse.fs` と `OtherParse.fs` の**パース経路だけ**で、
+  /// どちらの `top` が走るかは既存の 346 件が 1 件も見ていない。
+  ///
+  /// 凍結予測（経路つき）: **外側が勝つ。**
+  /// `getAction`（`IntermediateParser.fs:721`）が `list@[recBulletml]@getChildren2` と
+  /// **自分を子より先に置く行きがけ順**なので、平らにした並びで外側が先に来る。
+  /// `tryFindAction`（`:737`）はそこへ `List.tryFind` を当てるだけ。
+  /// **外側が勝つなら、外側にしかない `speed 1` も撃たれる。内側だけなら 9 だけ。**
+  [<Test>]
+  member _.``同じ label が入れ子のとき、いまはどちらが走るか``() =
+    bml """<action label="top">
+  <actionRef label="dup"/>
+  <wait>6</wait>
+</action>
+
+<action label="dup">
+  <fire><direction type="absolute">0</direction><speed>1</speed><bullet/></fire>
+  <action label="dup">
+    <fire><direction type="absolute">90</direction><speed>9</speed><bullet/></fire>
+  </action>
+</action>"""
+    |> fun x ->
+      Trace.run x 6
+      + "\n外側が勝つなら s=1.000 と s=9.000 の両方、内側だけなら s=9.000 のみ"
+    |> Golden.check "now-duplicate-label-nested"
