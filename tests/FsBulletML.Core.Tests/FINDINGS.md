@@ -1,5 +1,25 @@
 # 走らせる側を測って出てきたもの
 
+## 目次
+
+| | 何が | 直すと挙動が変わるか |
+|---|---|---|
+| [1](#1-bullet-の中に書いた-direction-が効かない) | `bullet` の中の `direction` が効かず `aim` に落ちる | 変わる |
+| [2](#2-wait-の最初の-1-周だけ-1-フレーム短い) | `wait` の最初の 1 周だけ 1 フレーム短い | 変わる |
+| [3](#3-run-に絶対値を返す枝が-2-つある届かなかった) | 絶対値を返す枝が 2 つ。どちらも届かない | 変わらない（死んだ枝） |
+| [4](#4-未解決の-n-が-0-ではなく-n-になる) | 未解決の `$N` が `0` ではなく `N` になる | 変わる |
+| [5](#5-bulletml-type-は走らせる側に効かない) | `<bulletml type>` が効かない。既定値が 3 層で違う | 繋ぐなら変わる |
+| [6](#6-小数点がカンマのカルチャでは式の評価が落ちる) | `,` が小数点のカルチャで BulletML が 1 つも走らない | 直せば動くようになる |
+| [7](#7-fire-の-speed-typerelative-が親の速さを見ていない) | `fire` の `speed type="relative"` が親の速さを見ない | 変わる |
+| [8](#8-相互参照でスタックが溢れプロセスごと落ちる) | 参照が輪になると `StackOverflow` でプロセス死 | 直せば読めるようになる |
+| [9](#9-top-が複数あっても先頭に-wait-があると後ろが-1-度も走らない) | 複数の `top*` のうち先頭しか走らない | 変わる |
+| [10](#10-同梱のサンプルを全部走らせた結果) | 同梱サンプル 227 本を全部走らせた結果 | — |
+
+**8 は zecl から「当時の妥協。今回の改修で直せたら直したい」**（2026-08-31）。
+
+正しく動いていたものは末尾の [仕様と突き合わせて合っていたもの](#仕様と突き合わせて合っていたもの) に。
+
+
 リファクタリング前に挙動を固める作業（枝 `feature/core-tests`）で出た調査結果。
 **ここに書いたものは 1 つも直していない。** 控え（`tests/TestData/trace/`）は
 「正しい姿」ではなく「いまの姿」の記録なので、リファクタリングで控えが動いたら、
@@ -499,17 +519,35 @@ Player として撃つ   d=5.695   敵 (-40,-60) を狙う
 
 直したらこのリストを空にして測り直すこと。
 
-### 落ちた 4 本 —— これはライブラリが正しい
+### 落ちた 4 本 —— どちらもライブラリが正しい。ただし理由が 2 つある
 
 ```
-BulletmlDTDViolationException: repeat element cannot have multiple elements of (Action|ActionRef).
+3 本  BulletmlDTDViolationException: repeat element cannot have multiple elements of (Action|ActionRef).
+      [OtakuTwo]_self-0036.xml / _self-1010.xml / _self-1011.xml
+
+1 本  XmlException: 'name' is an unexpected token. Expecting whitespace. Line 1, position 26.
+      samples/FsBulletML.Sample.TypeProviders.Debug/2wayLeft.xml
 ```
 
-DTD は `<!ELEMENT repeat (times, (action | actionRef))>` で 1 個だけと定めている。
-落ちた 4 本は `<repeat>` の中に `<actionRef>` を 2 つ書いている。**サンプルのほうが DTD 違反。**
-弾いているライブラリが正しく、メッセージも条件と合っている。
+**前者 3 本は DTD 違反。** `<!ELEMENT repeat (times, (action | actionRef))>` で 1 個だけと
+定めているのに、`<repeat>` の中に `<actionRef>` を 2 つ書いている。弾くのが正しい。
 
-同梱のサンプルのうち 4 本が読めない BulletML、という事実として記録する。
+**後者 1 本は XML として壊れている。**
+
+```xml
+<bulletml type="vertical"name="2way Left">
+                        ^^ 空白が無い
+```
+
+`.NET の XmlReader` が拒否する。**同じ弾幕の他の 4 コピーは正常**（planner の調べ）。
+この 1 本だけが壊れている。
+
+同梱のサンプルのうち 4 本が読めない、という事実として記録する。
+どちらもライブラリの側は正しく振る舞っている。
+
+**この節はいちど間違えて書いた。** 控えには 2 種類のメッセージが出ていたのに、
+上の 2 本だけ読んで「4 本とも DTD 違反」と書いた。planner の指摘で直した。
+**一覧を作るときは、断定を確かめる癖が働かない。**
 
 ### 撃たなかった 6 本 —— 欠陥ではない
 
@@ -565,3 +603,17 @@ git が追跡している    906 個
 - `$rand` / `$rank` の式への置換と算術
 - `vanish` で消えた弾が以降フレームに出てこない
 - 弾の中の `action` からさらに撃つ
+- `term` を省いたときの DTD 違反（メッセージが条件と一致している）
+- `repeat` の `times` に式（`7/2` は `3` に切り捨て。`times=0` でも止まらない）
+- `action` の 5 段入れ子
+- `fire` の `direction` / `speed` を省いたとき（`aim` と `speed 1` に落ちる。引き継がない）
+- 同じ label が 2 つあるときは先に書いたほうが勝つ
+- 存在しない label を参照すると `not found target Action element:<name>` で落ちる
+- `BulletType.Player` の分岐（`aim` の相手が `GetEnemyAimDir` に変わる。弾が親の型を継ぐ）
+- `top` で始まる名前の拾い方（`topmost` は拾い、`nottop` は拾わない）
+- **兄弟の弾が可変状態を共有しない**（`StateIsolation.fs`）
+  - 同じ `bulletRef` から撃った 3 発が、それぞれ自分の `term` を持って別々に加速する
+  - 片方を `vanish` してももう片方は飛び続ける
+  - `cloneProcessable` が効いている。リファクタリングで浅くすると静かに壊れる
+- ひと回りしたあとも `sequence` の累積は続く（`task.Init()` で action は作り直されるが
+  `FireData.SrcDir` は残る）。回り続ける扇はこれが要るので、たぶん意図どおり
