@@ -1,0 +1,10 @@
+direction も speed も省く:
++b1 d=2.850 s=1.000
+
+direction だけ省く（speed=3）:
++b1 d=2.850 s=3.000
+
+speed だけ省く（direction=45）:
++b1 d=0.785 s=1.000
+
+aim = 2.850 / 45 度 = 0.785

@@ -323,6 +323,51 @@ fr-FR で `2.5` のときだけ `FormatException` が出るのは、
 
 ---
 
+## 7. `fire` の `speed type="relative"` が、親の速さを見ていない
+
+固めた場所: `FireShapes.fs` / 控え `fire-speed-relative-base.txt` `bullet-action-relative.txt`
+
+弾の中の `action` からさらに撃つとき、`<speed type="relative">N</speed>` は
+**親の速さを無視して N になる**。
+
+```
+親 speed=1  relative 1  ->  1.000     親を基準なら 2
+親 speed=3  relative 1  ->  1.000     親を基準なら 4
+親 speed=5  relative 2  ->  2.000     親を基準なら 7
+```
+
+**向きのほうは親を見ている。** 同じ `relative` で基準が違う。
+
+```
+親 dir=90 度(1.571) から relative 45 度  ->  2.356 = 1.571 + 0.785   親が基準 ✓
+```
+
+機構は `BulletRunner.fs` の `fireCommand` の中で、45 行離れて割れている。
+
+```fsharp
+// 向き（:181-186）— 3 つに分かれている
+| DirectionType.Sequence -> SrcDir <- SrcDir + changeDir * revise
+| DirectionType.Absolute -> SrcDir <- changeDir * revise
+| DirectionType.Relative -> SrcDir <- changeDir * revise + bullet.Dir   // 親を見る
+
+// 速さ（:228-232）— 2 つしかない
+if (speed.speedType = SpeedType.Sequence || speed.speedType = SpeedType.Relative) then
+  SrcSpeed <- SrcSpeed + changeSpeed        // Relative が Sequence と同じ扱い
+else
+  SrcSpeed <- changeSpeed
+```
+
+**`bullet.Speed` が 1 度も出てこない。** `SrcSpeed` は fire の並びの累積値で、
+新しい弾の `FireData` は `[<DefaultValue>]` なので 0 から始まる。
+だから `relative N` が `0 + N` になる。
+
+BulletML の仕様では `sequence` は「直前の fire からの差」、`relative` は
+「撃つ弾自身の速さからの差」で別物。ここでは同じものになっている。
+
+直していない。直すと `speed type="relative"` を使っている弾幕の見た目が変わる。
+
+---
+
 ## 測り方について
 
 - 継ぎ目は既にインターフェースとして空いていたので、**本体は 1 行も触っていない**
