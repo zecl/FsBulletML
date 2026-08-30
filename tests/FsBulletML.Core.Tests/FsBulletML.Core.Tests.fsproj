@@ -21,6 +21,7 @@
     <Compile Include="BulletDirection.fs" />
     <Compile Include="Degenerate.fs" />
     <Compile Include="Expressions.fs" />
+    <Compile Include="ShootingType.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\**\*">

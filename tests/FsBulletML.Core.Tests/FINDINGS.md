@@ -161,6 +161,55 @@ fireRef に param を 1 つだけ渡し、参照先が $1+$2 を使う場合
 
 ---
 
+## 5. `<bulletml type>` は走らせる側に効かない
+
+固めた場所: `ShootingType.fs` / 控え `shooting-type-no-effect.txt` `shooting-type-unknown.txt`
+
+見つけたのは planner。こちらで数え直して確認した。
+
+`ShootingDirection` を右辺で読んで**分岐している箇所が無い**。運ばれる経路はこう。
+
+```
+XML の type="vertical"
+  -> IntermediateParser.fs:191-196  文字列から DU へ
+  -> :201-202                       BulletmlAttrs.bulletmlType へ
+  -> BulletRunner.fs:399-413        取り出して Task に set
+  -> ここで終わり
+```
+
+同じ数え方で `BulletType` を数えると分岐が 5 か所出るので、数え方のほうは効いている。
+
+**1 か所だけ訂正**（planner は「読む 0 件」としていた）。`DTD.fs:204-206` が読んでいる。
+ただし XML へ書き戻すときの文字列化で、挙動の分岐ではない。
+**挙動には効かないが、XML の往復には効く。** 往復は `Parser.Tests` の領分なので
+ここでは触っていない。
+
+フロント側は別物が同じ名前で置かれている。
+
+```
+Core      BulletRunner.fs:404       既定 BulletVertical
+MonoGame  BaseBullet.fs:28          member val ... = BulletHorizontal
+Unity2D   DefaultBullet.fs:30       member val ... = BulletHorizontal
+```
+
+`member val` の独立プロパティなので、**Core が set した値を受け取る経路が無い**。
+`Processable.fs:147` が `abstract` で置いているので Core 側が呼ぶ設計だったはずだが、
+呼んでいない。既定値も Core と フロントで逆。
+
+### 控えの取り方をふつうと変えてある
+
+読む側が居ないので、**軌跡の控えを 1 本取っても「どの type でも緑」になり何も担保しない**。
+なので 3 つの type で**同じ軌跡になること**のほうを見ている。
+効くようになったらここが赤くなる。
+
+知らない値（`type="diagonal"`）を書いた場合は例外が飛ぶ。これは効いている。
+
+```
+BulletmlDTDViolationException: not support ShootingDirection.：[diagonal]
+```
+
+---
+
 ## 測り方について
 
 - 継ぎ目は既にインターフェースとして空いていたので、**本体は 1 行も触っていない**
