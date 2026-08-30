@@ -1,14 +1,25 @@
 using UnityEngine;
+using R3;
 
 public class BgScroll : MonoBehaviour
 {
     [SerializeField]
     private float scrollSpeed1 = 0.1f;
-    void Update()
+    private Renderer rend;
+
+    void Awake()
     {
-        var r = GetComponent<Renderer>();
-        var newTextureOffset = r.material.mainTextureOffset;
-        newTextureOffset.y = r.material.mainTextureOffset.y - Time.deltaTime * scrollSpeed1;
-        r.material.mainTextureOffset = newTextureOffset;
+        rend = GetComponent<Renderer>();
+    }
+
+    void Start()
+    {
+        Observable.EveryUpdate(destroyCancellationToken)
+            .Subscribe(_ =>
+            {
+                var offset = rend.material.mainTextureOffset;
+                offset.y -= Time.deltaTime * scrollSpeed1;
+                rend.material.mainTextureOffset = offset;
+            });
     }
 }

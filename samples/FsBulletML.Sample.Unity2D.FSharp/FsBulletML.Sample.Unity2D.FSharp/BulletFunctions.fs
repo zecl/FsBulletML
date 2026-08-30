@@ -7,7 +7,10 @@ open UnityEngine
 open FsBulletML
 
 type BulletFunctions () =
-  static let player = GameObject.Find("player")
+  static let player =
+    match UnityEngine.Object.FindAnyObjectByType<Player>() with
+    | null -> null
+    | p -> p.gameObject
   static let rand = new System.Random()
 
   interface IBulletMLManager with

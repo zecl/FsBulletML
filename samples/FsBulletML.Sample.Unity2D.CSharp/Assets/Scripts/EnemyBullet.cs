@@ -1,9 +1,10 @@
 // Leftover GameObject bullet. Spawned shots are ECS entities (BulletSim).
 // Kept so the prefab still compiles if opened; nothing instantiates this at runtime.
 using UnityEngine;
-using System.Collections;
 using Microsoft.FSharp.Core;
 using FsBulletML;
+using R3;
+using R3.Triggers;
 
 public class EnemyBullet : BaseBullet
 {
@@ -19,28 +20,36 @@ public class EnemyBullet : BaseBullet
         self.BulletType = Processable.BulletType.Enemy;
     }
 
-    protected new void Update()
+    void Start()
     {
-        base.Update();
-
         var self = this as FsBulletML.Processable.IBulletmlObject;
-        if (!this.Root && self.BulletRoot && !self.Used)
-        {
-            InstanceManager.Destroy(gameObject);
-        }
+        Observable.EveryUpdate(destroyCancellationToken)
+            .Subscribe(_ =>
+            {
+                if (!this.Root && self.BulletRoot && !self.Used)
+                {
+                    InstanceManager.Destroy(gameObject);
+                    return;
+                }
 
-        if (this.transform.position.x < 0 || this.transform.position.x > 4.8)
-        {
-            self.Used = false;
-            InstanceManager.Destroy(gameObject);
-        }
+                var p = this.transform.position;
+                if (p.x < 0 || p.x > 4.8 || p.y < -6.4 || p.y > 0)
+                {
+                    self.Used = false;
+                    InstanceManager.Destroy(gameObject);
+                }
+            });
 
-
-        if (this.transform.position.y < -6.4 || this.transform.position.y > 0)
-        {
-            self.Used = false;
-            InstanceManager.Destroy(gameObject);
-        }
+        this.OnTriggerEnter2DAsObservable()
+            .Where(col => col.gameObject.tag == "Player")
+            .Subscribe(_ =>
+            {
+                if (!this.Root)
+                {
+                    InstanceManager.Destroy(gameObject);
+                }
+            })
+            .AddTo(this);
     }
 
     public override GameObject GetBulletPrefubInstance()
@@ -53,16 +62,4 @@ public class EnemyBullet : BaseBullet
         var self = this as FsBulletML.Processable.IBulletmlObject;
         self.Task = bulletmlTask;
     }
-
-    void OnTriggerEnter2D(Collider2D collier)
-    {
-        if (collier.gameObject.tag == "Player")
-        {
-            if (!this.Root)
-            {
-                InstanceManager.Destroy(gameObject);
-            }
-        }
-    }
-
 }

@@ -148,7 +148,7 @@ public static class UrpPlayModeCompat
         Camera main = Camera.main;
         if (main == null)
         {
-            var cameras = Object.FindObjectsByType<Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var cameras = Object.FindObjectsByType<Camera>(FindObjectsInactive.Include);
             for (int i = 0; i < cameras.Length; i++)
             {
                 if (cameras[i] != null && cameras[i].CompareTag("MainCamera"))
@@ -188,7 +188,7 @@ public static class UrpPlayModeCompat
         mainData.renderPostProcessing = false;
         mainData.cameraStack.Clear();
 
-        var camerasAll = Object.FindObjectsByType<Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        var camerasAll = Object.FindObjectsByType<Camera>(FindObjectsInactive.Include);
         for (int i = 0; i < camerasAll.Length; i++)
         {
             var cam = camerasAll[i];
@@ -223,7 +223,7 @@ public static class UrpPlayModeCompat
 
     static void EnsureDirectionalLight()
     {
-        var lights = Object.FindObjectsByType<Light>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        var lights = Object.FindObjectsByType<Light>(FindObjectsInactive.Include);
         for (int i = 0; i < lights.Length; i++)
         {
             if (lights[i] != null && lights[i].type == LightType.Directional)
@@ -250,7 +250,7 @@ public static class UrpPlayModeCompat
             return;
         }
 
-        var renderers = Object.FindObjectsByType<Renderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        var renderers = Object.FindObjectsByType<Renderer>(FindObjectsInactive.Include);
         for (int i = 0; i < renderers.Length; i++)
         {
             var r = renderers[i];
@@ -300,7 +300,7 @@ public static class UrpPlayModeCompat
 
     static void BindSpriteTextures()
     {
-        var sprites = Object.FindObjectsByType<SpriteRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        var sprites = Object.FindObjectsByType<SpriteRenderer>(FindObjectsInactive.Include);
         for (int i = 0; i < sprites.Length; i++)
         {
             BindSprite(sprites[i]);

@@ -26,8 +26,8 @@ type Informations () =
 
   member this.Awake () = 
     Application.targetFrameRate <- 40
-    this.enemy <- GameObject.FindObjectOfType<Enemy>()
-    this.player <- GameObject.FindObjectOfType<Player>()
+    this.enemy <- UnityEngine.Object.FindAnyObjectByType<Enemy>()
+    this.player <- UnityEngine.Object.FindAnyObjectByType<Player>()
     this.useGUILayout <- false
 
   member this.Start () =
