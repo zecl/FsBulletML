@@ -19,6 +19,7 @@
     <Compile Include="Refs.fs" />
     <Compile Include="RandRank.fs" />
     <Compile Include="BulletDirection.fs" />
+    <Compile Include="Degenerate.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\**\*">
