@@ -13,6 +13,8 @@
     <Compile Include="Trace.fs" />
     <Compile Include="Golden.fs" />
     <Compile Include="Smoke.fs" />
+    <Compile Include="Timing.fs" />
+    <Compile Include="Behavior.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\**\*">
