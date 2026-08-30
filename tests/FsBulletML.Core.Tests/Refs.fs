@@ -118,3 +118,33 @@ type Refs() =
   <wait>60</wait>
 </action>"""
     |> fun x -> Trace.run x 8 |> Golden.check "bullet-fires-bullet"
+
+  /// 同じ label が 2 つあるとどちらが走るか。**これは「いまはこうなる」の控え**で、
+  /// 「こうあるべき」ではない。DTD は label の一意性を要求していない。
+  ///
+  /// tryFindAction / tryFindFire / tryFindBullet は 3 つとも List.tryFind
+  /// （IntermediateParser.fs:737 / :781 / :825）なので、最初に見つかったものを返す。
+  ///
+  /// planner が凍結した予測: **文書順で先にあるほうが走る**。
+  /// 後ろが走ったなら、並び順についての読みのほうが外れている。
+  ///
+  /// 同梱の 227 本には実例が 0 本。**当てる先が無いので回帰の網としては働かない。**
+  /// リファクタリングで意味が変わっても誰も気づかない側なので、現状の固定として置く。
+  [<Test>]
+  member _.``同じ label が 2 つあるとき、いまはどちらが走るか``() =
+    bml """<action label="top">
+  <actionRef label="dup"/>
+  <wait>4</wait>
+</action>
+
+<action label="dup">
+  <fire><direction type="absolute">0</direction><speed>1</speed><bullet/></fire>
+</action>
+
+<action label="dup">
+  <fire><direction type="absolute">90</direction><speed>9</speed><bullet/></fire>
+</action>"""
+    |> fun x ->
+      Trace.run x 6
+      + "\n前の dup なら d=0.000 s=1.000、後ろの dup なら d=1.571 s=9.000"
+    |> Golden.check "now-duplicate-label-first-wins"
