@@ -15,6 +15,10 @@
     <Compile Include="Smoke.fs" />
     <Compile Include="Timing.fs" />
     <Compile Include="Behavior.fs" />
+    <Compile Include="ChangeCommands.fs" />
+    <Compile Include="Refs.fs" />
+    <Compile Include="RandRank.fs" />
+    <Compile Include="BulletDirection.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\**\*">

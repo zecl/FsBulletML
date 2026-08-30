@@ -1,5 +1,6 @@
 namespace FsBulletML.Core.Tests
 
+open System
 open System.Collections.Generic
 open FsBulletML
 open FsBulletML.DTD
@@ -62,9 +63,16 @@ type FakeBullet(id: int, born: List<FakeBullet>) =
       c.BulletType <- bulletType
       c
 
-    /// 自機の向き。実機では atan2 で毎フレーム変わるが、ここは固定して決定的にする
-    member _.GetAimDir() = 0.0f
-    member _.GetEnemyAimDir() = 0.0f
+    /// 自機の向き。式は BaseBullet.GetAimDir を写した。
+    /// 自機の位置は FixedManager が固定して返すので、これでも決定的になる。
+    member _.GetAimDir() =
+      float32 (Math.Atan2(float (BulletMLManager.GetPlayerPosX() - x),
+                          float -(BulletMLManager.GetPlayerPosY() - y)))
+
+    /// 敵を狙う向き。本番は最寄りの敵を探すが、ここに敵の一覧は無いので
+    /// 原点に 1 体だけ居るものとして同じ式で出す。
+    member _.GetEnemyAimDir() =
+      float32 (Math.Atan2(float (0.0f - x), -1.0 * float (0.0f - y)))
 
     member _.Init() =
       used <- true
