@@ -23,6 +23,7 @@
     <Compile Include="Expressions.fs" />
     <Compile Include="ShootingType.fs" />
     <Compile Include="Culture.fs" />
+    <Compile Include="Omitted.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\**\*">

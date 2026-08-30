@@ -1,0 +1,1 @@
+BulletmlDTDViolationException: [changeDirection] element should have [term] element.

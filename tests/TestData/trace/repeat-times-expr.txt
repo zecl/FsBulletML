@@ -1,0 +1,6 @@
+times=3        撃った数 3
+times=1+2      撃った数 3
+times=2*2      撃った数 4
+times=$rand*4  撃った数 2
+times=0        撃った数 0
+times=7/2      撃った数 3
