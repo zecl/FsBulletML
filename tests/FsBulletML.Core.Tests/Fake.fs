@@ -15,6 +15,13 @@ type FixedManager(rand: float32, rank: float32, playerX: float32, playerY: float
     member _.GetPlayerPosX() = playerX
     member _.GetPlayerPosY() = playerY
 
+/// GetEnemyAimDir が狙う相手の位置。自機（FixedManager が持つ）と区別できる場所に置く。
+/// 原点に置くと根の弾も原点なので atan2(0, -0) = π になり、
+/// ライブラリの値ではなく偽の弾の副作用が控えに出る。
+module FakeEnemy =
+  let X = -40.0f
+  let Y = -60.0f
+
 /// 記録するだけの弾。BulletRunner.run の相手。
 ///
 /// 面の作り方は MonoGame の BaseBullet を写した。とくに次の 3 つは
@@ -70,9 +77,12 @@ type FakeBullet(id: int, born: List<FakeBullet>) =
                           float -(BulletMLManager.GetPlayerPosY() - y)))
 
     /// 敵を狙う向き。本番は最寄りの敵を探すが、ここに敵の一覧は無いので
-    /// 原点に 1 体だけ居るものとして同じ式で出す。
+    /// 1 体だけ居るものとして同じ式で出す。
+    ///
+    /// 敵を原点に置くと、根の弾も原点なので atan2(0, -0) = π になり、
+    /// **偽の弾の副作用が値に出る**。自機と区別できる位置へずらしてある。
     member _.GetEnemyAimDir() =
-      float32 (Math.Atan2(float (0.0f - x), -1.0 * float (0.0f - y)))
+      float32 (Math.Atan2(float (FakeEnemy.X - x), -1.0 * float (FakeEnemy.Y - y)))
 
     member _.Init() =
       used <- true

@@ -25,6 +25,7 @@
     <Compile Include="Culture.fs" />
     <Compile Include="Omitted.fs" />
     <Compile Include="FireShapes.fs" />
+    <Compile Include="PlayerAndTops.fs" />
     <Compile Include="SelfReference.fs" />
   </ItemGroup>
   <ItemGroup>
