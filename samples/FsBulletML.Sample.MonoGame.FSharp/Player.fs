@@ -1,7 +1,8 @@
 ﻿namespace FsBulletML.Sample.MonoGame.FSharp
 
 open System
-open System.Xml 
+open System.Xml
+open System.IO
 open System.Collections.Generic
 open System.Runtime.Serialization
 open Microsoft.Xna.Framework
@@ -9,10 +10,6 @@ open Microsoft.Xna.Framework.Input
 open Microsoft.Xna.Framework.Graphics
 open FsBulletML
 open FsBulletML.MonoGame
-open FsBulletML.TypeProviders.Xml
-    
-type Homing = BulletML<"homing.xml">
-
 type Player () as this =
   [<DefaultValue>]val mutable timer : int
   [<DefaultValue>]val mutable pos : Vector2
@@ -21,15 +18,18 @@ type Player () as this =
   [<DefaultValue>]val mutable damageCounter : int32
   [<DefaultValue>]val mutable texture : Texture2D
 
+  let playerXml name =
+    Path.Combine(AppContext.BaseDirectory, "Content", "xml", "PlayerBullet", name)
+
   let shoot2WayLeftBullet (player:Player) =
-    let ``2wayLeftBullet`` = Xml.readXml (@"..\..\..\Content\xml\PlayerBullet\2wayLeft.xml") |> BulletRunner.convertBulletmlTask |> Some
+    let ``2wayLeftBullet`` = Xml.readXml (playerXml "2wayLeft.xml") |> BulletRunner.convertBulletmlTask |> Some
     if player.timer > 0 then
       let bullet = new PlayerBullet()
       Manager.addPlayerBulletPos(bullet, new Vector2(this.pos.X - 10.f, this.pos.Y + 1.f))
       bullet.SetTask(``2wayLeftBullet``) 
 
   let shoot2WayRightBullet (player:Player) =
-    let ``2wayRightBullet`` = Xml.readXml (@"..\..\..\Content\xml\PlayerBullet\2wayRight.xml") |> BulletRunner.convertBulletmlTask |> Some
+    let ``2wayRightBullet`` = Xml.readXml (playerXml "2wayRight.xml") |> BulletRunner.convertBulletmlTask |> Some
     if player.timer > 0 then
       let bullet = new PlayerBullet()
       Manager.addPlayerBulletPos(bullet, new Vector2(this.pos.X + 10.f, this.pos.Y + 1.f ))
@@ -37,8 +37,7 @@ type Player () as this =
 
   let shootHomingBullet (player:Player) = 
     let homingBullet = 
-      let bullet = new Homing ()
-      bullet.homing |> BulletRunner.convertBulletmlTask |> Some
+      Xml.readXml (playerXml "homing.xml") |> BulletRunner.convertBulletmlTask |> Some
 
     if player.timer > 60 then
       let bullet = new PlayerBullet()

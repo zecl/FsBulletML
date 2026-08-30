@@ -272,3 +272,36 @@ module Processable =
     member this.Init () = this.Original |> function
       | Some x -> this.Tasks <- toProcessable x
       | None -> this.tasks |> Seq.iter (fun p -> p.Init())
+
+  /// Deep-copy a processable tree so child bullets get independent mutable state
+  /// (finish/term/first/...). Replaces BinaryFormatter deepCopyClone.
+  let rec internal cloneProcessable (node: ProcessableBulletml) : ProcessableBulletml =
+    match node with
+    | ProcessableBulletml.Bulletml (attrs, children) ->
+        ProcessableBulletml.Bulletml (attrs, List.map cloneProcessable children)
+    | ProcessableBulletml.Action (pa, children) ->
+        ProcessableBulletml.Action ({ pa with finish = pa.finish }, List.map cloneProcessable children)
+    | ProcessableBulletml.ActionRef (attrs, ps) ->
+        ProcessableBulletml.ActionRef (attrs, ps)
+    | ProcessableBulletml.Fire (pf, child) ->
+        ProcessableBulletml.Fire ({ pf with finish = pf.finish }, cloneProcessable child)
+    | ProcessableBulletml.FireRef (attrs, ps) ->
+        ProcessableBulletml.FireRef (attrs, ps)
+    | ProcessableBulletml.Wait pw ->
+        ProcessableBulletml.Wait { pw with finish = pw.finish }
+    | ProcessableBulletml.Vanish pv ->
+        ProcessableBulletml.Vanish { pv with finish = pv.finish }
+    | ProcessableBulletml.ChangeSpeed ps ->
+        ProcessableBulletml.ChangeSpeed { ps with finish = ps.finish }
+    | ProcessableBulletml.ChangeDirection pd ->
+        ProcessableBulletml.ChangeDirection { pd with finish = pd.finish }
+    | ProcessableBulletml.Accel pa ->
+        ProcessableBulletml.Accel { pa with finish = pa.finish }
+    | ProcessableBulletml.Bullet (attrs, d, s, children) ->
+        ProcessableBulletml.Bullet (attrs, d, s, List.map cloneProcessable children)
+    | ProcessableBulletml.BulletRef (attrs, ps) ->
+        ProcessableBulletml.BulletRef (attrs, ps)
+    | ProcessableBulletml.Repeat (pr, child) ->
+        ProcessableBulletml.Repeat ({ pr with finish = pr.finish }, cloneProcessable child)
+    | ProcessableBulletml.NotCommand ->
+        ProcessableBulletml.NotCommand

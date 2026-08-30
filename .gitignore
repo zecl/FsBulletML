@@ -22,8 +22,8 @@ x64/
 # Document
 docs/output/
 
-# NuGet package
-packages/
+# NuGet package restore at repo root only (do not ignore Unity Packages/)
+/packages/
 nuget/*.nupkg
 
 # Others
@@ -33,8 +33,27 @@ nuget/*.nupkg
 /*.csproj
 /*.unityproj
 /*.sln
+!/FsBulletML.Library.sln
 /*.suo
 /*.user
 /*.userprefs
 /*.pidb
 /*.booproj
+# Unity generated / machine-local (samples)
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Mm]emoryCaptures/
+**/.vs/
+**/.vsconfig
+samples/**/Assembly-CSharp*.csproj
+samples/**/*.slnx
+samples/**/*.csproj.user
+
+# leftover from Unity IAP default package
+**/BillingMode.json
+**/BillingMode.json.meta
+
+# Unity accidentally creates these if the repo root or F# lib is opened as a project
+/ProjectSettings/
+src/FsBulletML.Unity2D/ProjectSettings/
+src/FsBulletML.Unity2D/Packages/

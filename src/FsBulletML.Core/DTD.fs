@@ -452,11 +452,12 @@ module DTD =
 
     member private this.GetXmlString formatting (encdoc:EncodingAndDoctype) indentation = 
       let output = new StringBuilder()             
-      let sw (output:StringBuilder) = 
+      let sw =
         { new StringWriter(output) with
           override this.Encoding with get () = Encoding.UTF8 }
+      sw.NewLine <- "\r\n"
 
-      use writer = new XmlTextWriter(sw output, Formatting=formatting, Indentation = indentation)
+      use writer = new XmlTextWriter(sw, Formatting=formatting, Indentation = indentation)
       encdoc |> function
       | Nothing -> ()
       | Exist -> writer.WriteStartDocument()

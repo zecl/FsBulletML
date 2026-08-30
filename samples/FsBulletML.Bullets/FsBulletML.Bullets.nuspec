@@ -20,7 +20,9 @@
   </metadata>
 
   <files>
-    <file src="bin\Release\net40\FsBulletML.Bullets.dll" target="lib\net40\FsBulletML.Bullets.dll" />
-    <file src="bin\Release\net40\FsBulletML.Bullets.xml" target="lib\net40\FsBulletML.Bullets.xml" />
+    <file src="bin\Release\net10.0\FsBulletML.Bullets.dll" target="lib\net10.0\FsBulletML.Bullets.dll" />
+    <file src="bin\Release\net10.0\FsBulletML.Bullets.xml" target="lib\net10.0\FsBulletML.Bullets.xml" />
+    <file src="bin\Release\netstandard2.1\FsBulletML.Bullets.dll" target="lib\netstandard2.1\FsBulletML.Bullets.dll" />
+    <file src="bin\Release\netstandard2.1\FsBulletML.Bullets.xml" target="lib\netstandard2.1\FsBulletML.Bullets.xml" />
   </files>
 </package>

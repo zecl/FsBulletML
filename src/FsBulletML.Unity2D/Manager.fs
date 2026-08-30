@@ -85,7 +85,7 @@ module Manager =
           if mb <> null then
             mb.enabled <- false
             source.Remove(source.[i]) |> ignore
-            UnityEngine.MonoBehaviour.DestroyObject(mb.gameObject)
+            UnityEngine.Object.Destroy(mb.gameObject)
             i <- i - 1
         i <- i + 1
     [enemies;rootBullets;enemyBullets;playerBullets] |> List.iter free

@@ -8,5 +8,6 @@ type BgScroll () =
   [<SerializeField;DefaultValue>]val mutable public scrollSpeed : float32
   
   member this.Update () =
-    let newTextureOffset = new Vector2(this.renderer.material.mainTextureOffset.x , this.renderer.material.mainTextureOffset.y - Time.deltaTime * this.scrollSpeed)
-    this.renderer.material.mainTextureOffset <- newTextureOffset
+    let r = this.GetComponent<Renderer>()
+    let newTextureOffset = new Vector2(r.material.mainTextureOffset.x , r.material.mainTextureOffset.y - Time.deltaTime * this.scrollSpeed)
+    r.material.mainTextureOffset <- newTextureOffset

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -18,8 +18,26 @@ public class InstanceManager : MonoBehaviour
         private GameObject[] objects;
         private int cacheIndex = 0;
 
+        public bool IsBulletPrefab()
+        {
+            if (prefab == null)
+            {
+                return true;
+            }
+
+            var tag = prefab.tag;
+            return tag == "EnemyBullet" || tag == "PlayerBullet" || tag == "Bomb";
+        }
+
         public void Initialize()
         {
+            if (IsBulletPrefab())
+            {
+                objects = new GameObject[0];
+                cacheSize = 0;
+                return;
+            }
+
             objects = new GameObject[cacheSize];
 
             for (int i = 0; i < cacheSize; i++)
@@ -87,12 +105,12 @@ public class InstanceManager : MonoBehaviour
             cache.Initialize();
             amount += cache.cacheSize;
         }
-        activeCachedObjects = new Dictionary<string, bool>(amount);
+        activeCachedObjects = new Dictionary<string, bool>(Mathf.Max(1, amount));
     }
 
     static public GameObject InstantiatePrefab(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        var cache = self.caches.Where(x => x.prefab.tag == prefab.tag).FirstOrDefault();
+        var cache = self.caches.Where(x => x.prefab != null && x.prefab.tag == prefab.tag && !x.IsBulletPrefab()).FirstOrDefault();
         if (cache == null)
         {
             return MonoBehaviour.Instantiate(prefab, position, rotation) as GameObject;
@@ -113,6 +131,6 @@ public class InstanceManager : MonoBehaviour
             self.activeCachedObjects[objectToDestroy.name] = false;
             return;
         }
-        GameObject.DestroyObject(objectToDestroy);
+        Object.Destroy(objectToDestroy);
     }
 }

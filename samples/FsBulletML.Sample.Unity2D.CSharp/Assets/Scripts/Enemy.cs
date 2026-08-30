@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections;
@@ -15,7 +15,7 @@ public class Enemy : BaseBullet
     public string BulletName { get; private set; }
     public int BulletIndex { get; set; }
     private BulletmlInfo BulletmlInfo { get; set; }
-    private EnemyBullet Bullet { get; set; }
+    private BulletSim RootSim { get; set; }
     public int MaxLife = 2000;
     public int Life = 2000;
     public bool isBomb = true;
@@ -38,13 +38,17 @@ public class Enemy : BaseBullet
 
     void OnTriggerEnter2D(Collider2D collier)
     {
+        HitByPlayerBullet();
+    }
+
+    public void HitByPlayerBullet()
+    {
         if (isBomb) Bomb.GenerateBomb(BombType, this.transform.position);
         this.Life -= 1;
         if (this.Life <= 0)
         {
             Next();
         }
-        return;
     }
 
     public override void Update()
@@ -65,10 +69,8 @@ public class Enemy : BaseBullet
 
     public override GameObject GetBulletPrefubInstance()
     {
-        var bullet = InstanceManager.InstantiatePrefab(this.bulletObject, this.transform.position, Quaternion.identity);
-        var b = bullet.GetComponent(typeof(FsBulletML.Processable.IBulletmlObject)) as FsBulletML.Processable.IBulletmlObject;
-        b.Init();
-        return bullet;
+        // Spawned bullets are ECS entities; GameObject instantiate path is unused.
+        return null;
     }
 
     public void Shoot()
@@ -76,31 +78,28 @@ public class Enemy : BaseBullet
         var self = this as FsBulletML.Processable.IBulletmlObject;
         if (self.Used)
         {
-            var bullet = this.GetBulletPrefubInstance();
-            this.Bullet = bullet.GetComponent<EnemyBullet>();
             var task = FsBulletML.BulletRunner.ConvertBulletmlTaskOption(this.BulletmlInfo.Bulletml);
-            this.Bullet.Root = true;
-            this.Bullet.SetTask(task);
+            this.RootSim = BulletEntityFactory.SpawnEnemy(this.transform.position, task, root: true);
         }
     }
 
     private bool IsFinish()
     {
-        if (this.Bullet == null)
+        if (this.RootSim == null)
         {
             return false;
         }
         else
         {
-            var bullet = this.Bullet as FsBulletML.Processable.IBulletmlObject;
-            var task = bullet.Task;
+            var task = this.RootSim.Task;
             if (Microsoft.FSharp.Core.OptionModule.IsNone(task))
             {
                 return false;
             }
             if (task.Value.Finish)
             {
-                InstanceManager.Destroy(this.Bullet.gameObject);
+                BulletEntityFactory.Destroy(this.RootSim);
+                this.RootSim = null;
             }
             return task.Value.Finish;
         }
@@ -142,12 +141,8 @@ public class Enemy : BaseBullet
 
     private void DestroyEnemyBullet()
     {
-        var bullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
-        foreach (var bullet in bullets)
-        {
-            InstanceManager.Destroy(bullet);
-
-        }
+        BulletEntityFactory.DestroyAllEnemy();
+        this.RootSim = null;
     }
 
     private void SetBulletmlInfo()

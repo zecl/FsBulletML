@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Senes/FsBulletML.Sample.Unity2D.unity
+    guid: 6c03792849b2c104f86bb859249ee845
+  m_configAssets: []

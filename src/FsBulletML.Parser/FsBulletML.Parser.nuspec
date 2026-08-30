@@ -20,7 +20,7 @@
   </metadata>
 
   <files>
-    <file src="bin\Release\net45\FsBulletML.Parser.dll" target="lib\net45\FsBulletML.Parser.dll" />
-    <file src="bin\Release\net45\FsBulletML.Parser.xml" target="lib\net45\FsBulletML.Parser.xml" />
+    <file src="bin\Release\net10.0\FsBulletML.Parser.dll" target="lib\net10.0\FsBulletML.Parser.dll" />
+    <file src="bin\Release\net10.0\FsBulletML.Parser.xml" target="lib\net10.0\FsBulletML.Parser.xml" />
   </files>
 </package>

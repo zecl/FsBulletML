@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Linq;
 using System.Collections;
 using System.Text;
@@ -48,8 +48,8 @@ public class Informations : MonoBehaviour
             oldTime = Time.realtimeSinceStartup;
             frame = 0;
 
-            enemyBullets = GameObject.FindGameObjectsWithTag("EnemyBullet").Length;
-            playerBullets = GameObject.FindGameObjectsWithTag("PlayerBullet").Length;
+            enemyBullets = BulletEntityFactory.EnemyCount;
+            playerBullets = BulletEntityFactory.PlayerCount;
         }
     }
 
@@ -61,7 +61,7 @@ public class Informations : MonoBehaviour
             GUI.Label(new Rect(10, 30, 1000, 200), GetShowText());
         }
 
-        if (GUI.Button(new Rect(445, 35, 25, 22), show ? "▲" : "▼"))
+        if (GUI.Button(new Rect(445, 35, 25, 22), show ? "－" : "＋"))
         {
             this.show = !this.show;
         }
@@ -82,17 +82,11 @@ public class Informations : MonoBehaviour
     private string GetShowText()
     {
         StringBuilder sb = new StringBuilder();
-        // FPS
         sb.Append(string.Format("FPS:{0:F2}fps\n", frameRate));
-        // 弾名
         sb.Append(string.Format("Name:{0}\n", enemy.BulletName));
-        // ボスライフ
         sb.Append(string.Format("Boss Life:{0}\n", enemy.Life));
-        // プレイヤーダメージ
         sb.Append(string.Format("Player Damages:{0}\n", player.Damage));
-        // 敵弾数
         sb.Append(string.Format("EnemyBullets:{0}\n", enemyBullets));
-        // 自機弾数
         sb.Append(string.Format("PlayerBullets:{0}\n", playerBullets));
         return sb.ToString();
     }

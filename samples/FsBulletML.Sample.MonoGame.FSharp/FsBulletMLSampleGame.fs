@@ -27,9 +27,13 @@ type FsBulletMLSampleGame () as this =
   let gametitle, sprite = "FsBulletML.Sample.MonoGame.FSharp", lazy new SpriteBatch(this.GraphicsDevice)
   let bulletTexture,enemyBullet1Texture, enemyBullet2Texture, playerTexture, playerBullet1Texture, playerBullet2Texture, enemyTexture, backgroundTexture, particleTexture, enemyBullet3Texture = 
     ["bullet"; "enemy_bullet1";"enemy_bullet2";"player";"p_bullet_s";"player_bullet2";"enemy1";"background";"particle";"g_bullet_s"] 
-    |> List.map (fun name -> lazy this.Content.Load<Texture2D>(@"..\..\..\Content\Sprites\" + name)) |> function 
+    |> List.map (fun name -> lazy this.Content.Load<Texture2D>("Sprites/" + name)) |> function 
     |  a::b::c::d::e::f::g::h::i::j::[] -> a,b,c,d,e,f,g,h,i,j | _ -> invalidArg "tlist" "長さが違う"
-  let sfont = lazy this.Content.Load<SpriteFont>(@"..\..\..\Content\font\SpriteFont2")
+  let sfont = lazy (
+    try this.Content.Load<SpriteFont>("font/SpriteFont2")
+    with ex ->
+      eprintfn "SpriteFont XNB load failed (%s); baking a DejaVu fallback." ex.Message
+      FsBulletML.Sample.MonoGame.Font.RuntimeSpriteFont.Bake(this.GraphicsDevice, 14.f))
   let drawText (msg:string) (v:Vector2) c = sprite.Force() |> function
     | x -> sfont.Force() |> fun font -> [font, msg, Vector2(v.X+2.f,v.Y+2.f), Color.Gray; font, msg, v, c ] 
                                        |> List.iter (fun (font, msg, v, c) -> x.DrawString(font, msg, v, c))
@@ -52,13 +56,18 @@ type FsBulletMLSampleGame () as this =
       this.enemyIndex  <- 0
     
     this.enemyBullets
-    |> Seq.nth(this.enemyIndex)
+    |> Seq.item this.enemyIndex
     |> fun bullet -> bullet.BulletmlTask().Init(); enemyDefaultPos, (bullet.Name, bullet)
 
   do 
+    this.Content.RootDirectory <- "Content"
+    this.IsMouseVisible <- true
+    this.Window.AllowUserResizing <- true
     gmanager <- new GraphicsDeviceManager(this)
+    // 480x640 already fits this box (1280x800); keep original playfield.
     gmanager.PreferredBackBufferWidth <- Settings.Display.Width |> int
     gmanager.PreferredBackBufferHeight <- Settings.Display.Height |> int
+    gmanager.SynchronizeWithVerticalRetrace <- true
 
   override this.Initialize() =
     base.Initialize()

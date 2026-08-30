@@ -143,7 +143,7 @@ bulletml
 インストール
 -------------
 
-内部DSLおよび、``XML``形式の外部DSLを利用するには、``FsBulletML.Core``をインストールします。(.NET Framework3.5以上)
+内部DSLおよび、``XML``形式の外部DSLを利用するには、``FsBulletML.Core``をインストールします。(.NET 10 / netstandard2.1)
 
 <div class="row">
   <div class="span1"></div>
@@ -157,7 +157,7 @@ bulletml
 </div>
 
 
-外部DSL(``SXML``形式、``FSB``形式)を利用するには、``FsBulletML.Core``に加えて、``FsBulletML.Parser``をインストールします。(.NET Framework4.0以上)
+外部DSL(``SXML``形式、``FSB``形式)を利用するには、``FsBulletML.Core``に加えて、``FsBulletML.Parser``をインストールします。(.NET 10)
 
 <div class="row">
   <div class="span1"></div>
@@ -171,7 +171,8 @@ bulletml
 </div>
 
 
-型プロバイダー利用するには、``FsBulletML.Core``, ``FsBulletML.Parser``に加えて、``FsBulletML.TypeProviders``をインストールします。(.NET Framework4.0以上)
+型プロバイダーを利用するには、``FsBulletML.Core``, ``FsBulletML.Parser``に加えて、``FsBulletML.TypeProviders``をインストールします。
+※ TypeProviders はまだ旧 .NET Framework 向けで、.NET 10 移行では未対応です。
 ``XML``形式、``SXML``形式、``FSB``形式のBulletMLの型プロバイダーを利用することができます。
 <div class="row">
   <div class="span1"></div>
@@ -186,7 +187,7 @@ bulletml
 *)
 
 (**
-<a href="http://monogame.codeplex.com/" target="_blunk">MonoGame</a> Demo
+<a href="https://www.monogame.net/" target="_blank">MonoGame</a> Demo（DesktopGL 3.8.5 / net10.0）
 -------------
 <div style="text-align:center;">
   <object width="560" height="315">
@@ -200,37 +201,23 @@ bulletml
 
 <br>
 
-<a href="http://japan.unity3d.com/" target="_blunk">Unity2D</a> Demo
+<a href="https://unity.com/" target="_blank">Unity 6</a> Demo
 -------------
 <center>
-
-<input type="button" onclick="$('#unityPlayer').toggle();" value="表示/非表示">
-<div class="content">
-	<div id="unityPlayer">
-		<div class="missing">
-			<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
-				<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
-			</a>
-		</div>
-		<div class="broken">
-			<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now! Restart your browser after install.">
-				<img alt="Unity Web Player. Install now! Restart your browser after install." src="http://webplayer.unity3d.com/installation/getunityrestart.png" width="193" height="63" />
-			</a>
-		</div>
-	</div>
-</div>
-<br>
+Unity Web Player は廃止されています。Unity 6（6000.x）で C# サンプルプロジェクトを開いて Play してください。<br>
+プロジェクト: <code>samples/FsBulletML.Sample.Unity2D.CSharp</code><br>
+本編シーン: <code>Assets/Senes/FsBulletML.Sample.Unity2D.unity</code>（フォルダ名 Senes は元からの誤記）<br>
 Move:↑↓←→ 　Shot: Z Key<br>
 <br>
-サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.Unity2D.FSharp" target="_blunk">F#</a>),
-サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.Unity2D.CSharp" target="_blunk">C#</a>)<br>
+サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.Unity2D.FSharp" target="_blank">F#</a>),
+サンプルプログラム(<a href="https://github.com/zecl/FsBulletML/tree/master/samples/FsBulletML.Sample.Unity2D.CSharp" target="_blank">C#</a>)<br>
 </center>
 
 <br>
 
 
 
-<a href="http://japan.unity3d.com/" target="_blunk">Unity3D</a> Demo
+<a href="https://unity.com/" target="_blank">Unity 3D</a> Demo（参考動画。現行サンプルは Unity 6 の 2D プロジェクト）
 -------------
 <div style="text-align:center;">
   <object width="560" height="315">

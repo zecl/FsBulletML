@@ -14,7 +14,7 @@ type ObjectData () =
     this.objects <- Array.zeroCreate this.cacheSize
 
     for i in 0..this.cacheSize-1 do
-      let prefub = MonoBehaviour.Instantiate (this.prefab) :?> GameObject
+      let prefub = UnityEngine.Object.Instantiate<GameObject>(this.prefab)
       this.objects.[i] <- prefub
       this.objects.[i].SetActive(false)
       this.objects.[i].name <- this.objects.[i].name.Replace("(Clone)", "") + i.ToString()
@@ -43,7 +43,7 @@ type InstanceManager () =
     let cache = InstanceManager.self.caches |> Seq.tryFind (fun x -> x.prefab.tag = prefab.tag)
     match cache with
     | None ->
-      MonoBehaviour.Instantiate(prefab, position, rotation) :?> GameObject
+      UnityEngine.Object.Instantiate<GameObject>(prefab, position, rotation)
     | Some cache ->
       let obj = cache.GetNextObjectInCache()
       obj.transform.position <- position
@@ -57,4 +57,4 @@ type InstanceManager () =
       objectToDestroy.SetActive(false);
       InstanceManager.self.activeCachedObjects.[objectToDestroy.name] <- false
     else
-      GameObject.DestroyObject(objectToDestroy)
+      UnityEngine.Object.Destroy(objectToDestroy)

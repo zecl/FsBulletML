@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,10 @@ namespace FsBulletML.Sample.MonoGame.CSharp
 {
     public class Player
     {
-        private static Bulletml b2wayLeftBullet = Xml.readXml(@"..\..\Content\xml\PlayerBullet\2wayLeft.xml");
-        private static Bulletml b2wayRightBullet = Xml.readXml(@"..\..\Content\xml\PlayerBullet\2wayRight.xml");
-        private static Bulletml homing = Xml.readXml(@"..\..\Content\xml\PlayerBullet\homing.xml");
+        private static string XmlPath(string name) => Path.Combine(AppContext.BaseDirectory, "Content", "xml", "PlayerBullet", name);
+        private static Bulletml b2wayLeftBullet = Xml.readXml(XmlPath("2wayLeft.xml"));
+        private static Bulletml b2wayRightBullet = Xml.readXml(XmlPath("2wayRight.xml"));
+        private static Bulletml homing = Xml.readXml(XmlPath("homing.xml"));
 
         private int Timer { get; set; }
         public Vector2 Pos { get; set; }

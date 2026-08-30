@@ -21,10 +21,8 @@ open System.Runtime.InteropServices
 [<assembly: ComVisible(false)>]
 [<assembly: Guid("88DCD0C9-CEEE-428B-9AB9-8FD72B774275")>]
 
-#if DEBUG
 [<assembly: InternalsVisibleTo("FsBulletML.Parser.Tests")>]
 [<assembly: InternalsVisibleTo("CreateBullets")>]
-#endif
 
 #if DEBUG
 [<assembly: AssemblyConfiguration("Debug")>]
