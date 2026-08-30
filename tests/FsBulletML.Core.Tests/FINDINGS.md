@@ -16,6 +16,7 @@
 | [10](#10-同梱のサンプルを全部走らせた結果) | 同梱サンプル 227 本を全部走らせた結果 | — |
 | [11](#11-ref-の-param-に入れた値は展開のときに数へ潰される) | `ref` の `param` が展開のとき数へ潰され、`$rank` が凍る | 変わる |
 | [12](#12-同じ-label-が-2-つあると文書順で先にあるほうが走る) | 同じ `label` が 2 つあると先勝ち（同梱に実例 0 本） | 実例が無いので変わらない |
+| [13](#13-name--description-は往復で消えるただし経路で割れる) | `name` / `description` が DTD 経由の往復で消える | 直す向きを決める必要がある |
 
 控えを置いていない読みは [こちら](#控えを置いていない読み当てる先が-0-件のもの)。
 
@@ -687,6 +688,76 @@ planner が測る前に予測を凍結し、**当たった**。
 
 ---
 
+## 13. `name` / `description` は往復で消える。ただし経路で割れる
+
+固めた場所: `RoundTrip.fs` / 控え `now-roundtrip-bulletml-attrs`
+
+planner が測る前に予測を凍結し、**当たった**。ただし**測ったら経路で割れて、
+「XML の往復が非可逆」ではなく「DTD の型を通る往復だけが非可逆」だった。**
+
+```
+入力  <bulletml xmlns="..." type="vertical" name="No Name"><bullet /></bulletml>
+
+  DTD 経由（bml.ToXmlStringForTest）   name が消える   ★ちがう
+  XmlNode 経由（xml.ToXmlString）      name が残る     一致
+```
+
+`description` も同じ。両方いっぺんに書いても両方消える。
+
+### 落としているのは writer ではない。**parser が緩い**
+
+```
+DTD.fs:140-141 のコメント     <!ATTLIST bulletml xmlns CDATA #IMPLIED>
+                              <!ATTLIST bulletml type (none|vertical|horizontal) "none">
+                              ★name も description も宣言が無い
+
+IntermediateParser.fs:198-199 tryFindAttrValue attrs "name" / "description"   ★読む
+DTD.fs:119                    BulletmlAttrs に bulletmlName / bulletmlDescription   ★持つ
+DTD.fs:546 / :551             .Name / .Description で外へ出す                       ★出す
+DTD.fs の writer              xmlns と type だけ書く                                ★書かない
+```
+
+**writer は DTD どおり。** DTD に無い属性を parser が拾って型に載せ、
+API で外へ出しているので、**往復すると読めたものが消える。**
+「writer が落としている」ではなく「parser が DTD より緩い」と読むほうが、
+直す向きが決まる（planner の言い直し）。
+
+### 既存の網は本物。**この壊れ方が網の通る経路に無かっただけ**
+
+`Parser.Tests` の `文字列からのパース` は、入力の文字列と `ToXmlStringForTest()` の
+**完全一致**を見る。かなり強い網。
+
+```fsharp
+source |> should equal (bml.ToXmlStringForTest())
+source |> should equal (xml.ToXmlString())
+```
+
+**ただし TestCase 2 本が持つ属性は `xmlns` と `type` だけ**で、
+`name` / `description` を持つ入力が 1 本も無い。
+
+★これは、この文書の
+[「壊しても赤くならない」の 3 通り](#この網が本当に守るのかを壊して確かめた)の **3 番**
+（網は生きているが、その壊れ方が網の通る経路にない）。**1 番ではない。**
+
+### 直すときに
+
+`XmlParse.fs` の `TestCase` に `name` を持つ 1 本を足せば、**そのまま赤になる**。
+控えではなく**普通の回帰の網**として置ける唯一の件なので、
+直す側とセットで足すのが良い（いま足すと緑の枝に赤が残る）。
+
+どちらへ寄せるかは仕様の話で、ぜくる待ちの札。
+
+```
+writer に合わせる   parser が name / description を読むのをやめる（API から消える）
+parser に合わせる   writer が書く（DTD に無い属性を書くことになる）
+```
+
+★`.Description` は `src` / `samples` / `tests` のどこからも呼ばれていない（planner）。
+`.Name` は語がありふれていて網が張れないので**未測定**。
+どちらも公開 API なので、**外の利用者は測れない。**
+
+---
+
 ## 控えを置いていない読み（当てる先が 0 件のもの）
 
 planner が読んで挙げたもの。**こちらで開いて確かめた結果だけを書く。**
@@ -727,8 +798,10 @@ tests/FsBulletML.Parser.Tests/XmlParse.fs:15-16 :33-34 :46-47   既存 346 件�
 
 `DTD.fs:134` はデバッガ表示のコメントで、そこだけを見ると 0 件に見える。
 **当てる範囲を `src` 全部と `tests` に広げると出る。**
-往復で `name` / `description` が落ちるかどうかは、この経路に既存の網があるので
-**まず既存 346 件がどこまで当てているかを読むのが先**。ここでは触っていない。
+
+★**その後、既存 346 件が何を当てているかを読んで、往復も測った。**
+結果は [13](#13-name--description-は往復で消えるただし経路で割れる) に移した。
+この節は「当てる範囲が足りずに 0 件と読んだ」という経緯の記録として残す。
 
 ---
 

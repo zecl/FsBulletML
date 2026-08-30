@@ -28,6 +28,7 @@
     <Compile Include="FireShapes.fs" />
     <Compile Include="PlayerAndTops.fs" />
     <Compile Include="StateIsolation.fs" />
+    <Compile Include="RoundTrip.fs" />
     <Compile Include="Corpus.fs" />
     <Compile Include="SelfReference.fs" />
   </ItemGroup>
