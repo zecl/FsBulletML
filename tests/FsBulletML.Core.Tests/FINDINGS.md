@@ -746,15 +746,48 @@ source |> should equal (xml.ToXmlString())
 直す側とセットで足すのが良い（いま足すと緑の枝に赤が残る）。
 
 どちらへ寄せるかは仕様の話で、ぜくる待ちの札。
+**2 つの直し方で、外に見える影響が違う**（planner）。★測ったら、**片方は同梱のサンプルを壊す。**
 
 ```
-writer に合わせる   parser が name / description を読むのをやめる（API から消える）
-parser に合わせる   writer が書く（DTD に無い属性を書くことになる）
+parser に合わせる   writer が書く。DTD に無い属性を書くことになるが、外への影響は無い
+writer に合わせる   parser が読むのをやめる。★.Name / .Description が常に None になる
 ```
 
-★`.Description` は `src` / `samples` / `tests` のどこからも呼ばれていない（planner）。
-`.Name` は語がありふれていて網が張れないので**未測定**。
-どちらも公開 API なので、**外の利用者は測れない。**
+### `.Name` は使われている。`.Description` は使われていない
+
+planner は `.Name` を「語がありふれていて網が張れないので未測定」としていたが、
+**`bulletml.Name` / `bulletmlInfo.Name` / `bullet.Name` に絞れば測れる。**
+
+```
+DTD.fs:543-547    member this.Name          ← 定義
+BulletmlInfo.fs:8 { Name = match bulletml.Name with | Some x -> x | None -> "" }
+                                            ★Core 自身が通す
+
+samples/…MonoGame.CSharp/FsBulletMLSampleGame.cs:70 :108   this.BulletName = bullet.Name
+samples/…MonoGame.FSharp/FsBulletMLSampleGame.fs:60        (bullet.Name, bullet)
+samples/…Unity2D.CSharp/Assets/Scripts/Enemy.cs:50         bullets[i].Name
+samples/…Unity2D.FSharp/…/Enemy.fs:114                     this.BulletName <- bulletmlInfo.Name
+```
+
+★**同梱のサンプル 4 本とも、弾幕の名前を画面に出すのに使っている。**
+`parser が読むのをやめる` を選ぶと、**4 本とも名前が空になる。**
+
+```
+DTD.fs:548-552   member this.Description   ← ★定義 1 件のみ。呼び出し 0 件
+```
+
+`.Description` のほうは planner の読みどおり 0 件。
+**同じ 2 つの属性でも、外への影響は同じではない。**
+
+`.Name` の他のヒットは .NET の `Type.Name` / `XmlReader.Name` で別物
+（`TypeProviders` に 196 件、`Xml.fs` に 4 件）。**素の `.Name` で数えると 200 件超に見えるが、
+`bulletml` / `bullet` / `bulletmlInfo` / `bulletMove` / `bullets[i]` を前に付けると 8 件**
+（うち定義側の `BulletmlInfo.fs:8` と `Processable.fs:267` を除くと、**サンプル側が 6 件**）。
+
+★**「語がありふれていて網が張れない」は、前に 1 語 付ければ張れる**ことがある。
+測れないと決める前に、**その識別子を持っている型の名前で絞る**。
+
+どちらも公開 API なので、**リポジトリの外の利用者は測れない。**
 
 ---
 
