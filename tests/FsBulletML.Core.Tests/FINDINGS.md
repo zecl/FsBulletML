@@ -368,6 +368,51 @@ BulletML の仕様では `sequence` は「直前の fire からの差」、`rela
 
 ---
 
+## 8. 相互参照でスタックが溢れ、プロセスごと落ちる
+
+固めた場所: `SelfReference.fs`（**`[<Explicit>]`。通常の走行では回らない**）
+
+見つけたのは planner（本人は未測定と明記）。こちらで走らせて測った。
+
+```
+3 つまとめて走らせる       Stack overflow. テストのホスト プロセスがクラッシュしました
+actionRef の自己参照 単独  通る
+bulletRef の自己参照 単独  通る
+```
+
+**落ちるのは相互参照**（`top` が `b` を、`b` が `top` を参照する形）。
+消去法で決めた —— 3 つ走らせると落ち、他の 2 つは単独で通るため。
+
+スタックはこう積まれていた。
+
+```
+at FsBulletML.IntermediateParser.convertRefBulletml(RecBulletml, RecBulletml)
+at FsBulletML.IntermediateParser+convert@961-3.Invoke(RecBulletml)
+at Microsoft.FSharp.Collections.ListModule.Map(...)
+   ... 以下同じ 3 つの繰り返し
+```
+
+参照を展開する `convertRefBulletml` に**打ち止めが無い**。深さの上限も、
+辿った label の記録も持っていないので、輪になっていると戻ってこない。
+
+**`StackOverflowException` は .NET では捕まえられない。** `try ... with` を
+書いてもプロセスが死ぬ。ライブラリとしては、**壊れた BulletML を 1 つ読ませるだけで
+ゲームごと落とせる**ということになる。
+
+### この件だけテストの置き方を変えてある
+
+控えを取っていない。**落ちると控えが書けない**ため。
+fixture は `[<Explicit>]` で、名指しでなければ回らない。
+
+```
+dotnet test tests/FsBulletML.Core.Tests --filter "FullyQualifiedName~SelfReference"
+```
+
+通常の走行（48 件）に混ぜると、他の 47 件を巻き添えにして全部落ちる。
+実際に 1 回巻き添えにしてから隔離した。
+
+---
+
 ## 測り方について
 
 - 継ぎ目は既にインターフェースとして空いていたので、**本体は 1 行も触っていない**
