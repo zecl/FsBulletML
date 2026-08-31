@@ -43,7 +43,7 @@ module BulletRunner =
     let attrs, d, s, children =
       match bulletElm with
         | ProcessableBulletml.Bullet(attrs,d,s,children) -> attrs,d,s,children
-        | _ -> failwith "convert error"
+        | _ -> failwith "createTask: bullet 以外が渡された"
 
     match d with
     | Some (Direction(attrs, v)) ->
@@ -81,13 +81,17 @@ module BulletRunner =
       | None -> bullet.Speed <- value
     | None -> ()
     let tasks = children |> List.map cloneProcessable
-    let bulletmlTask = new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
-    if bulletmlTask.FireData :> obj = null then
-      bulletmlTask.FireData  <- new System.Collections.Generic.List<FireData>()
-      bulletmlTask.FireData.Add(new FireData())
-      tasks |> List.iter (fun t -> bulletmlTask.FireData.Add(new FireData()))
-      bulletmlTask.ActiveTaskIndex <- 0
-    bulletmlTask
+    let newTask = new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
+    // 輪を解く入口は、撃たれた弾の task にも引き継ぐ。
+    // 引き継がないと、弾の中に残った bulletRef を誰も解けない
+    newTask.ResolveBulletRef <- bulletmlTask.ResolveBulletRef
+    newTask.ResolveActionRef <- bulletmlTask.ResolveActionRef
+    if newTask.FireData :> obj = null then
+      newTask.FireData  <- new System.Collections.Generic.List<FireData>()
+      newTask.FireData.Add(new FireData())
+      tasks |> List.iter (fun t -> newTask.FireData.Add(new FireData()))
+      newTask.ActiveTaskIndex <- 0
+    newTask
 
   let internal getFinish task = 
     match task with
@@ -115,25 +119,37 @@ module BulletRunner =
 
   let rec internal runCommand (task:ProcessableBulletml) (bulletmlTask:BulletmlTask) (bullet:IBulletmlObject) =
     // Action
-    let actionCommand tasks bullet = 
+    let actionCommand (pa:ProcessableAction) tasks bullet =
       let mutable bullet = bullet
       let mutable stop = false
       let mutable continue' = false
       let mutable num = 0
       let len = List.length tasks
       while num < len && not stop do
-        let task = tasks.[num] 
-        
+        let task = tasks.[num]
+
         let finish = getFinish task
         if not finish then
-          let c,r = runCommand task bulletmlTask bullet
-          bullet <- c
-          if r = RunState.Stop then
-            stop <- true
-          elif r = RunState.Continue then
-            continue' <- true
-          else
-            setFinish task
+          match task with
+          // 輪のために展開を止めた actionRef。1 段だけ解いて、この action が
+          // 次のフレームから走らせる並びを差し替える。解いた中身のうしろに
+          // 残りの兄弟を繋ぐので、輪が末尾でなくても後続が落ちない。
+          // 済んだ手前は捨てるので、並びの長さは解くたびに伸びない
+          | ProcessableBulletml.ActionRef (attrs, prams) when not (isNull (box bulletmlTask.ResolveActionRef)) ->
+            match bulletmlTask.ResolveActionRef attrs.actionRefLabel prams with
+            | Some (ProcessableBulletml.Action (_, expanded)) ->
+              pa.loop <- Some (expanded @ (tasks |> List.skip (num + 1)))
+              stop <- true
+            | _ -> ()
+          | _ ->
+            let c,r = runCommand task bulletmlTask bullet
+            bullet <- c
+            if r = RunState.Stop then
+              stop <- true
+            elif r = RunState.Continue then
+              continue' <- true
+            else
+              setFinish task
         num <- num + 1
 
       if stop then
@@ -150,9 +166,10 @@ module BulletRunner =
       while pr.repeatNum < times && not stop && not continue' do
         let pa, tasks = actionElm |> function
           | ProcessableBulletml.Action (pa, tasks) -> pa,tasks
-          | _ -> failwith "error"
+          | _ -> failwith "repeatCommand: repeat の子が action ではない"
         if not pa.finish then
-          let c,r = actionCommand tasks bullet
+          let running = match pa.loop with Some t -> t | None -> tasks
+          let c,r = actionCommand pa running bullet
           bullet <- c
           if r = RunState.Stop then
             stop <- true
@@ -163,7 +180,7 @@ module BulletRunner =
             if pr.repeatNum >= times then
               pa.finish <- true
             else
-              tasks |> Seq.iter (fun t-> t.Init())
+              running |> Seq.iter (fun t-> t.Init())
         else
           pr.repeatNum <- pr.repeatNum + 1
       if stop then
@@ -185,7 +202,17 @@ module BulletRunner =
         bullet,RunState.End
 
     // Fire
-    let fireCommand pf bulletElm = 
+    let fireCommand pf bulletElmSrc =
+
+      // 輪のために展開を止めた bulletRef は、ここで 1 段だけ解く。
+      // fire のたびに新しい弾と新しい task ができるので、1 段ずつで足りる
+      let bulletElm =
+        match bulletElmSrc with
+        | ProcessableBulletml.BulletRef (attrs, prams) when not (isNull (box bulletmlTask.ResolveBulletRef)) ->
+          match bulletmlTask.ResolveBulletRef attrs.bulletRefLabel prams with
+          | Some expanded -> expanded
+          | None -> bulletElmSrc
+        | _ -> bulletElmSrc
 
       let revise = (float32 Math.PI) / 180.f
       match pf.direction with
@@ -376,9 +403,9 @@ module BulletRunner =
 
     match task with
     | ProcessableBulletml.Repeat(pr, actionElm) -> repeatCommand pr actionElm
-    | ProcessableBulletml.Action(pa,tasks) -> 
-      if pa.finish then bullet, RunState.End 
-      else actionCommand tasks bullet 
+    | ProcessableBulletml.Action(pa,tasks) ->
+      if pa.finish then bullet, RunState.End
+      else actionCommand pa (match pa.loop with Some t -> t | None -> tasks) bullet
     | ProcessableBulletml.Wait (pw) -> waitCommand pw
     | ProcessableBulletml.Fire (pf,bulletElm) -> fireCommand pf bulletElm
     | ProcessableBulletml.Vanish pv -> vanishCommand pv
@@ -407,7 +434,7 @@ module BulletRunner =
           let task,pa = 
             match tasks.[i] with
             | ProcessableBulletml.Action (pa,_) -> tasks.[i],pa
-            | _ -> failwith "error"
+            | _ -> failwith "run: top のタスクが action ではない"
           i <- i + 1
           if not pa.finish then 
             let b,r = runCommand task bulletmlTask bullet
@@ -453,7 +480,7 @@ module BulletRunner =
         match attrs.bulletmlType with
         | Some x -> x
         | None -> ShootingDirection.BulletVertical  
-      | _ -> failwith "convert error"
+      | _ -> failwith "convertBulletmlTask: 根が bulletml ではない"
 
     let tasks = toProcessable bulletml
     let bulletmlTask = 

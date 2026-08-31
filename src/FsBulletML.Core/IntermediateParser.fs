@@ -961,28 +961,55 @@ module IntermediateParser =
       convert recbulletml [] 
     convertBulletml' recbulletml |> List.head 
 
-  let rec internal convertRefBulletml topRecBulletml recBulletml = 
+  /// 展開中の参照を種別つきで表す（action:foo と bullet:foo は別物）
+  let internal refKey kind label = kind + ":" + (label: string)
+
+  /// lastAction は「直近に展開した action の label」。
+  /// action の輪を残してよいのは、その輪が直近に展開した action 自身へ戻るときだけ。
+  /// 別の action を経由する輪は、解いた結果の中に action が挟まるので、
+  /// 走らせる側が 1 段ずつ解くと呼び出しがフレームごとに深くなる
+  let rec private convertRefBulletmlIn visiting lastAction topRecBulletml recBulletml =
     let mapEval expr = List.map (fun x -> (Processable.getValue x).ToString("F10")) expr
+    let enter key =
+      if Set.contains key visiting then
+        new BulletmlDTDViolationException(
+              sprintf "circular reference detected:[%s] 参照が輪になっているため展開できません" key) |> raise
+      Set.add key visiting
     let rec convert recBulletml =
-      match recBulletml with 
+      match recBulletml with
       | RecBulletml.ActionRef (attrs, prams) ->
-        match tryFindAction topRecBulletml attrs.actionRefLabel with
-        | Some action ->
-          let newAction = refBulletml action (Some(attrs.actionRefLabel)) (mapEval prams)
-          convertRefBulletml topRecBulletml newAction
-        | None -> new BulletmlDTDViolationException(sprintf "not found target Action element:%s" attrs.actionRefLabel) |> raise
+        let key = refKey "action" attrs.actionRefLabel
+        if Set.contains key visiting then
+          if lastAction = Some attrs.actionRefLabel then
+            // 自分自身へ戻る輪。展開せず残し、走らせる側が 1 段ずつ解く
+            recBulletml
+          else
+            new BulletmlDTDViolationException(
+                  sprintf "circular reference detected:[%s] 参照が輪になっているため展開できません" key) |> raise
+        else
+          match tryFindAction topRecBulletml attrs.actionRefLabel with
+          | Some action ->
+            let newAction = refBulletml action (Some(attrs.actionRefLabel)) (mapEval prams)
+            convertRefBulletmlIn (Set.add key visiting) (Some attrs.actionRefLabel) topRecBulletml newAction
+          | None -> new BulletmlDTDViolationException(sprintf "not found target Action element:%s" attrs.actionRefLabel) |> raise
       | RecBulletml.FireRef (attrs, prams) ->
+        let visiting = enter (refKey "fire" attrs.fireRefLabel)
         match tryFindFire topRecBulletml attrs.fireRefLabel with
         | Some fire ->
           let newFire = refBulletml fire (Some(attrs.fireRefLabel))  (mapEval prams)
-          convertRefBulletml topRecBulletml newFire
+          convertRefBulletmlIn visiting None topRecBulletml newFire
         | None -> new BulletmlDTDViolationException(sprintf "not found target Fire element:%s" attrs.fireRefLabel) |> raise
       | RecBulletml.BulletRef (attrs, prams) ->
-        match tryFindBullet topRecBulletml attrs.bulletRefLabel with
-        | Some bullet ->
-          let newBullet = refBulletml bullet (Some(attrs.bulletRefLabel))  (mapEval prams)
-          convertRefBulletml topRecBulletml newBullet
-        | None -> new BulletmlDTDViolationException(sprintf "not foun target Bullet element:%s" attrs.bulletRefLabel) |> raise
+        let key = refKey "bullet" attrs.bulletRefLabel
+        if Set.contains key visiting then
+          // 輪。展開せず残し、走らせる側が 1 段ずつ解く
+          recBulletml
+        else
+          match tryFindBullet topRecBulletml attrs.bulletRefLabel with
+          | Some bullet ->
+            let newBullet = refBulletml bullet (Some(attrs.bulletRefLabel))  (mapEval prams)
+            convertRefBulletmlIn (Set.add key visiting) None topRecBulletml newBullet
+          | None -> new BulletmlDTDViolationException(sprintf "not foun target Bullet element:%s" attrs.bulletRefLabel) |> raise
       | RecBulletml.Bulletml (attrs,bulletmls) -> 
         let newbulletmls = bulletmls |> List.map convert
         RecBulletml.Bulletml(attrs, newbulletmls)
@@ -1007,7 +1034,11 @@ module IntermediateParser =
       | RecBulletml.NotCommand -> recBulletml
     convert recBulletml
 
-  let rec internal convertRecBulletmlEx recbulletml = 
+  let internal convertRefBulletml topRecBulletml recBulletml =
+    convertRefBulletmlIn Set.empty None topRecBulletml recBulletml
+
+
+  let rec internal convertRecBulletmlEx recbulletml =
     let rec convertBulletml' recbulletml : ProcessableBulletml list = 
       let rec convert recbulletml list : ProcessableBulletml list =  
         let getChildren children = List.fold (fun tl child -> tl@convertBulletml' child) [] children 
@@ -1017,7 +1048,7 @@ module IntermediateParser =
           ProcessableBulletml.Bulletml(attrs, newBulletElms)::list
         | RecBulletml.Action (attrs, actions) -> 
           let newActions = getChildren actions 
-          ProcessableBulletml.Action ({ finish = false; stop = false; attribute = attrs }, newActions) ::list
+          ProcessableBulletml.Action ({ finish = false; stop = false; loop = None; attribute = attrs }, newActions) ::list
         | RecBulletml.Accel (horizontal, vertical, t) -> 
           let h =
             match horizontal with
@@ -1152,4 +1183,36 @@ module IntermediateParser =
         | ProcessableBulletml.NotCommand -> 
           RecBulletml.NotCommand::list
       convert recbulletml [] 
-    convertBulletml' processableBulletml |> List.head 
+    convertBulletml' processableBulletml |> List.head
+
+  /// 輪のために展開を止めた bulletRef を、走らせる側から 1 段だけ解く。
+  /// 中にまた同じ参照が残るので、次に撃たれたときに次の 1 段が解かれる。
+  ///
+  /// 解く前から自分の key を visiting に入れておくこと。空から始めると
+  /// 解いた中身の同じ参照がもう 1 段 展開され、1 段のつもりが 2 段になる
+  let internal expandBulletRefOnce topRecBulletml label prams =
+    match tryFindBullet topRecBulletml label with
+    | Some bullet ->
+      // param は文字のまま渡す（mapEval と同じ理由）
+      let evaluated = prams
+      refBulletml bullet (Some label) evaluated
+      |> convertRefBulletmlIn (Set.singleton (refKey "bullet" label)) None topRecBulletml
+      |> convertRecBulletmlEx
+      |> Some
+    | None -> None
+
+  /// 輪のために展開を止めた actionRef を、走らせる側から 1 段だけ解く。
+  /// 中にまた同じ参照が残るので、そこへ届いたときに次の 1 段が解かれる。
+  ///
+  /// bulletRef と違って fire を挟まないので、2 段 解くと走らせる側の
+  /// 呼び出しが 1 フレームごとに深くなり、スタックを使い切る
+  let internal expandActionRefOnce topRecBulletml label prams =
+    match tryFindAction topRecBulletml label with
+    | Some action ->
+      // param は文字のまま渡す（mapEval と同じ理由）
+      let evaluated = prams
+      refBulletml action (Some label) evaluated
+      |> convertRefBulletmlIn (Set.singleton (refKey "action" label)) (Some label) topRecBulletml
+      |> convertRecBulletmlEx
+      |> Some
+    | None -> None

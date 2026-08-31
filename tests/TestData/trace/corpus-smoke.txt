@@ -1,17 +1,11 @@
 一意な弾幕 227 本（中身のハッシュで潰したあと）
-  撃った       210 本
-  撃たなかった 6 本
+  撃った       218 本
+  撃たなかった 5 本
   落ちた       4 本
-  避けた       7 本（StackOverflow で捕まえられないもの）
+  避けた       0 本（StackOverflow で捕まえられないもの）
 
-避けたもの（FINDINGS.md の 8 を踏む）:
-  samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[ESP_RADE]_round_123_boss_izuna_fan.xml
-  samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[Original]_cont_circle.xml
-  samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[Original]_light_lv10.xml
-  samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[Original]_light_lv25.xml
-  samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[Original]_light_max.xml
-  samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[Original]_water_lv10.xml
-  samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[OtakuTwo]_accel_jump.xml
+避けたもの（参照が輪になっていて展開できないもの）:
+  なし
 
 落ちたもの:
   samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[OtakuTwo]_self-0036.xml
@@ -29,4 +23,3 @@
   samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[OtakuTwo]_circle_trap.xml
   samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[OtakuTwo]_dis_bee_2.xml
   samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[OtakuTwo]_self-0034.xml
-  samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/[STORM_CALIBAR]_last_boss_double_roll_bullets.xml

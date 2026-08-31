@@ -7,10 +7,10 @@ open FsBulletML.Processable
 
 /// samples に入っている実物の BulletML を全部走らせる。
 ///
-/// **控えは 1 本しか作らない。** 200 本ぶんの軌跡を控えにすると、
+/// 控えは 1 本しか作らない。200 本ぶんの軌跡を控えにすると、
 /// リファクタリングのたびに巨大な差分が出て誰も読まなくなる。
 /// ここで残すのは「落ちたもの」「1 発も撃たなかったもの」の名前だけにして、
-/// 軌跡そのものは見ない。**広く浅い網**として置く。
+/// 軌跡そのものは見ない。広く浅い網として置く。
 ///
 /// 同じ XML が 4 つのサンプルに重複して置かれているので、
 /// 中身のハッシュで潰してから数える（906 ファイル = 227 本）。
@@ -23,7 +23,7 @@ type Corpus() =
 
   /// ビルドが吐いたコピーを外す。
   ///
-  /// 最初これを入れておらず、**分母がビルド状態に依存していた**。
+  /// 入れないと分母がビルド状態に依存する。
   /// samples の下の xml は 1399 個あるが、git が追跡しているのは 906 個で、
   /// 差の 493 個はほとんど bin/Debug へ複写されたもの。
   /// 焼いた直後と clean clone で数が変わるので、測るたびに分母が動く。
@@ -47,22 +47,23 @@ type Corpus() =
     let root = Path.GetFullPath(Path.Combine(__SOURCE_DIRECTORY__, "..", ".."))
     p.Substring(root.Length).Replace('\\', '/').TrimStart('/')
 
-  /// StackOverflow で落ちる弾幕。**捕まえられないので避けるしかない。**
-  /// 相互参照の無限再帰（FINDINGS.md の 8）を踏むもの。
-  /// 直したらここを空にして測り直すこと。
+  /// StackOverflow で落ちるので避けていた弾幕。**2026-08-31 に空にした。**
   ///
-  /// 見つけ方は「処理する前にファイル名を控えへ書く」。落ちたあと最後の行が犯人。
-  let known再帰 =
-    let d = "samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/EnemyBullet/sdmkun/bosses.d/"
-    [ "[ESP_RADE]_round_123_boss_izuna_fan.xml"
-      "[Original]_cont_circle.xml"
-      "[Original]_light_lv10.xml"
-      "[Original]_light_lv25.xml"
-      "[Original]_light_max.xml"
-      "[Original]_water_lv10.xml"
-      "[OtakuTwo]_accel_jump.xml" ]
-    |> List.map (fun n -> d + n)
-    |> Set.ofList
+  /// 打ち止め（`convertRefBulletml` が展開中の参照を種別つきの集合で持ち、
+  /// 再訪したら `BulletmlDTDViolationException`）を入れたので、
+  /// **7 本ともプロセスを落とさずに例外で戻るようになった。**
+  /// 避ける必要が無くなったので空にしてある。控え側は「落ちた」に分類される。
+  ///
+  /// 空にする前に避けていたのはこの 7 本（`bosses.d/` の下）。
+  ///
+  ///   [ESP_RADE]_round_123_boss_izuna_fan / [Original]_cont_circle
+  ///   [Original]_light_lv10 / [Original]_light_lv25 / [Original]_light_max
+  ///   [Original]_water_lv10 / [OtakuTwo]_accel_jump
+  ///
+  /// **また落ちるようになったら、ここに戻して隔離すること。**
+  /// 見つけ方は下の `progressPath` —— 処理する前にファイル名を書くので、
+  /// プロセスが死んでも最後の行が犯人を指す。
+  let known再帰 : Set<string> = Set.empty
 
   /// 落ちた場所を突き止めるための足跡。プロセスが死んでも残る
   let progressPath =
@@ -107,7 +108,7 @@ type Corpus() =
         yield sprintf "  落ちた       %d 本" broke.Count
         yield sprintf "  避けた       %d 本（StackOverflow で捕まえられないもの）" skipped.Count
         yield ""
-        yield "避けたもの（FINDINGS.md の 8 を踏む）:"
+        yield "避けたもの（参照が輪になっていて展開できないもの）:"
         if skipped.Count = 0 then yield "  なし"
         else for n in Seq.sort skipped do yield sprintf "  %s" n
         yield ""

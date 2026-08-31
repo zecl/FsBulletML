@@ -70,12 +70,7 @@ module ProcessableAttr =
   type ProcessableVanish = 
     { mutable finish : bool }
 
-  type ProcessableAction = 
-    { mutable finish : bool 
-      mutable stop : bool
-      attribute : ActionAttrs }
-
-  type ProcessableRepeat = 
+  type ProcessableRepeat =
     { mutable finish : bool
       mutable stop : bool
       mutable cont : bool
@@ -152,6 +147,14 @@ module Processable =
     abstract IsBullet : bool with get,set
     abstract BulletRoot : bool with get,set
 
+  /// loop が ProcessableBulletml を参照するため、この相互再帰の組に置いている
+  and ProcessableAction =
+    { mutable finish : bool
+      mutable stop : bool
+      /// 輪になった actionRef を 1 段だけ解いた結果。次のフレームからはこちらを走らせる
+      mutable loop : ProcessableBulletml list option
+      attribute : ActionAttrs }
+
   and [<RequireQualifiedAccess>] ProcessableBulletml =
   /// BulletML DTD
   /// <!ELEMENT bulletml (bullet | fire | action)*>
@@ -207,7 +210,8 @@ module Processable =
           | ProcessableBulletml.Action(pa,children) ->
             pa.finish <- false
             pa.stop <- false
-            children |> Seq.iter (fun t -> t.Init()) 
+            pa.loop <- None
+            children |> Seq.iter (fun t -> t.Init())
           | ProcessableBulletml.Accel (pa) ->
             pa.first <- true
             pa.finish <- false
@@ -237,6 +241,7 @@ module Processable =
             | ProcessableBulletml.Action(pa,children) ->
               pa.finish <- false
               pa.stop <- false
+              pa.loop <- None
               actionElm.Init()
             | _ -> ()
           | ProcessableBulletml.Bullet (attrs,direction, speed,actions) ->
@@ -250,8 +255,18 @@ module Processable =
     [<DefaultValue>]val mutable private finish : bool
     [<DefaultValue>]val mutable private shootingDirection : ShootingDirection
     [<DefaultValue>]val mutable private original : Bulletml option
+    /// 輪のために展開を止めた bulletRef を、走らせる側から 1 段だけ解く入口。
+    /// label と param を渡すと、その bullet を 1 段展開したものが返る
+    [<DefaultValue>]val mutable private resolveBulletRef : (string -> string list -> ProcessableBulletml option)
+    /// 輪のために展開を止めた actionRef を、走らせる側から 1 段だけ解く入口。
+    /// label と param を渡すと、その action を 1 段展開したものが返る
+    [<DefaultValue>]val mutable private resolveActionRef : (string -> string list -> ProcessableBulletml option)
 
-    member internal this.FireData with get () = this.fireData 
+    member internal this.ResolveBulletRef with get () = this.resolveBulletRef
+                                           and set (v) = this.resolveBulletRef <- v
+    member internal this.ResolveActionRef with get () = this.resolveActionRef
+                                           and set (v) = this.resolveActionRef <- v
+    member internal this.FireData with get () = this.fireData
                                    and set (v) = this.fireData <- v
     member internal this.ShootingDirection with get () = this.shootingDirection 
                                             and set (v) = this.shootingDirection <- v
@@ -283,7 +298,7 @@ module Processable =
     | ProcessableBulletml.Bulletml (attrs, children) ->
         ProcessableBulletml.Bulletml (attrs, List.map cloneProcessable children)
     | ProcessableBulletml.Action (pa, children) ->
-        ProcessableBulletml.Action ({ pa with finish = pa.finish }, List.map cloneProcessable children)
+        ProcessableBulletml.Action ({ pa with finish = pa.finish; loop = None }, List.map cloneProcessable children)
     | ProcessableBulletml.ActionRef (attrs, ps) ->
         ProcessableBulletml.ActionRef (attrs, ps)
     | ProcessableBulletml.Fire (pf, child) ->

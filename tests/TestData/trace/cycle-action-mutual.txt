@@ -1,0 +1,1 @@
+BulletmlDTDViolationException: circular reference detected:[action:b] 参照が輪になっているため展開できません
