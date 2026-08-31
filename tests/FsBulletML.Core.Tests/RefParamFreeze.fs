@@ -6,13 +6,15 @@ open FsBulletML.Processable
 
 /// ref の param に入れた $rand / $rank が、走るたびに読み直されるか。
 ///
-/// BulletRunner.convertBulletmlTask は IntermediateParser.existRandomParam を見て、
-/// $rand を含む ref がひとつでもあれば Original に生の XML を持たせる。
-/// BulletmlTask.Init() は Original があれば toProcessable から作り直し、
-/// 無ければ既にある木の可変フラグを戻すだけ（Processable.fs:272）。
+/// 直す前は、`BulletRunner.convertBulletmlTask` が
+/// `IntermediateParser.existRandomParam` を見て、$rand を含む ref がひとつでもあれば
+/// `BulletmlTask.Original` に生の XML を持たせ、`Init()` が毎周 作り直していた。
+/// 探していたのは `$rand` の 5 文字だけで、`$rank` は見ていなかった。
 ///
-/// existRandomParam が探すのは `$rand` の 5 文字だけで、`$rank` は見ていない。
-/// 片方だけ守られているなら、値を動かせば控えが割れる。
+/// 2026-08-31 に 11 で直した。param を文字のまま子へ渡すようにしたので、
+/// $rand を助けるためのこの迂回路は要らなくなり、`existRandomParam` は消してある。
+/// `Original` は常に None で、`Init()` は既にある木の可変フラグを戻すだけ。
+/// この doc は「何が在ってどう壊れていたか」の記録。控えは直したあとの姿。
 [<TestFixture>]
 [<NonParallelizable>]
 type RefParamFreeze() =

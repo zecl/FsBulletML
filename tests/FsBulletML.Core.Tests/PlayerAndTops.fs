@@ -7,10 +7,10 @@ open FsBulletML.Processable
 
 /// ここまでの控えが 1 度も通っていなかった 2 つ。
 ///
-///   BulletType.Player の分岐（BulletRunner.fs:58 :189 :195 :298）
+///   BulletType.Player の分岐（createTask / fireCommand / changeDirection の aim 側）
 ///     こちらの弾はずっと Enemy だった。Player だと aim の相手が変わる
 ///
-///   label が "top" で始まる action が複数あるとき（BulletRunner.fs:25-36）
+///   label が "top" で始まる action が複数あるとき（convertBulletmlTask の taskActions）
 ///     StartsWith("top") で拾うので top / top1 / top2 が全部 task になる
 [<TestFixture>]
 [<NonParallelizable>]
@@ -70,7 +70,7 @@ type PlayerAndTops() =
     BulletMLManager.Init(FixedManager(0.5f, 0.5f, 30.0f, 100.0f))
 
   /// direction を省くと aim になる。Player なら「敵を狙う」、Enemy なら「自機を狙う」。
-  /// BulletRunner.fs:189-198 の分岐がここで初めて通る。
+  /// fireCommand の aim の枝（Player なら GetEnemyAimDir）がここで初めて通る。
   [<Test>]
   member _.``Player の弾は aim の相手が変わる``() =
     let x = bml """<action label="top">
@@ -114,8 +114,12 @@ type PlayerAndTops() =
 
   /// 上で top / top1 / top2 のうち top しか撃たなかった。
   /// run は tasks を順に回すが、wait が Stop を返した時点で残りを見ない
-  /// （BulletRunner.fs:355-372 の while が `not stop` で抜ける）ので、
+  /// （`BulletRunner.run` の while が `not stop` で抜けていた）ので、
   /// 先頭の wait が後ろの top を塞いでいる、というのが読み。確かめる。
+  ///
+  /// 2026-08-31 に 9 で直した。いまは Stop / Continue をこの段で握り潰し、
+  /// 終わった task の数だけ数えるので、後ろの top* も同じフレームで回る。
+  /// この doc は「直す前にどう読んだか」の記録で、控えは直したあとの姿。
   [<Test>]
   member _.``先頭の top の wait が、後ろの top を塞いでいるか``() =
     let withWait = bml """<action label="top">

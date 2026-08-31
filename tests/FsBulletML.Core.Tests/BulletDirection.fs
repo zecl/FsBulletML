@@ -19,7 +19,7 @@ open FsBulletML.Processable
 ///
 /// と分解していて、2 番めの `Direction option` を捨てている。向きは fire 側の
 /// SrcDir からしか入らない。同じ位置の speed は読んでいるので非対称。
-/// Processable.fs:192 の型は
+/// ProcessableBulletml.Bullet の型は
 ///
 ///   Bullet of BulletAttrs * Direction option * Speed option * ProcessableBulletml list
 ///

@@ -9,7 +9,7 @@ open FsBulletML.Processable
 
 /// 式の評価がカルチャに影響されるか。
 ///
-/// Util.fs:27-33 の eval は
+/// TryParse.eval（Util.fs）は
 ///   XPath の number() で計算 -> 文字列化 -> Single.Parse(ev)
 /// という形で、**Single.Parse にカルチャを渡していない**。
 /// XPath が返すのは "." 区切りなので、"," が小数点のカルチャだと
@@ -139,7 +139,7 @@ type Culture() =
     |> String.concat "\n"
     |> Golden.check "culture-which-value"
 
-  /// $rand / $rank の経路（Processable.fs:113-116）もカルチャ依存か。
+  /// $rand / $rank の経路（Processable.getValue の Replace）もカルチャ依存か。
   /// rand.ToString() にカルチャを渡していないので de-DE では 0,5 が式に入るはず、
   /// というのが planner の読み（本人は未実測と明記）。
   ///

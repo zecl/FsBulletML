@@ -15,12 +15,12 @@ open FsBulletML.Processable
 /// 分岐している箇所は Core にもフロントにも無い。運ばれる経路はこう。
 ///
 ///   XML の type="vertical"
-///     -> IntermediateParser.fs:191-196  文字列から DU へ
-///     -> :201-202                       BulletmlAttrs.bulletmlType へ
-///     -> BulletRunner.fs:399-413        取り出して Task に set
+///     -> createBulletml の toShootingDirection    文字列から DU へ
+///     -> BulletmlAttrs.bulletmlType へ
+///     -> convertBulletmlTask が Task に set
 ///     -> ここで終わり
 ///
-/// 1 か所だけ読む所がある。DTD.fs:204-206 が XML へ書き戻すときに使う。
+/// 1 か所だけ読む所がある。DTD の WriteContentTo が XML へ書き戻すときに使う。
 /// つまり**挙動には効かないが、XML の往復には効く**。往復のほうは
 /// Parser.Tests の領分なので、ここでは触っていない。
 ///
@@ -89,16 +89,21 @@ type ShootingType() =
 
   /// DTD は type を省略可（既定 "none"）と定めている。実装がそれに従うかを見る。
   ///
-  /// 測った結果は「落ちない」。IntermediateParser.fs:200-204 が
+  /// 測った結果は「落ちない」。createBulletml が
   /// 属性が無ければ bulletmlType = None を返すので、
-  /// BulletRunner.fs:404 の `None -> BulletVertical` に**届く**。
+  /// convertBulletmlTask の `None -> BulletVertical` に**届く**。
   ///
-  /// つまり同じ問いに 3 つ別の答えがある。
-  ///   DTD       none          （DTD.fs:141 のコメント）
-  ///   Core      vertical      （BulletRunner.fs:404。省略時に届く）
-  ///   フロント   horizontal    （BaseBullet.fs:28 / DefaultBullet.fs:30）
+  /// 直す前は、同じ問いに 3 つ別の答えがあった。
+  ///   DTD       none          （`DTD.fs` の ATTLIST のコメント）
+  ///   Core      vertical      （`convertBulletmlTask` の `None ->`。省略時に届く）
+  ///   フロント   horizontal    （`BaseBullet` / `DefaultBullet` の member val）
   ///
-  /// いまは type 自体が挙動に効かないので見えない。効くようにした瞬間に効いてくる。
+  /// 2026-08-31 に 5 でフロントを Core に揃えたので、いまは vertical で 2 つ。
+  /// DTD の none だけが残るが、「縦でも横でもない」は受け取る側が書けることが
+  /// 無いので採っていない（上のヘッダに書いた線引き）。
+  ///
+  /// type は弾まで届くようになったが、読んで分岐する所はまだ 1 つも無いので、
+  /// 軌跡は動かない。
   ///
   /// なお `IntermediateParser` の `| None ->` の例外は
   /// 「this element should have ShootingDirection attribute.」と言っていたが、

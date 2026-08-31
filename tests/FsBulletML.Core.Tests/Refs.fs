@@ -123,7 +123,7 @@ type Refs() =
   /// 「こうあるべき」ではない。DTD は label の一意性を要求していない。
   ///
   /// tryFindAction / tryFindFire / tryFindBullet は 3 つとも List.tryFind
-  /// （IntermediateParser.fs:737 / :781 / :825）なので、最初に見つかったものを返す。
+  /// （3 つとも List.tryFind）なので、最初に見つかったものを返す。
   ///
   /// 凍結した予測: 文書順で先にあるほうが走る。
   /// 後ろが走ったなら、並び順についての読みのほうが外れている。
@@ -159,7 +159,7 @@ type Refs() =
   /// どちらの `top` が走るかは既存の 346 件が 1 件も見ていない。
   ///
   /// 凍結予測（経路つき）: 外側が勝つ。
-  /// `getAction`（`IntermediateParser.fs:721`）が `list@[recBulletml]@getChildren2` と
+  /// `IntermediateParser` の `getAction` が `list@[recBulletml]@getChildren2` と
   /// 自分を子より先に置く行きがけ順なので、平らにした並びで外側が先に来る。
   /// `tryFindAction`（`:737`）はそこへ `List.tryFind` を当てるだけ。
   /// 外側が勝つなら、外側にしかない speed 1 も撃たれる。内側だけなら 9 だけ。
