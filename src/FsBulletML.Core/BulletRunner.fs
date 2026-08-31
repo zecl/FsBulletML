@@ -86,6 +86,10 @@ module BulletRunner =
     // 引き継がないと、弾の中に残った bulletRef を誰も解けない
     newTask.ResolveBulletRef <- bulletmlTask.ResolveBulletRef
     newTask.ResolveActionRef <- bulletmlTask.ResolveActionRef
+    // <bulletml type> も同じ理由で引き継ぐ。撃たれた弾の task は
+    // convertBulletmlTask を通らないので、ここで渡さないと未設定のまま残る。
+    // ShootingDirection は enum ではなく DU なので、未設定は 0 ではなく null になる
+    newTask.ShootingDirection <- bulletmlTask.ShootingDirection
     if newTask.FireData :> obj = null then
       newTask.FireData  <- new System.Collections.Generic.List<FireData>()
       newTask.FireData.Add(new FireData())
@@ -427,6 +431,14 @@ module BulletRunner =
     | Some bulletmlTask ->
       let tasks = bulletmlTask.Tasks
       let mutable bullet = bullet
+      // <bulletml type> を弾へ届ける。いまはここまでで、読んで分岐する所はまだ無い。
+      // TODO: 縦横で何を変えるかは未決定。構想はあるが、仕様が何も定めていないので
+      //       （原典のリファレンス・RELAX・同梱の readme のどれにも書かれていない）、
+      //       決めた時点でこの実装が BulletML の意味を定義することになる。
+      //       いちばん近い案は absolute 方向の基準を type で回すもの。
+      // 未設定は null になりうるので、そのときは弾の値をそのままにする
+      if not (isNull (box bulletmlTask.ShootingDirection)) then
+        bullet.ShootingDirection <- bulletmlTask.ShootingDirection
       if tasks :> obj <> null then
         // top* は 1 本ずつ独立した task。ある top が wait で止まっても、
         // それはその top の話なので、後ろの top* はこのフレームでも回す

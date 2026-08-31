@@ -1,0 +1,5 @@
+type=vertical          弾 2 本  b0=ShootingDirection.BulletVertical b1=ShootingDirection.BulletVertical
+type=horizontal        弾 2 本  b0=ShootingDirection.BulletHorizontal b1=ShootingDirection.BulletHorizontal
+type 省略                弾 2 本  b0=ShootingDirection.BulletVertical b1=ShootingDirection.BulletVertical
+
+見た弾 ぜんぶで 6 本（3 条件 × 根と子）

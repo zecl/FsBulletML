@@ -36,7 +36,12 @@ module Trace =
   /// onFrame はそのフレームを回す前に呼ばれる（引数はフレーム番号）。
   /// 走行の途中で $rank や自機位置を動かすために置いた。
   /// 1 回だけ焼き付けたか毎回読み直しているかは、動かさないと割れない。
-  let runWith (onFrame: int -> unit) (xml: string) (frames: int) : string =
+  /// 軌跡と、走り終えたあとの弾ぜんぶ（先頭が根の弾、あとは産まれた順）を返す。
+  ///
+  /// 軌跡の文字列には出ない面を見るために置いた。いまは ShootingDirection が
+  /// 根の弾と撃たれた子の弾の両方に届いているかを見るのに使っている。
+  /// 子まで見ないと、根にだけ届く実装でも門が緑になる。
+  let runWithBullets (onFrame: int -> unit) (xml: string) (frames: int) : string * FakeBullet list =
     let born = List<FakeBullet>()
     let root = FakeBullet(0, born)
     let o = root :> IBulletmlObject
@@ -78,6 +83,9 @@ module Trace =
         sb.AppendLine(sprintf "  +b%d d=%s s=%s" b.Id (fmt bo.Dir) (fmt bo.Speed)) |> ignore
         seen <- seen + 1
 
-    sb.ToString().Replace("\r\n", "\n")
+    sb.ToString().Replace("\r\n", "\n"), (root :: List.ofSeq born)
+
+  let runWith (onFrame: int -> unit) (xml: string) (frames: int) : string =
+    runWithBullets onFrame xml frames |> fst
 
   let run (xml: string) (frames: int) : string = runWith ignore xml frames
