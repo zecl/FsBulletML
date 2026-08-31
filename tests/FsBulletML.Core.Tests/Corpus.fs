@@ -198,7 +198,13 @@ type Corpus() =
           | Some m -> yield sprintf "  %-104s %s" r.Name m
           | None -> yield sprintf "  %-104s 撃った %4d 発  残り %3d 本  %s" r.Name r.Fired r.Alive r.Digest ]
 
+    // 指紋の種類も出す。分母が 3 通りある（バイト / 走った本数 / 軌跡）ことを
+    // 控えの中で言えるようにしておくと、指紋が 1 つ動いたときに
+    // 「衝突では説明がつかない」がこの控えだけで読める
+    let kinds = ran |> List.map (fun r -> r.Digest) |> List.distinct |> List.length
     [ yield sprintf "一意な弾幕 %d 本。うち走ったのは %d 本" (List.length rows) (List.length ran)
+      yield sprintf "軌跡の指紋は %d 種類（%d 本は、中身が違うのに軌跡が同じ）"
+              kinds (List.length ran - kinds)
       yield sprintf "撃った弾の合計 %d 発 ／ 最終フレームに残っていた合計 %d 本"
               (ran |> List.sumBy (fun r -> r.Fired)) (ran |> List.sumBy (fun r -> r.Alive))
       yield ""

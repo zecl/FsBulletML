@@ -1,4 +1,5 @@
 一意な弾幕 227 本。うち走ったのは 223 本
+軌跡の指紋は 213 種類（10 本は、中身が違うのに軌跡が同じ）
 撃った弾の合計 76929 発 ／ 最終フレームに残っていた合計 73755 本
 
   samples/FsBulletML.Sample.MonoGame.CSharp/Content/xml/Enemy/move.xml                                     撃った    0 発  残り   1 本  50b1d9b06229
