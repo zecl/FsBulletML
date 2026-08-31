@@ -7,12 +7,12 @@ open FsBulletML.Processable
 /// ref の param に入れた $rand / $rank が、走るたびに読み直されるか。
 ///
 /// BulletRunner.convertBulletmlTask は IntermediateParser.existRandomParam を見て、
-/// **$rand を含む ref がひとつでもあれば Original に生の XML を持たせる**。
+/// $rand を含む ref がひとつでもあれば Original に生の XML を持たせる。
 /// BulletmlTask.Init() は Original があれば toProcessable から作り直し、
 /// 無ければ既にある木の可変フラグを戻すだけ（Processable.fs:272）。
 ///
 /// existRandomParam が探すのは `$rand` の 5 文字だけで、`$rank` は見ていない。
-/// **片方だけ守られているなら、値を動かせば控えが割れる。**
+/// 片方だけ守られているなら、値を動かせば控えが割れる。
 [<TestFixture>]
 [<NonParallelizable>]
 type RefParamFreeze() =
@@ -132,9 +132,14 @@ type RefParamFreeze() =
     |> Golden.check "freeze-rand-within-loop"
 
   /// 挙動の手前で、機構そのものを直に測る。
-  /// convertBulletmlTask が Original を持たせたかどうかは公開されている
+  ///
+  /// 11 を直す前は、$rand を含む ref があると convertBulletmlTask が Original に
+  /// 生の XML を持たせ、Init() が毎周 作り直していた（param が展開のとき数へ
+  /// 潰されるので、$rand だけを助けるための仕組み）。
+  /// param を文字のまま渡すようにしたので、この仕組みは要らなくなった。
+  /// existRandomParam は消してあり、Original は常に None になる
   [<Test>]
-  member _.``existRandomParam が Original を持たせる条件``() =
+  member _.``param の中身と Original の関係``() =
     BulletMLManager.Init(FixedManager(0.5f, 0.5f, 30.0f, 100.0f))
     let probe (name: string) (expr: string) =
       let task = BulletRunner.convertBulletmlTask (readXmlString (bml (viaParam expr)))
@@ -147,6 +152,42 @@ type RefParamFreeze() =
       probe "<param>1+$rand*2</param>" "1+$rand*2"
       probe "<param>1+$rank*2</param>" "1+$rank*2"
       ""
-      "IntermediateParser.fs:842 の judge は x.Contains(\"$rand\") だけを見る" ]
+      "11 を直したので、どの param でも Original は None。"
+      "param は文字のまま子へ渡り、getValue が読む位置まで生き残る" ]
     |> String.concat "\n"
     |> Golden.check "freeze-original-flag"
+
+  /// 11 を直す代償を測る。
+  ///
+  /// mapEval を外して param を文字のまま渡すと、$rand / $rank は getValue まで
+  /// 生き残る。そのかわり **$1 を何度も使う action では、使うたびに転がる**。
+  /// 揃った扇がばらけるかどうかが、直すか決める材料になる。
+  ///
+  /// ここは 1 つの action の中で同じ $1 を 3 回 使い、3 発の向きが揃うかを見る
+  [<Test>]
+  member _.``同じ param を 1 つの action で何度も使う``() =
+    BulletMLManager.Init(FixedManager(0.5f, 0.5f, 30.0f, 100.0f))
+    let xml =
+      bml """<action label="top">
+  <actionRef label="fan"><param>$rand*100</param></actionRef>
+  <wait>10</wait>
+</action>
+<action label="fan">
+  <fire><direction type="absolute">$1</direction><speed>1</speed><bullet/></fire>
+  <fire><direction type="absolute">$1</direction><speed>2</speed><bullet/></fire>
+  <fire><direction type="absolute">$1</direction><speed>3</speed><bullet/></fire>
+</action>"""
+    // 毎フレーム rand を動かす。param が数へ潰されていれば 3 発とも同じ向き、
+    // 文字のまま渡っていれば 3 発ともばらける
+    let mutable n = 0
+    let hook _ =
+      n <- n + 1
+      BulletMLManager.Init(FixedManager(0.1f * float32 n, 0.5f, 30.0f, 100.0f))
+    Trace.runWith hook xml 4
+    |> fun t ->
+        t.Split('\n')
+        |> Array.filter (fun l -> l.Contains "  +b")
+        |> Array.map (fun l -> l.Trim())
+        |> String.concat "\n"
+    |> fun s -> s + "\n\n同じ $1 を 3 回 使っている。向きが 3 発とも同じなら「揃った扇」、\nばらけていれば「使うたびに転がる」"
+    |> Golden.check "freeze-param-reused"

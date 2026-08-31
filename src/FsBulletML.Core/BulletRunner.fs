@@ -485,11 +485,10 @@ module BulletRunner =
       | _ -> failwith "convertBulletmlTask: 根が bulletml ではない"
 
     let tasks = toProcessable bulletml
-    let bulletmlTask = 
-      if IntermediateParser.existRandomParam recBulletml then
-        new BulletmlTask(toProcessable,Tasks = tasks, Original = Some bulletml)
-      else
-        new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
+    let bulletmlTask =
+      new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
+    bulletmlTask.ResolveBulletRef <- IntermediateParser.expandBulletRefOnce recBulletml
+    bulletmlTask.ResolveActionRef <- IntermediateParser.expandActionRefOnce recBulletml
     bulletmlTask.ShootingDirection <- shootingDirection
     if bulletmlTask.FireData :> obj = null then
       bulletmlTask.FireData  <- new System.Collections.Generic.List<FireData>()

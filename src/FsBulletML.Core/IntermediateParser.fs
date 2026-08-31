@@ -840,43 +840,6 @@ module IntermediateParser =
         | None -> false
       | _ -> false)
 
-  let internal existRandomParam recBulletml =
-    let getRandomParamRef (recBulletml:RecBulletml) = 
-      let rec xmlToCommandList2 topRecBulletml recBulletml = 
-        let rec xmlToCommandList2' topRecBulletml recBulletml (list:RecBulletml list) = 
-          let getChildren2 topRecBulletml children = List.fold (fun tl child -> tl@xmlToCommandList2 topRecBulletml child) [] children 
-          let judge (param:Params) = 
-            if param |> List.exists(fun x -> x.Contains("$rand")) then list@[recBulletml] else list
-          match recBulletml with
-          | RecBulletml.Bulletml (attrs, children) ->  
-            list@getChildren2 recBulletml children
-          | RecBulletml.Action (atts, children) ->  
-            list@getChildren2 recBulletml children
-          | RecBulletml.Fire (a,b,c, child) ->  
-            list@getChildren2 recBulletml [child]
-          | RecBulletml.Repeat (a,child) -> 
-            list@getChildren2 recBulletml [child]
-          | RecBulletml.Bullet (attrs, direction, speed, children) -> 
-              list@getChildren2 recBulletml children
-          | RecBulletml.ActionRef (attrs, param)  -> judge param
-          | RecBulletml.FireRef (attrs, param) -> judge param
-          | RecBulletml.BulletRef  (attrs, param) -> judge param
-          | RecBulletml.Bulletml _ 
-          | RecBulletml.Bullet _
-          | RecBulletml.Fire _  
-          | RecBulletml.Repeat _ 
-          | RecBulletml.Action _ 
-          | RecBulletml.ChangeSpeed _  
-          | RecBulletml.ChangeDirection _  
-          | RecBulletml.Accel _   
-          | RecBulletml.Wait _  
-          | RecBulletml.Vanish  
-          | RecBulletml.NotCommand ->
-            list
-        xmlToCommandList2' topRecBulletml recBulletml []
-      xmlToCommandList2 recBulletml recBulletml
-    getRandomParamRef recBulletml |> List.length > 0
-
   let internal refBulletml (target) label prams =
     let prams = prams |> Param.ofList 
     let rec convert bulletml =
@@ -969,7 +932,11 @@ module IntermediateParser =
   /// 別の action を経由する輪は、解いた結果の中に action が挟まるので、
   /// 走らせる側が 1 段ずつ解くと呼び出しがフレームごとに深くなる
   let rec private convertRefBulletmlIn visiting lastAction topRecBulletml recBulletml =
-    let mapEval expr = List.map (fun x -> (Processable.getValue x).ToString("F10")) expr
+    // param は文字のまま子へ渡す。ここで数へ潰すと $rank / $rand が
+    // 展開の 1 回ぶんで凍り、走行中に値を変えても追随しなくなる。
+    // Params は string list で、Param.replace も文字の置き換えなので、
+    // 潰さないほうが型の形と合う
+    let mapEval expr : string list = expr
     let enter key =
       if Set.contains key visiting then
         new BulletmlDTDViolationException(
