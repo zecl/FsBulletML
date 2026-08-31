@@ -47,14 +47,16 @@ module BulletRunner =
 
     match d with
     | Some (Direction(attrs, v)) ->
-      let value = getValue v
+      // BulletML の角度は度。fireCommand と同じく、ここでもラジアンへ直す
+      // （この枝は fire 側の上書きで届いていなかったので、変換が落ちていた）
+      let value = getValue v * ((float32 Math.PI) / 180.f)
       match attrs with
       | Some attrs ->
         match attrs.directionType with
         | DirectionType.Sequence -> bullet.Dir <- (bulletmlTask.GetFireData().SrcDir + value) |> calcDir
         | DirectionType.Absolute -> bullet.Dir <- value |> calcDir
         | DirectionType.Relative -> bullet.Dir <- (bullet.Dir + value) |> calcDir
-        | _ -> 
+        | _ ->
           if bullet.BulletType = BulletType.Player then
             bullet.Dir <- (bullet.GetEnemyAimDir() + value) |> calcDir
           else
@@ -215,7 +217,15 @@ module BulletRunner =
 
         newBullet.X <- bullet.X
         newBullet.Y <- bullet.Y
-        newBullet.Dir <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcDir |> calcDir
+        // 向きは fire 側の値で入れる。ただし bullet の中に direction を書いてあれば
+        // そちらが勝つ（createTask が読んだ値を、ここで上書きしないようにする）。
+        // 同じ bullet の中の speed は上の枝で読み直していて、向きだけ落ちていた
+        let bulletHasDirection =
+          match bulletElm with
+          | ProcessableBulletml.Bullet(_,Some _,_,_) -> true
+          | _ -> false
+        if not bulletHasDirection then
+          newBullet.Dir <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcDir |> calcDir
 
         if (bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SpeedInit |> not && newBullet.Task |> Option.forall (fun task -> task.FireData.[task.ActiveTaskIndex].SpeedInit)) then
           bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- newBullet.Speed
