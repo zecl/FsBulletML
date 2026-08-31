@@ -1,0 +1,35 @@
+run が返すのは差分。呼ぶ側が座標に足す。
+係数と Y の符号はフロントごとに違う（MonoGame は 1 倍、Unity2D は 1/100 で Y を反転）。
+
+samples/FsBulletML.Sample.MonoGame.CSharp/Enemy.cs
+    base.RunTask((x, y) => { this.self.X = this.self.X + x; this.self.Y = this.self.Y + y; });
+
+samples/FsBulletML.Sample.MonoGame.FSharp/Enemy.fs
+    let apply x y = this.self.X <- this.self.X + x; this.self.Y <- this.self.Y + y
+
+samples/FsBulletML.Sample.Unity2D.CSharp/Assets/Scripts/BaseBullet.cs
+    self.X = self.X + (result.X / 100);
+    self.Y = self.Y - (result.Y / 100);
+
+samples/FsBulletML.Sample.Unity2D.CSharp/Assets/Scripts/ECS/BulletSimulationSystem.cs
+    self.X = self.X + (result.X / 100);
+    self.Y = self.Y - (result.Y / 100);
+
+src/FsBulletML.MonoGame/BaseBullet.fs
+    let apply x y = this.self.X <- this.self.X + x; this.self.Y <- this.self.Y + y
+    let result = BulletRunner.run this
+    apply result.X result.Y
+    else apply result.X result.Y
+
+src/FsBulletML.Unity2D/DefaultBullet.fs
+    self.X <- self.X + (x / Settings.Display.PixcelsToUnits)
+    self.Y <- self.Y - (y / Settings.Display.PixcelsToUnits)
+    let result = BulletRunner.run self
+    apply result.X result.Y
+    else apply result.X result.Y
+
+run の経路に居ないが、座標を足している所（件数だけ）:
+  samples/FsBulletML.Sample.MonoGame.FSharp/Background.fs          1 行
+  samples/FsBulletML.Sample.MonoGame.FSharp/Player.fs              4 行
+
+―― 本体 6 ファイル / 15 行（0 なら走査か網が壊れている）

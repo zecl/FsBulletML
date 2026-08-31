@@ -31,6 +31,7 @@
     <Compile Include="RoundTrip.fs" />
     <Compile Include="Corpus.fs" />
     <Compile Include="SelfReference.fs" />
+    <Compile Include="CallingConvention.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\TestData\**\*">
