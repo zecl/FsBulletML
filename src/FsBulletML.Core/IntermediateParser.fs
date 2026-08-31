@@ -197,6 +197,7 @@ module IntermediateParser =
           | x -> new BulletmlDTDViolationException(sprintf "not support ShootingDirection.：[%s]" x) |> raise
         let xmlns = tryFindAttrValue attrs "xmlns"
         let name = tryFindAttrValue attrs "name"
+        // description は BulletML公式の属性ではない。BulletMLの名前/説明文を格納するための属性として追加した。
         let description = tryFindAttrValue attrs "description"
         match tryFindAttrValue attrs "type" with
         | Some shootingDirection ->

@@ -545,10 +545,11 @@ module DTD =
             match this with
             | Bulletml (x,_) -> x.bulletmlName   
             | _ -> None
+    /// description は BulletML公式の属性ではない。BulletMLの名前/説明文を格納するための属性として追加した。
     member this.Description
-        with get() = 
+        with get() =
             match this with
-            | Bulletml (x,_) -> x.bulletmlDescription 
+            | Bulletml (x,_) -> x.bulletmlDescription
             | _ -> None
 
   and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]BulletmlElm =
