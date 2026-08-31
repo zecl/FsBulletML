@@ -43,18 +43,20 @@ module BulletRunner =
     let attrs, d, s, children =
       match bulletElm with
         | ProcessableBulletml.Bullet(attrs,d,s,children) -> attrs,d,s,children
-        | _ -> failwith "convert error"
+        | _ -> failwith "createTask: bullet 以外が渡された"
 
     match d with
     | Some (Direction(attrs, v)) ->
-      let value = getValue v
+      // BulletML の角度は度。fireCommand と同じく、ここでもラジアンへ直す
+      // （この枝は fire 側の上書きで届いていなかったので、変換が落ちていた）
+      let value = getValue v * ((float32 Math.PI) / 180.f)
       match attrs with
       | Some attrs ->
         match attrs.directionType with
         | DirectionType.Sequence -> bullet.Dir <- (bulletmlTask.GetFireData().SrcDir + value) |> calcDir
         | DirectionType.Absolute -> bullet.Dir <- value |> calcDir
         | DirectionType.Relative -> bullet.Dir <- (bullet.Dir + value) |> calcDir
-        | _ -> 
+        | _ ->
           if bullet.BulletType = BulletType.Player then
             bullet.Dir <- (bullet.GetEnemyAimDir() + value) |> calcDir
           else
@@ -64,17 +66,36 @@ module BulletRunner =
 
     match s with
     | Some (Speed(attrs, v)) ->
+      // 上の direction と同じく type で基準が変わる。
+      // ここは attrs を束縛して 1 度も読んでおらず、型を無視して代入していた
+      //   sequence  前の fire の速さ
+      //   relative  この弾の速さ
+      //   absolute  そのまま
       let value = getValue v
-      bullet.Speed <- value
+      match attrs with
+      | Some attrs ->
+        match attrs.speedType with
+        | SpeedType.Sequence -> bullet.Speed <- bulletmlTask.GetFireData().SrcSpeed + value
+        | SpeedType.Relative -> bullet.Speed <- bullet.Speed + value
+        | _ -> bullet.Speed <- value
+      | None -> bullet.Speed <- value
     | None -> ()
     let tasks = children |> List.map cloneProcessable
-    let bulletmlTask = new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
-    if bulletmlTask.FireData :> obj = null then
-      bulletmlTask.FireData  <- new System.Collections.Generic.List<FireData>()
-      bulletmlTask.FireData.Add(new FireData())
-      tasks |> List.iter (fun t -> bulletmlTask.FireData.Add(new FireData()))
-      bulletmlTask.ActiveTaskIndex <- 0
-    bulletmlTask
+    let newTask = new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
+    // 輪を解く入口は、撃たれた弾の task にも引き継ぐ。
+    // 引き継がないと、弾の中に残った bulletRef を誰も解けない
+    newTask.ResolveBulletRef <- bulletmlTask.ResolveBulletRef
+    newTask.ResolveActionRef <- bulletmlTask.ResolveActionRef
+    // <bulletml type> も同じ理由で引き継ぐ。撃たれた弾の task は
+    // convertBulletmlTask を通らないので、ここで渡さないと未設定のまま残る。
+    // ShootingDirection は enum ではなく DU なので、未設定は 0 ではなく null になる
+    newTask.ShootingDirection <- bulletmlTask.ShootingDirection
+    if newTask.FireData :> obj = null then
+      newTask.FireData  <- new System.Collections.Generic.List<FireData>()
+      newTask.FireData.Add(new FireData())
+      tasks |> List.iter (fun t -> newTask.FireData.Add(new FireData()))
+      newTask.ActiveTaskIndex <- 0
+    newTask
 
   let internal getFinish task = 
     match task with
@@ -102,25 +123,37 @@ module BulletRunner =
 
   let rec internal runCommand (task:ProcessableBulletml) (bulletmlTask:BulletmlTask) (bullet:IBulletmlObject) =
     // Action
-    let actionCommand tasks bullet = 
+    let actionCommand (pa:ProcessableAction) tasks bullet =
       let mutable bullet = bullet
       let mutable stop = false
       let mutable continue' = false
       let mutable num = 0
       let len = List.length tasks
       while num < len && not stop do
-        let task = tasks.[num] 
-        
+        let task = tasks.[num]
+
         let finish = getFinish task
         if not finish then
-          let c,r = runCommand task bulletmlTask bullet
-          bullet <- c
-          if r = RunState.Stop then
-            stop <- true
-          elif r = RunState.Continue then
-            continue' <- true
-          else
-            setFinish task
+          match task with
+          // 輪のために展開を止めた actionRef。1 段だけ解いて、この action が
+          // 次のフレームから走らせる並びを差し替える。解いた中身のうしろに
+          // 残りの兄弟を繋ぐので、輪が末尾でなくても後続が落ちない。
+          // 済んだ手前は捨てるので、並びの長さは解くたびに伸びない
+          | ProcessableBulletml.ActionRef (attrs, prams) when not (isNull (box bulletmlTask.ResolveActionRef)) ->
+            match bulletmlTask.ResolveActionRef attrs.actionRefLabel prams with
+            | Some (ProcessableBulletml.Action (_, expanded)) ->
+              pa.loop <- Some (expanded @ (tasks |> List.skip (num + 1)))
+              stop <- true
+            | _ -> ()
+          | _ ->
+            let c,r = runCommand task bulletmlTask bullet
+            bullet <- c
+            if r = RunState.Stop then
+              stop <- true
+            elif r = RunState.Continue then
+              continue' <- true
+            else
+              setFinish task
         num <- num + 1
 
       if stop then
@@ -137,9 +170,10 @@ module BulletRunner =
       while pr.repeatNum < times && not stop && not continue' do
         let pa, tasks = actionElm |> function
           | ProcessableBulletml.Action (pa, tasks) -> pa,tasks
-          | _ -> failwith "error"
+          | _ -> failwith "repeatCommand: repeat の子が action ではない"
         if not pa.finish then
-          let c,r = actionCommand tasks bullet
+          let running = match pa.loop with Some t -> t | None -> tasks
+          let c,r = actionCommand pa running bullet
           bullet <- c
           if r = RunState.Stop then
             stop <- true
@@ -150,7 +184,7 @@ module BulletRunner =
             if pr.repeatNum >= times then
               pa.finish <- true
             else
-              tasks |> Seq.iter (fun t-> t.Init())
+              running |> Seq.iter (fun t-> t.Init())
         else
           pr.repeatNum <- pr.repeatNum + 1
       if stop then
@@ -172,7 +206,17 @@ module BulletRunner =
         bullet,RunState.End
 
     // Fire
-    let fireCommand pf bulletElm = 
+    let fireCommand pf bulletElmSrc =
+
+      // 輪のために展開を止めた bulletRef は、ここで 1 段だけ解く。
+      // fire のたびに新しい弾と新しい task ができるので、1 段ずつで足りる
+      let bulletElm =
+        match bulletElmSrc with
+        | ProcessableBulletml.BulletRef (attrs, prams) when not (isNull (box bulletmlTask.ResolveBulletRef)) ->
+          match bulletmlTask.ResolveBulletRef attrs.bulletRefLabel prams with
+          | Some expanded -> expanded
+          | None -> bulletElmSrc
+        | _ -> bulletElmSrc
 
       let revise = (float32 Math.PI) / 180.f
       match pf.direction with
@@ -205,17 +249,35 @@ module BulletRunner =
         newBullet.Task <- createTask bulletElm bulletmlTask newBullet |> Some 
        
         match bulletElm with
-        | ProcessableBulletml.Bullet(attr,_,speed,_) -> 
+        | ProcessableBulletml.Bullet(attr,_,speed,_) ->
           match speed with
-          | Some (Speed(attr,s)) -> 
-            newBullet.Speed  <- getValue s
+          | Some (Speed(sattr,s)) ->
+            // createTask と同じ値をここでも入れ直す。type を見ないと
+            // relative / sequence が absolute と同じ扱いになる
+            let value = getValue s
+            newBullet.Speed <-
+              match sattr with
+              | Some sattr ->
+                match sattr.speedType with
+                | SpeedType.Sequence -> bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed + value
+                | SpeedType.Relative -> bullet.Speed + value
+                | _ -> value
+              | None -> value
             newBullet.Task |> Option.iter (fun task -> task.FireData.[task.ActiveTaskIndex].SpeedInit <- true)
           | None -> ()
         | _ -> ()
 
         newBullet.X <- bullet.X
         newBullet.Y <- bullet.Y
-        newBullet.Dir <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcDir |> calcDir
+        // 向きは fire 側の値で入れる。ただし bullet の中に direction を書いてあれば
+        // そちらが勝つ（createTask が読んだ値を、ここで上書きしないようにする）。
+        // 同じ bullet の中の speed は上の枝で読み直していて、向きだけ落ちていた
+        let bulletHasDirection =
+          match bulletElm with
+          | ProcessableBulletml.Bullet(_,Some _,_,_) -> true
+          | _ -> false
+        if not bulletHasDirection then
+          newBullet.Dir <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcDir |> calcDir
 
         if (bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SpeedInit |> not && newBullet.Task |> Option.forall (fun task -> task.FireData.[task.ActiveTaskIndex].SpeedInit)) then
           bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- newBullet.Speed
@@ -223,11 +285,18 @@ module BulletRunner =
         else
           match pf.speed with
           | Some speed ->
-            pf.changeSpeed <- getValue speed.speedValue 
-            if (speed.speedType = SpeedType.Sequence || speed.speedType = SpeedType.Relative) then
-              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed + pf.changeSpeed 
-            else
-              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- pf.changeSpeed 
+            pf.changeSpeed <- getValue speed.speedValue
+            // 基準は type で違う。上の direction と同じ割り方にしてある
+            //   sequence  前の fire の速さ
+            //   relative  この弾の速さ
+            //   absolute  そのまま
+            match speed.speedType with
+            | SpeedType.Sequence ->
+              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed + pf.changeSpeed
+            | SpeedType.Relative ->
+              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- pf.changeSpeed + bullet.Speed
+            | _ ->
+              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- pf.changeSpeed
           | None ->
             if newBullet.Task |> Option.forall (fun task -> task.FireData.[task.ActiveTaskIndex].SpeedInit |> not) then
               bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- 1.f
@@ -235,7 +304,14 @@ module BulletRunner =
               bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- newBullet.Speed 
 
         newBullet.Task |> Option.iter(fun task -> task.FireData.[task.ActiveTaskIndex].SpeedInit <- false)
-        newBullet.Speed <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed
+        // 速さも向きと同じで、bullet の中に書いてあればそちらが勝つ。
+        // 上の枝で type ごとに入れた値を、ここで踏み潰さないようにする
+        let bulletHasSpeed =
+          match bulletElm with
+          | ProcessableBulletml.Bullet(_,_,Some _,_) -> true
+          | _ -> false
+        if not bulletHasSpeed then
+          newBullet.Speed <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed
         pf.finish <- true
         bullet,RunState.End
 
@@ -331,9 +407,9 @@ module BulletRunner =
 
     match task with
     | ProcessableBulletml.Repeat(pr, actionElm) -> repeatCommand pr actionElm
-    | ProcessableBulletml.Action(pa,tasks) -> 
-      if pa.finish then bullet, RunState.End 
-      else actionCommand tasks bullet 
+    | ProcessableBulletml.Action(pa,tasks) ->
+      if pa.finish then bullet, RunState.End
+      else actionCommand pa (match pa.loop with Some t -> t | None -> tasks) bullet
     | ProcessableBulletml.Wait (pw) -> waitCommand pw
     | ProcessableBulletml.Fire (pf,bulletElm) -> fireCommand pf bulletElm
     | ProcessableBulletml.Vanish pv -> vanishCommand pv
@@ -345,32 +421,46 @@ module BulletRunner =
   [<CompiledName "Run">]
   let run (bullet:IBulletmlObject) =
     match bullet.Task with
-    | None -> 
-        bullet.Task |> Option.iter(fun task -> task.Finish <- true)
-        RunResult(true, bullet.X, bullet.Y)
+    | None ->
+        // 返すのは差分。呼ぶ側は足すので、ここで絶対値を返すと座標が膨らむ
+        // （膨らむ量は呼ぶ側の係数しだい。同梱では MonoGame が 1 倍、
+        //  Unity2D と C# サンプルが 1/100）。
+        // 呼ぶ側 4 経路とも Task を先に見ているのでここへは届かないが、
+        // ガードを 1 つでも外したら届くので、届いても壊れない形にしておく
+        RunResult(true, 0.f, 0.f)
     | Some bulletmlTask ->
       let tasks = bulletmlTask.Tasks
       let mutable bullet = bullet
+      // <bulletml type> を弾へ届ける。いまはここまでで、読んで分岐する所はまだ無い。
+      // TODO: 縦横で何を変えるかは未決定。構想はあるが、仕様が何も定めていないので
+      //       （原典のリファレンス・RELAX・同梱の readme のどれにも書かれていない）、
+      //       決めた時点でこの実装が BulletML の意味を定義することになる。
+      //       いちばん近い案は absolute 方向の基準を type で回すもの。
+      // 未設定は null になりうるので、そのときは弾の値をそのままにする
+      if not (isNull (box bulletmlTask.ShootingDirection)) then
+        bullet.ShootingDirection <- bulletmlTask.ShootingDirection
       if tasks :> obj <> null then
-        let mutable stop, break', i,endCount = false, false, 0, 0
-        let len = Seq.length tasks 
-        while i < len && not stop do
-          let task,pa = 
+        // top* は 1 本ずつ独立した task。ある top が wait で止まっても、
+        // それはその top の話なので、後ろの top* はこのフレームでも回す
+        // （前は Stop で while ごと抜けていて、先頭の wait が後ろを永久に塞いでいた）
+        // 終わった task の数だけ数える。Stop / Continue はこの段では何もしない
+        // （走査を止めるのに使っていたが、それが後ろの top* を塞いでいた）
+        let mutable i, endCount = 0, 0
+        let len = Seq.length tasks
+        while i < len do
+          let task,pa =
             match tasks.[i] with
             | ProcessableBulletml.Action (pa,_) -> tasks.[i],pa
-            | _ -> failwith "error"
+            | _ -> failwith "run: top のタスクが action ではない"
           i <- i + 1
-          if not pa.finish then 
+          if not pa.finish then
             let b,r = runCommand task bulletmlTask bullet
             bullet <- b
             match r with
             | RunState.End ->
               pa.finish <- true
               endCount <- endCount + 1
-            | RunState.Stop ->
-              stop <- true
-            | RunState.Continue ->
-              break' <- true
+            | _ -> ()
           else
             endCount <- endCount + 1
 
@@ -389,7 +479,9 @@ module BulletRunner =
           RunResult(false, x, y)
       else
         bullet.Task |> Option.iter(fun task -> task.Finish <- true)
-        RunResult(true, bullet.X, bullet.Y)
+        // 上の None と同じ理由で差分 0。convertBulletmlTask が必ずリストを入れるので
+        // ここへ届く作り方が無く、**測れていない**
+        RunResult(true, 0.f, 0.f)
 
   [<CompiledName "ConvertBulletmlTask">]
   let convertBulletmlTask bulletml = 
@@ -402,14 +494,13 @@ module BulletRunner =
         match attrs.bulletmlType with
         | Some x -> x
         | None -> ShootingDirection.BulletVertical  
-      | _ -> failwith "convert error"
+      | _ -> failwith "convertBulletmlTask: 根が bulletml ではない"
 
     let tasks = toProcessable bulletml
-    let bulletmlTask = 
-      if IntermediateParser.existRandomParam recBulletml then
-        new BulletmlTask(toProcessable,Tasks = tasks, Original = Some bulletml)
-      else
-        new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
+    let bulletmlTask =
+      new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
+    bulletmlTask.ResolveBulletRef <- IntermediateParser.expandBulletRefOnce recBulletml
+    bulletmlTask.ResolveActionRef <- IntermediateParser.expandActionRefOnce recBulletml
     bulletmlTask.ShootingDirection <- shootingDirection
     if bulletmlTask.FireData :> obj = null then
       bulletmlTask.FireData  <- new System.Collections.Generic.List<FireData>()

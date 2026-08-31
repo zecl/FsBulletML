@@ -27,7 +27,10 @@ type DefaultBullet (transform:Transform) =
     member val IsBullet = false with get, set
     member val BulletRoot = false with get, set
     member val BulletType = BulletType.Enemy with get, set
-    member val ShootingDirection = ShootingDirection.BulletHorizontal with get, set
+    // Core の既定（BulletRunner.convertBulletmlTask）と揃えてある。
+    // run が <bulletml type> を届けるので、ふつうはすぐ上書きされる。
+    // この値が出るのは、まだ 1 度も run を通していない弾だけ
+    member val ShootingDirection = ShootingDirection.BulletVertical with get, set
     member val Task = None with get, set
     member val TargetEnemy = defaultof<IDefaultBullet> with get, set
     member val Radius = 0.1f with get, set

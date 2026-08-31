@@ -1,0 +1,5 @@
+inline literal (bullet 内)  d=0.524 s=2.000
+ref literal    (bullet 内)  d=0.524 s=2.000
+ref param      (bullet 内)  d=0.524 s=2.000
+fire 側        (fire 内)    d=0.524 s=2.000
+30 度 = 0.524 / aim = 2.850

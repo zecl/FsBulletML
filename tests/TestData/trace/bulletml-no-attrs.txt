@@ -1,0 +1,4 @@
+xmlns も type も name も無い <bulletml>
+実装: 落ちない。撃った弾 1 発
+
+落ちないなら、attrs が None になる入力は見つかっていない

@@ -207,6 +207,16 @@ module DTD =
             writer.WriteAttributeString(localName, t )
           | None -> ()
 
+          // parser が読む属性は writer も書く。書かないと往復で消える。
+          // 同梱の弾幕も type のうしろに name を置いている
+          match attrs.bulletmlName with
+          | Some v -> writer.WriteAttributeString("name", v)
+          | None -> ()
+
+          match attrs.bulletmlDescription with
+          | Some v -> writer.WriteAttributeString("description", v)
+          | None -> ()
+
           children |> Seq.iter (fun child -> write child)
           writer.WriteEndElement()
         | RecBulletml.Action (attrs, children) -> 
@@ -545,10 +555,11 @@ module DTD =
             match this with
             | Bulletml (x,_) -> x.bulletmlName   
             | _ -> None
+    /// description は BulletML公式の属性ではない。BulletMLの名前/説明文を格納するための属性として追加した。
     member this.Description
-        with get() = 
+        with get() =
             match this with
-            | Bulletml (x,_) -> x.bulletmlDescription 
+            | Bulletml (x,_) -> x.bulletmlDescription
             | _ -> None
 
   and [<StructuredFormatDisplay("{ToStructuredDisplay}")>]BulletmlElm =

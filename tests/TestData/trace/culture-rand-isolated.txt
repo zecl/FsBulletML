@@ -1,0 +1,5 @@
+en-US $rand   0.500
+de-DE $rand   0.500
+de-DE $rank   0.500
+de-DE 2       2.000
+fr-FR $rand   0.500

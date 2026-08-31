@@ -1,0 +1,17 @@
+既存の TestCase 2 本が持つのは xmlns と type だけ。足すとどうなるか
+
+  入力      <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"><bullet /></bulletml>
+  DTD 経由  <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"><bullet /></bulletml>  一致
+  XmlNode   <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical"><bullet /></bulletml>  一致
+
+  入力      <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" name="No Name"><bullet /></bulletml>
+  DTD 経由  <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" name="No Name"><bullet /></bulletml>  一致
+  XmlNode   <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" name="No Name"><bullet /></bulletml>  一致
+
+  入力      <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" description="a sample"><bullet /></bulletml>
+  DTD 経由  <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" description="a sample"><bullet /></bulletml>  一致
+  XmlNode   <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" description="a sample"><bullet /></bulletml>  一致
+
+  入力      <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" name="No Name" description="a sample"><bullet /></bulletml>
+  DTD 経由  <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" name="No Name" description="a sample"><bullet /></bulletml>  一致
+  XmlNode   <bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml" type="vertical" name="No Name" description="a sample"><bullet /></bulletml>  一致

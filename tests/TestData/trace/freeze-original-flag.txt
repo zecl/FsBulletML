@@ -1,0 +1,10 @@
+param の中身と、その BulletML が Original を持たされるか
+
+  <param>3</param>         Original = None（持ち回る）
+  <param>$rand</param>     Original = None（持ち回る）
+  <param>$rank</param>     Original = None（持ち回る）
+  <param>1+$rand*2</param> Original = None（持ち回る）
+  <param>1+$rank*2</param> Original = None（持ち回る）
+
+11 を直したので、どの param でも Original は None。
+param は文字のまま子へ渡り、getValue が読む位置まで生き残る

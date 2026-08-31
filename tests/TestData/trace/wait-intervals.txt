@@ -1,0 +1,8 @@
+wait=1 repeat=on  fires=[0; 1; 2; 3] gaps=[1; 1; 1]
+wait=1 repeat=off fires=[0; 2; 4; 6; 8; 10; 12; 14; 16; 18; 20; 22] gaps=[2; 2; 2; 2; 2; 2; 2; 2; 2; 2; 2]
+wait=2 repeat=on  fires=[0; 2; 4; 6] gaps=[2; 2; 2]
+wait=2 repeat=off fires=[0; 3; 6; 9; 12; 15; 18; 21] gaps=[3; 3; 3; 3; 3; 3; 3]
+wait=3 repeat=on  fires=[0; 3; 6; 9] gaps=[3; 3; 3]
+wait=3 repeat=off fires=[0; 4; 8; 12; 16; 20] gaps=[4; 4; 4; 4; 4]
+wait=4 repeat=on  fires=[0; 4; 8; 12] gaps=[4; 4; 4]
+wait=4 repeat=off fires=[0; 5; 10; 15; 20] gaps=[5; 5; 5; 5]

@@ -1,0 +1,1 @@
+BulletmlDTDViolationException: [changeSpeed] element should have [term] element.

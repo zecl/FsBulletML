@@ -57,3 +57,6 @@ samples/**/*.csproj.user
 /ProjectSettings/
 src/FsBulletML.Unity2D/ProjectSettings/
 src/FsBulletML.Unity2D/Packages/
+
+# カバレッジ収集の出力（dotnet test --collect が吐く）
+TestResults/

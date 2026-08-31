@@ -1,0 +1,4 @@
+親 speed=1 relative 1  ->  +b2 d=0.000 s=2.000
+親 speed=3 relative 1  ->  +b2 d=0.000 s=4.000
+親 speed=5 relative 2  ->  +b2 d=0.000 s=7.000
+親を基準なら 2 / 4 / 7。0 を基準なら 1 / 1 / 2
