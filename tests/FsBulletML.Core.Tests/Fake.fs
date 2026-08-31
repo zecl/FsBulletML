@@ -104,7 +104,7 @@ type FakeBullet(id: int, born: List<FakeBullet>) =
     /// 1 体だけ居るものとして同じ式で出す。
     ///
     /// 敵を原点に置くと、根の弾も原点なので atan2(0, -0) = π になり、
-    /// **偽の弾の副作用が値に出る**。自機と区別できる位置へずらしてある。
+    /// 偽の弾の副作用が値に出るので、自機と区別できる位置へずらしてある。
     member _.GetEnemyAimDir() =
       float32 (Math.Atan2(float (FakeEnemy.X - x), -1.0 * float (FakeEnemy.Y - y)))
 

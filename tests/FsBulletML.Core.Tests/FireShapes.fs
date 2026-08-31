@@ -1,4 +1,4 @@
-namespace FsBulletML.Core.Tests
+﻿namespace FsBulletML.Core.Tests
 
 open NUnit.Framework
 open FsBulletML.Processable

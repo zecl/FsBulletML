@@ -1,4 +1,4 @@
-namespace FsBulletML.Core.Tests
+﻿namespace FsBulletML.Core.Tests
 
 open NUnit.Framework
 open FsBulletML
@@ -6,7 +6,7 @@ open FsBulletML.Processable
 
 /// 中身の無い BulletML を食わせたときにどうなるか。
 /// run には X / Y を「差分ではなく絶対値」で返す枝が 2 つあり、
-/// 呼ぶ側はどちらの枝でも足すので、通ると座標が 2 倍になる。
+/// 呼ぶ側はどちらの枝でも足すので、通ると座標が膨らむ（量は呼ぶ側の係数しだい）。
 /// **その枝に本当に入れるのか**をここで測る。
 [<TestFixture>]
 [<NonParallelizable>]
@@ -36,7 +36,7 @@ type Degenerate() =
     |> fun x -> Trace.run x 4 |> Golden.check "no-action-at-all"
 
   /// run が絶対値を返す枝に入れるかを直接見る。
-  /// 入れるなら「そのフレームで座標が 2 倍になる」ので、呼ぶ側の足し算と噛み合わない。
+  /// 入れるなら呼ぶ側の足し算と噛み合わず、座標が膨らむ。
   [<Test>]
   member _.``Tasks が空のとき、run は差分を返すか絶対値を返すか``() =
     let born = System.Collections.Generic.List<FakeBullet>()
@@ -50,7 +50,7 @@ type Degenerate() =
     o.Speed <- 0.0f
     let r = BulletRunner.run o
     let verdict =
-      if r.X = 7.0f && r.Y = 11.0f then "絶対値を返した（呼ぶ側が足すと 2 倍になる枝）"
+      if r.X = 7.0f && r.Y = 11.0f then "絶対値を返した（呼ぶ側が足すので噛み合わない枝）"
       elif r.X = 0.0f && r.Y = 0.0f then "差分を返した（speed 0 なので 0）"
       else sprintf "どちらでもない X=%f Y=%f" r.X r.Y
     sprintf "Processed=%b X=%f Y=%f\n%s" r.Processed r.X r.Y verdict
