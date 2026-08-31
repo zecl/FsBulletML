@@ -428,25 +428,27 @@ module BulletRunner =
       let tasks = bulletmlTask.Tasks
       let mutable bullet = bullet
       if tasks :> obj <> null then
-        let mutable stop, break', i,endCount = false, false, 0, 0
-        let len = Seq.length tasks 
-        while i < len && not stop do
-          let task,pa = 
+        // top* は 1 本ずつ独立した task。ある top が wait で止まっても、
+        // それはその top の話なので、後ろの top* はこのフレームでも回す
+        // （前は Stop で while ごと抜けていて、先頭の wait が後ろを永久に塞いでいた）
+        // 終わった task の数だけ数える。Stop / Continue はこの段では何もしない
+        // （走査を止めるのに使っていたが、それが後ろの top* を塞いでいた）
+        let mutable i, endCount = 0, 0
+        let len = Seq.length tasks
+        while i < len do
+          let task,pa =
             match tasks.[i] with
             | ProcessableBulletml.Action (pa,_) -> tasks.[i],pa
             | _ -> failwith "run: top のタスクが action ではない"
           i <- i + 1
-          if not pa.finish then 
+          if not pa.finish then
             let b,r = runCommand task bulletmlTask bullet
             bullet <- b
             match r with
             | RunState.End ->
               pa.finish <- true
               endCount <- endCount + 1
-            | RunState.Stop ->
-              stop <- true
-            | RunState.Continue ->
-              break' <- true
+            | _ -> ()
           else
             endCount <- endCount + 1
 
