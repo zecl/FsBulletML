@@ -2,21 +2,19 @@ namespace FsBulletML.Core.Tests
 
 open System
 open System.IO
+open System.Security.Cryptography
+open System.Text
 open NUnit.Framework
 open FsBulletML.Processable
 
-/// samples に入っている実物の BulletML を全部走らせる。
+/// samples に入っている実物の BulletML を全部走らせる下ごしらえ。
 ///
-/// 控えは 1 本しか作らない。200 本ぶんの軌跡を控えにすると、
-/// リファクタリングのたびに巨大な差分が出て誰も読まなくなる。
-/// ここで残すのは「落ちたもの」「1 発も撃たなかったもの」の名前だけにして、
-/// 軌跡そのものは見ない。広く浅い網として置く。
+/// 227 本 × 60 フレームの走行は 8 秒 かかる。控えを 2 本 取るが、
+/// 走らせるのは 1 回だけにして、結果を両方で使う。
 ///
 /// 同じ XML が 4 つのサンプルに重複して置かれているので、
 /// 中身のハッシュで潰してから数える（906 ファイル = 227 本）。
-[<TestFixture>]
-[<NonParallelizable>]
-type Corpus() =
+module private CorpusData =
 
   let samplesDir =
     Path.GetFullPath(Path.Combine(__SOURCE_DIRECTORY__, "..", "..", "samples"))
@@ -69,54 +67,136 @@ type Corpus() =
   let progressPath =
     Path.Combine(Path.GetTempPath(), "fsb-corpus-progress.txt")
 
+  /// 弾幕 1 本ぶんの結果
+  type Row =
+    { Name : string
+      /// 60 フレームのあいだに産まれた弾の数
+      Fired : int
+      /// 最終フレームに残っていた弾の数
+      Alive : int
+      /// 軌跡そのものの指紋。値が 1 つでも動けば変わる
+      Digest : string
+      /// 落ちた／避けた理由。走ったものは None
+      Error : string option }
+
+  let private digest (s: string) =
+    use h = SHA256.Create()
+    h.ComputeHash(Encoding.UTF8.GetBytes s)
+    |> Array.take 6
+    |> Array.map (fun b -> b.ToString("x2"))
+    |> String.concat ""
+
+  /// 最終フレームに残っていた弾を数える。
+  /// 軌跡は `f00` の行のあとに `  b0 ...` が並ぶので、最後の `f` 行より下を数える
+  let private aliveAtEnd (lines: string[]) =
+    match lines |> Array.tryFindIndexBack (fun l -> l.StartsWith "f") with
+    | Some i -> lines.[i + 1 ..] |> Array.filter (fun l -> l.StartsWith "  b") |> Array.length
+    | None -> 0
+
+  /// 走行は 1 回だけ。corpus-smoke と corpus-trace が同じ結果を読む
+  let all : Lazy<Row list> =
+    lazy (
+      BulletMLManager.Init(FixedManager(0.5f, 0.5f, 30.0f, 100.0f))
+      let files = uniqueSamples ()
+      File.WriteAllText(progressPath, "")
+      [ for f in files do
+          let name = relative f
+          if Set.contains name known再帰 then
+            { Name = name; Fired = 0; Alive = 0; Digest = ""; Error = Some "避けた" }
+          else
+            // 処理する前に書く。StackOverflow で死んでも最後の行が犯人を指す
+            File.AppendAllText(progressPath, name + "\n")
+            try
+              let t = Trace.run (File.ReadAllText f) 60
+              let lines = t.Split('\n')
+              { Name = name
+                Fired = lines |> Array.filter (fun l -> l.Contains "  +b") |> Array.length
+                Alive = aliveAtEnd lines
+                Digest = digest t
+                Error = None }
+            with e ->
+              let rec inner (x: exn) = if isNull x.InnerException then x else inner x.InnerException
+              let i = inner e
+              { Name = name; Fired = 0; Alive = 0; Digest = ""
+                Error = Some(sprintf "%s: %s" (i.GetType().Name) (i.Message.Replace("\r", "").Replace("\n", " "))) } ]
+      // 並べ直すのは Name（/ 区切り）で。走る順はフルパス（\ 区切り）なので順序が違う
+      // —— Enemy\move.xml と EnemyBullet\... は '\'(92) > 'B'(66) で逆になる
+      |> List.sortBy (fun r -> r.Name))
+
+/// 実物の弾幕を走らせて固める網。控えは 2 本で、見ているものが違う。
+///
+///   corpus-smoke  撃った／撃たなかった／落ちた／避けた の数と名前。広く浅い
+///   corpus-trace  1 本ずつの弾数・生存数・軌跡の指紋。広く深い
+///
+/// smoke だけだと、227 本ぜんぶの軌跡が変わっても緑のまま通る。
+/// 2026-08-31 に wait を直したとき、控えが 17 本 動いたのに smoke の 3 つの数は
+/// 1 つも動かなかった。走らせた軌跡を捨てていたので、同じ走行から指紋を残す
+/// ようにした（走行そのものは増えていない）。
+[<TestFixture>]
+[<NonParallelizable>]
+type Corpus() =
+
   [<SetUp>]
   member _.SetUp() =
     BulletMLManager.Init(FixedManager(0.5f, 0.5f, 30.0f, 100.0f))
 
   [<Test>]
   member _.``samples の弾幕を全部 60 フレーム走らせる``() =
-    let files = uniqueSamples ()
+    let rows = CorpusData.all.Value
     // 当てる先が本当に在るかを先に見る。0 本なら緑にしない
-    if List.isEmpty files then
-      Assert.Fail(sprintf "samples に xml が 1 本もありません（%s）。測れていません" samplesDir)
+    if List.isEmpty rows then
+      Assert.Fail(sprintf "samples に xml が 1 本もありません（%s）。測れていません" CorpusData.samplesDir)
 
-    let mutable ok = 0
-    let broke = ResizeArray<string * string>()
-    let silent = ResizeArray<string>()
-    let skipped = ResizeArray<string>()
-    File.WriteAllText(progressPath, "")
-
-    for f in files do
-      let name = relative f
-      if Set.contains name known再帰 then skipped.Add name
-      else
-        // 処理する前に書く。StackOverflow で死んでも最後の行が犯人を指す
-        File.AppendAllText(progressPath, name + "\n")
-        try
-          let xml = File.ReadAllText f
-          let t = Trace.run xml 60
-          if t.Contains "  +b" then ok <- ok + 1 else silent.Add name
-        with e ->
-          let rec inner (x: exn) = if isNull x.InnerException then x else inner x.InnerException
-          let i = inner e
-          broke.Add(name, sprintf "%s: %s" (i.GetType().Name) (i.Message.Replace("\r", "").Replace("\n", " ")))
+    let skipped = rows |> List.filter (fun r -> r.Error = Some "避けた")
+    let broke = rows |> List.filter (fun r -> match r.Error with Some m -> m <> "避けた" | None -> false)
+    let silent = rows |> List.filter (fun r -> r.Error.IsNone && r.Fired = 0)
+    let ok = rows |> List.filter (fun r -> r.Error.IsNone && r.Fired > 0)
 
     let lines =
-      [ yield sprintf "一意な弾幕 %d 本（中身のハッシュで潰したあと）" (List.length files)
-        yield sprintf "  撃った       %d 本" ok
-        yield sprintf "  撃たなかった %d 本" silent.Count
-        yield sprintf "  落ちた       %d 本" broke.Count
-        yield sprintf "  避けた       %d 本（StackOverflow で捕まえられないもの）" skipped.Count
+      [ yield sprintf "一意な弾幕 %d 本（中身のハッシュで潰したあと）" (List.length rows)
+        yield sprintf "  撃った       %d 本" (List.length ok)
+        yield sprintf "  撃たなかった %d 本" (List.length silent)
+        yield sprintf "  落ちた       %d 本" (List.length broke)
+        yield sprintf "  避けた       %d 本（StackOverflow で捕まえられないもの）" (List.length skipped)
         yield ""
         yield "避けたもの（参照が輪になっていて展開できないもの）:"
-        if skipped.Count = 0 then yield "  なし"
-        else for n in Seq.sort skipped do yield sprintf "  %s" n
+        if List.isEmpty skipped then yield "  なし"
+        else for r in skipped do yield sprintf "  %s" r.Name
         yield ""
         yield "落ちたもの:"
-        if broke.Count = 0 then yield "  なし"
-        else for (n, m) in Seq.sortBy fst broke do yield sprintf "  %s\n    %s" n m
+        if List.isEmpty broke then yield "  なし"
+        else for r in broke do yield sprintf "  %s\n    %s" r.Name (Option.defaultValue "" r.Error)
         yield ""
         yield "60 フレームで 1 発も撃たなかったもの:"
-        if silent.Count = 0 then yield "  なし"
-        else for n in Seq.sort silent do yield sprintf "  %s" n ]
+        if List.isEmpty silent then yield "  なし"
+        else for r in silent do yield sprintf "  %s" r.Name ]
     String.concat "\n" lines |> Golden.check "corpus-smoke"
+
+  /// 上の smoke と同じ走行から、1 本ずつの中身を残す。
+  ///
+  /// 指紋だけだと何が変わったか読めないので、弾の数と最終フレームの生存数を
+  /// 先に出す。その 2 つが同じで指紋だけ動いたら、弾の数は変わらず
+  /// 値（向き・速さ・座標）が動いたと分かる。
+  [<Test>]
+  member _.``samples の弾幕の軌跡を 1 本ずつ控えにする``() =
+    let rows = CorpusData.all.Value
+    if List.isEmpty rows then
+      Assert.Fail(sprintf "samples に xml が 1 本もありません（%s）。測れていません" CorpusData.samplesDir)
+
+    let ran = rows |> List.filter (fun r -> r.Error.IsNone)
+    let body =
+      [ for r in rows do
+          match r.Error with
+          | Some m -> yield sprintf "  %-104s %s" r.Name m
+          | None -> yield sprintf "  %-104s 撃った %4d 発  残り %3d 本  %s" r.Name r.Fired r.Alive r.Digest ]
+
+    [ yield sprintf "一意な弾幕 %d 本。うち走ったのは %d 本" (List.length rows) (List.length ran)
+      yield sprintf "撃った弾の合計 %d 発 ／ 最終フレームに残っていた合計 %d 本"
+              (ran |> List.sumBy (fun r -> r.Fired)) (ran |> List.sumBy (fun r -> r.Alive))
+      yield ""
+      yield! body
+      yield ""
+      // 0 件を緑にしないための締め。指紋が 1 つも出ていなければ走査が壊れている
+      yield sprintf "―― 指紋が付いたのは %d 本（0 なら走査が壊れている）" (List.length ran) ]
+    |> String.concat "\n"
+    |> Golden.check "corpus-trace"
