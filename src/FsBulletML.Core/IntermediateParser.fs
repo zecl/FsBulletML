@@ -1,6 +1,7 @@
 ﻿namespace FsBulletML
 open System
-open FsBulletML.Processable 
+open System.Globalization
+open FsBulletML.Processable
 
 module IntermediateParser =
   let internal existsAttribute attrs f = attrs |> List.exists (fun (label, v) -> if f label v then true else false)
@@ -629,7 +630,12 @@ module IntermediateParser =
     | None -> None
  
   let private convertRecBulletml' bulletml test = 
-    let toStr single = if test then single |> string else (single:float32).ToString("F10")
+    // 値は BulletML の文書と同じ書き方（小数点は . ）で持ち回る。
+    // F10 を既定カルチャで作ると , が混ざり、XPath が引数区切りと読んで落ちる。
+    // test の側は元から不変（F# の string 演算子）で、明示に揃えただけ
+    let toStr (single: float32) =
+      if test then single.ToString(CultureInfo.InvariantCulture)
+      else single.ToString("F10", CultureInfo.InvariantCulture)
     let rep s x (y:Lazy<'T>) = if (s:string).Contains("$") then x else y.Force()
     let repDir direction = direction |> function
       | Some d -> d |> function 

@@ -195,6 +195,25 @@ type Culture() =
     |> String.concat "\n"
     |> Golden.check "culture-rand-isolated"
 
+  /// 直す前は fr-FR だけ FormatException で、de-DE は XPathException だった。
+  /// 理由は推論のまま残り、直したあとは再現しないので測れない。
+  /// せめて材料として、4 カルチャの数の書き方を控えに残す。
+  ///
+  /// 不変カルチャへ寄せた実装が正しい理由も、この表で読める ——
+  /// 小数点が 2 通り、桁区切りが 3 通りあり、BulletML の文書は . 固定
+  [<Test>]
+  member _.``カルチャごとの数の書き方``() =
+    let esc (s: string) =
+      s |> Seq.map (fun c -> if int c < 0x20 || int c > 0x7E then sprintf "U+%04X" (int c) else string c)
+        |> String.concat ""
+    let row (name: string) (f: NumberFormatInfo) =
+      sprintf "%-10s 小数点 %-8s 桁区切り %-8s 負号 %s"
+        name (esc f.NumberDecimalSeparator) (esc f.NumberGroupSeparator) (esc f.NegativeSign)
+    [ for n in [ "en-US"; "ja-JP"; "de-DE"; "fr-FR" ] -> row n (CultureInfo(n).NumberFormat)
+      yield row "Invariant" CultureInfo.InvariantCulture.NumberFormat ]
+    |> String.concat "\n"
+    |> Golden.check "culture-numberformat"
+
   /// XML に書いた小数リテラルのほうもカルチャで揺れるか。
   /// こちらは eval に入る前の文字列なので、揺れるなら別経路。
   [<Test>]

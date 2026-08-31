@@ -1,7 +1,8 @@
 ﻿namespace FsBulletML
 
 open System
-open System.IO 
+open System.Globalization
+open System.IO
 open System.Runtime.CompilerServices
 
 [<AutoOpen>]
@@ -16,21 +17,24 @@ module internal Util =
 
 [<RequireQualifiedAccess>]
 module internal TryParse =
-  let tryEval (expression:string) = 
+  /// 式の値は BulletML の文書と同じ書き方（小数点は . ）で持ち回る。
+  /// 読む側を既定カルチャのままにすると、de-DE は "2.5" の . を桁区切りと読んで
+  /// 例外なく 25 を返す。作る側だけ直すと、落ちる不具合が静かな不具合に変わる。
+  ///
+  /// 作る側はここでは元から不変（F# の string 演算子）。明示にしてあるのは、
+  /// その不変性が実装に依るところなので、版が変わっても動くようにするため
+  let private xpathNumber (expression:string) =
     let regx = new System.Text.RegularExpressions.Regex(@"([\+\-\*])")
     let xexpr = regx.Replace(expression, " ${1} ").Replace("/", " div ").Replace("%", " mod ")
     let doc = new System.Xml.XPath.XPathDocument(new StringReader("<r/>"))
     let nav = doc.CreateNavigator()
-    let ev = nav.Evaluate(String.Format("number({0})", xexpr)) |> string
-    Single.TryParse(ev)
+    Convert.ToString(nav.Evaluate(String.Format("number({0})", xexpr)), CultureInfo.InvariantCulture)
 
-  let eval (expression:string) = 
-    let regx = new System.Text.RegularExpressions.Regex(@"([\+\-\*])")
-    let xexpr = regx.Replace(expression, " ${1} ").Replace("/", " div ").Replace("%", " mod ")
-    let doc = new System.Xml.XPath.XPathDocument(new StringReader("<r/>"))
-    let nav = doc.CreateNavigator()
-    let ev = nav.Evaluate(String.Format("number({0})", xexpr)) |> string
-    Single.Parse(ev)
+  let tryEval (expression:string) =
+    Single.TryParse(xpathNumber expression, NumberStyles.Float, CultureInfo.InvariantCulture)
+
+  let eval (expression:string) =
+    Single.Parse(xpathNumber expression, NumberStyles.Float, CultureInfo.InvariantCulture)
 
   let tryParseWith tryParseFunc = 
     tryParseFunc >> function

@@ -1,5 +1,5 @@
-de-DE 1+2*3   XPathException: Function 'number' in 'number(10,0000000000)' has an invalid number of arguments.
-de-DE 2.5     XPathException: Function 'number' in 'number(10,0000000000)' has an invalid number of arguments.
-fr-FR 1+2*3   XPathException: Function 'number' in 'number(10,0000000000)' has an invalid number of arguments.
-fr-FR 2.5     FormatException: The input string '2.5' was not in a correct format.
+de-DE 1+2*3   7.000
+de-DE 2.5     2.500
+fr-FR 1+2*3   7.000
+fr-FR 2.5     2.500
 en-US 1+2*3   7.000

@@ -1,7 +1,8 @@
 ﻿namespace FsBulletML
 
 open System
-open System.Diagnostics 
+open System.Diagnostics
+open System.Globalization
 open System.IO 
 open System.Text 
 open System.Xml
@@ -113,9 +114,11 @@ module Processable =
   let getValue (s:string) = 
     let rand = BulletMLManager.GetRandom()
     let rank = BulletMLManager.GetRank()
-    let s = s.Replace("$rand", rand.ToString())
-             .Replace("$rank", rank.ToString())
-    let s = System.Text.RegularExpressions.Regex.Replace(s,"\$d*","0")
+    let s = s.Replace("$rand", rand.ToString(CultureInfo.InvariantCulture))
+             .Replace("$rank", rank.ToString(CultureInfo.InvariantCulture))
+    // 置き換え残りの $N を 0 に潰す。\d が \$d* と書かれていて、
+    // $ だけが 0 になり数字が残っていた（$1 が "01" = 1 になる）
+    let s = System.Text.RegularExpressions.Regex.Replace(s,"\$\d*","0")
     TryParse.eval s
 
   /// FireData
