@@ -45,7 +45,7 @@ module private CorpusData =
     let root = Path.GetFullPath(Path.Combine(__SOURCE_DIRECTORY__, "..", ".."))
     p.Substring(root.Length).Replace('\\', '/').TrimStart('/')
 
-  /// StackOverflow で落ちるので避けていた弾幕。**2026-08-31 に空にした。**
+  /// StackOverflow で落ちるので避けていた弾幕。**いまは空にしてある。**
   ///
   /// 打ち止め（`convertRefBulletml` が展開中の参照を種別つきの集合で持ち、
   /// 再訪したら `BulletmlDTDViolationException`）を入れたので、
@@ -137,7 +137,7 @@ module private CorpusData =
 ///   corpus-trace  1 本ずつの弾数・生存数・軌跡の指紋。広く深い
 ///
 /// smoke だけだと、227 本ぜんぶの軌跡が変わっても緑のまま通る。
-/// 2026-08-31 に wait を直したとき、控えが 17 本 動いたのに smoke の 3 つの数は
+/// wait を直したとき、控えが 17 本 動いたのに smoke の 3 つの数は
 /// 1 つも動かなかった。走らせた軌跡を捨てていたので、同じ走行から指紋を残す
 /// ようにした（走行そのものは増えていない）。
 [<TestFixture>]

@@ -13,7 +13,7 @@ open FsBulletML.Processable
 ///   XPath の number() で計算 -> 文字列化 -> Single.Parse(ev)
 /// という形で、**Single.Parse にカルチャを渡していない**。
 /// XPath が返すのは "." 区切りなので、"," が小数点のカルチャだと
-/// 解釈が変わるはず、というのが planner の読み（本人は未測定と明記）。
+/// 解釈が変わるはず、というのが読み（未測定の読みとして立てたもの）。
 ///
 /// ここで実際に走らせて確かめる。
 [<TestFixture>]
@@ -141,7 +141,7 @@ type Culture() =
 
   /// $rand / $rank の経路（Processable.getValue の Replace）もカルチャ依存か。
   /// rand.ToString() にカルチャを渡していないので de-DE では 0,5 が式に入るはず、
-  /// というのが planner の読み（本人は未実測と明記）。
+  /// というのが読み（未実測の読みとして立てたもの）。
   ///
   /// **どこで落ちるかが要点。** 上流の ToString("F10") で先に落ちるなら
   /// wait と同じメッセージになるし、$rand のほうが先なら 0,5 が出るはず。

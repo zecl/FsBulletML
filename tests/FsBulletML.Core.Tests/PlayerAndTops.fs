@@ -117,7 +117,7 @@ type PlayerAndTops() =
   /// （`BulletRunner.run` の while が `not stop` で抜けていた）ので、
   /// 先頭の wait が後ろの top を塞いでいる、というのが読み。確かめる。
   ///
-  /// 2026-08-31 に 9 で直した。いまは Stop / Continue をこの段で握り潰し、
+  /// そのあと 9 で直した。いまは Stop / Continue をこの段で握り潰し、
   /// 終わった task の数だけ数えるので、後ろの top* も同じフレームで回る。
   /// この doc は「直す前にどう読んだか」の記録で、控えは直したあとの姿。
   [<Test>]

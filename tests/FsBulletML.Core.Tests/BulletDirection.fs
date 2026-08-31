@@ -7,7 +7,7 @@ open FsBulletML.Processable
 /// bullet 要素の中に書いた direction が、弾の向きに入るか。
 ///
 /// **ここは「正しい姿」ではなく「いまの姿」を記録している。**
-/// 2026-08-31 に dba9d27 で測った結果はこう。
+/// 測った結果はこう。
 ///
 ///   fire 側に direction を書く   効く
 ///   bullet の中に direction      効かない（aim に落ちる）。参照でもリテラルでも同じ

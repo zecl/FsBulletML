@@ -11,7 +11,7 @@ open FsBulletML.Processable
 /// なので 3 つの type で**同じ軌跡になること**のほうを見る。
 /// リファクタリングで効くようになったら、ここが赤くなる。
 ///
-/// 2026-08-31 に dba9d27 で数えた結果、`ShootingDirection` を右辺で読んで
+/// 数えた結果、`ShootingDirection` を右辺で読んで
 /// 分岐している箇所は Core にもフロントにも無い。運ばれる経路はこう。
 ///
 ///   XML の type="vertical"
@@ -98,7 +98,7 @@ type ShootingType() =
   ///   Core      vertical      （`convertBulletmlTask` の `None ->`。省略時に届く）
   ///   フロント   horizontal    （`BaseBullet` / `DefaultBullet` の member val）
   ///
-  /// 2026-08-31 に 5 でフロントを Core に揃えたので、いまは vertical で 2 つ。
+  /// そのあと 5 でフロントを Core に揃えたので、いまは vertical で 2 つ。
   /// DTD の none だけが残るが、「縦でも横でもない」は受け取る側が書けることが
   /// 無いので採っていない（上のヘッダに書いた線引き）。
   ///
@@ -108,7 +108,7 @@ type ShootingType() =
   /// なお `IntermediateParser` の `| None ->` の例外は
   /// 「this element should have ShootingDirection attribute.」と言っていたが、
   /// 条件は type 属性ではなく attrs レコードが None のとき。
-  /// メッセージが実際の条件と違ったので、条件のほうに合わせた（2026-08-31）。
+  /// メッセージが実際の条件と違ったので、条件のほうに合わせた。
   /// その枝に届く入力は見つかっていない。下の `bulletml-no-attrs` が確かめている。
   [<Test>]
   member _.``type を省くとどうなるか``() =
