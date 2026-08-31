@@ -38,6 +38,21 @@ type FsBulletMLSampleGame () as this =
     | x -> sfont.Force() |> fun font -> [font, msg, Vector2(v.X+2.f,v.Y+2.f), Color.Gray; font, msg, v, c ] 
                                        |> List.iter (fun (font, msg, v, c) -> x.DrawString(font, msg, v, c))
 
+  /// `<bulletml type>` を画面に出すための言い換え。
+  ///
+  /// いまは届いた値をそのまま出しているだけ。未設定は DU なので 0 ではなく
+  /// null になりうるので、そこも見えるようにしてある。
+  ///
+  /// TODO: この値で描画や初期角度を変えるかは未決定。ライブラリ側で意味を決めるか、
+  ///       ゲーム側で決めるかも、まだ決まっていない。
+  let scrollLabel (d: FsBulletML.DTD.ShootingDirection) =
+    if isNull (box d) then "(未設定)"
+    else
+      match d with
+      | FsBulletML.DTD.ShootingDirection.BulletVertical   -> "vertical"
+      | FsBulletML.DTD.ShootingDirection.BulletHorizontal -> "horizontal"
+      | FsBulletML.DTD.ShootingDirection.BulletNone       -> "none"
+
   static let mutable ship = defaultof<Player>
   static member Player : Player = ship
   static member Graphics = gmanager
@@ -158,9 +173,12 @@ type FsBulletMLSampleGame () as this =
 
     spriteBatch.Draw(ship.texture, Manager.getDrawPos ship.Pos ship.texture, Color.AntiqueWhite)
 
-    drawText (sprintf "Name :%s " this.bulletName ) (new Vector2(3.f, 18.f)) Color.White  
-    drawText (sprintf "Boss Life : %s" <| this.boss.Life.ToString()) (new Vector2(3.f, 33.f)) Color.White  
-    drawText (sprintf "Player Damage : %s" <| ship.damageCounter.ToString()) (new Vector2(3.f, 48.f)) Color.White  
+    drawText (sprintf "Name :%s " this.bulletName ) (new Vector2(3.f, 18.f)) Color.White
+    // <bulletml type> がライブラリから届いているかを、そのまま出す。
+    // ここは「値が届いている」ことが目で見えるようにしただけ（上の TODO 参照）
+    drawText (sprintf "Scroll : %s" (scrollLabel this.boss.ShootingDirection)) (new Vector2(3.f, 33.f)) Color.White
+    drawText (sprintf "Boss Life : %s" <| this.boss.Life.ToString()) (new Vector2(3.f, 48.f)) Color.White
+    drawText (sprintf "Player Damage : %s" <| ship.damageCounter.ToString()) (new Vector2(3.f, 63.f)) Color.White
 
     this.emitter.Draw(spriteBatch)
 
