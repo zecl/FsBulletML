@@ -93,9 +93,13 @@ module private CorpusData =
     | Some i -> lines.[i + 1 ..] |> Array.filter (fun l -> l.StartsWith "  b") |> Array.length
     | None -> 0
 
+  /// 227 本を走らせるのに掛かった時間。`all` を最初に触った側が測る
+  let mutable elapsedMs = 0.0
+
   /// 走行は 1 回だけ。corpus-smoke と corpus-trace が同じ結果を読む
   let all : Lazy<Row list> =
     lazy (
+      let sw = Diagnostics.Stopwatch.StartNew()
       BulletMLManager.Init(FixedManager(0.5f, 0.5f, 30.0f, 100.0f))
       let files = uniqueSamples ()
       File.WriteAllText(progressPath, "")
@@ -121,7 +125,11 @@ module private CorpusData =
                 Error = Some(sprintf "%s: %s" (i.GetType().Name) (i.Message.Replace("\r", "").Replace("\n", " "))) } ]
       // 並べ直すのは Name（/ 区切り）で。走る順はフルパス（\ 区切り）なので順序が違う
       // —— Enemy\move.xml と EnemyBullet\... は '\'(92) > 'B'(66) で逆になる
-      |> List.sortBy (fun r -> r.Name))
+      |> List.sortBy (fun r -> r.Name)
+      |> fun rows ->
+          sw.Stop()
+          elapsedMs <- sw.Elapsed.TotalMilliseconds
+          rows)
 
 /// 実物の弾幕を走らせて固める網。控えは 2 本で、見ているものが違う。
 ///
@@ -200,3 +208,22 @@ type Corpus() =
       yield sprintf "―― 指紋が付いたのは %d 本（0 なら走査が壊れている）" (List.length ran) ]
     |> String.concat "\n"
     |> Golden.check "corpus-trace"
+
+  /// 227 本を走らせる時間の天井。**これは性能の測定ではない。**
+  ///
+  /// 壁時計は台と時刻で 15% くらい平気で動くので、締めた値を置くと
+  /// 中身が何も変わっていない日に赤くなる。ここで捕まえたいのは
+  /// 「桁で遅くなった」——- たとえばうっかり O(n^2) を入れた、という壊れ方だけ。
+  ///
+  /// 手元の素の値は 8〜16 秒。天井は 120 秒に置いてある（10 倍 弱の余裕）。
+  /// **数字そのものは控えに残さない。**残すと走るたびに動いて門が死ぬ。
+  /// 実測は下の WriteLine に出るので、遅くなっていく傾向は人が読める。
+  [<Test>]
+  member _.``227 本の走行が桁で遅くなっていない``() =
+    CorpusData.all.Value |> ignore
+    let ms = CorpusData.elapsedMs
+    TestContext.WriteLine(sprintf "227 本 × 60 フレームの走行: %.0f ms" ms)
+    // 0 は「測れていない」。lazy を誰かが先に触っていても elapsedMs は残る
+    Assert.That(ms, Is.GreaterThan 0.0, "時間が測れていません")
+    Assert.That(ms, Is.LessThan 120000.0,
+                sprintf "227 本の走行に %.0f ms 掛かっています。桁で遅くなっていないか見てください" ms)

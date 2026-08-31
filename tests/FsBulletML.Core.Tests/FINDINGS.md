@@ -48,7 +48,7 @@ https://www.asahi-net.or.jp/~cs8k-cyu/bulletml/index.html
 
 ```
 枝      feature/core-tests   ★手元のみ。origin には push していない
-網      Core 89 件 ＋ 既存 Parser 346 件 すべて緑。控え 89 本
+網      Core 91 件 ＋ 既存 Parser 346 件 すべて緑。控え 90 本
 本体    1・2・3・4・6・7・8・9・11・13 ＋ 新しい札（bullet 直下の speed の type）を直した
         （IntermediateParser / Processable / BulletRunner / Util / DTD）
         それ以外は 1 行も触っていない
@@ -3059,21 +3059,87 @@ corpus-smoke   成功    ← 前と同じく無反応
 回した順のまま出したら逆になる。**同じ集合でも、並べ直す鍵の区切り文字で順序が変わる。**
 `Name`（`/` 区切り）で 1 回 並べ直して、両方の控えで揃えた。
 
-### 残っている穴（直していない）
+### 残っていた 3 つの穴も埋めた（2026-08-31）
+
+#### フロントの呼び出し規約（控え `calling-convention.txt`）
+
+`run` が返すのは差分で、呼ぶ側が座標に足す。**係数も `Y` の符号もフロントごとに違う。**
 
 ```
-フロント（MonoGame / Unity2D / C# サンプル）  ★網 0 件
-    run が返すのは差分で、呼ぶ側の係数が 1 倍と 1/100 で違う（3 で見つけた形）
-    Core を安全に直しても、ここで壊れたら出ない
+src/FsBulletML.MonoGame/BaseBullet.fs          X + x            Y + y            係数 1
+src/FsBulletML.Unity2D/DefaultBullet.fs        X + x/PPU        Y − y/PPU        1/PPU・Y 反転
+samples/MonoGame.CSharp/Enemy.cs               X + x            Y + y            係数 1
+samples/MonoGame.FSharp/Enemy.fs               X + x            Y + y            係数 1
+samples/Unity2D.CSharp/BaseBullet.cs           X + x/100        Y − y/100        1/100・Y 反転
+samples/Unity2D.CSharp/ECS/BulletSimulation…   X + x/100        Y − y/100        同上
+```
 
-性能                                          ★網 0 件。遅くなっても分からない
+★**フロントは Core.Tests から呼べない**（MonoGame と UnityEngine が要る）ので、
+**ソースを読む門**にした。捕まえたい壊れ方は 3 つ ——
+足すのをやめて代入にした／係数を 1 か所だけ変えた／`Y` の符号を 1 か所だけ変えた。
 
-カバレッジ                                     ★測れていない
-    coverlet.collector が入っていないので --collect の出力が空になる
-    どこが掛かっていないかを数字で持っていない（推測で話している）
+★★**古びやすい門であることは承知のうえ**（行を書き換えると赤くなる）。**他に測る手が無い。**
 
-明示的に未測定の枝                              2 つ
+★**最初の網は自機と背景の移動まで拾っていた**（`Player.fs` の速度を変えただけで赤くなる）。
+**`run` の経路に居るファイルだけに絞った。**
+ただし**絞った外も件数だけ出している** —— 新しいフロントが増えたら
+ファイル名が増えて赤くなり、自機の速度をいじっただけでは動かない。
+
+★★★**壊して確かめた。** `Unity2D` の `/100` を `/50` に変えたら 12 行目で割れた。
+
+#### カバレッジ（`coverlet.collector` を両方のテストに足した）
+
+★**Core だけで測ると `DTD.fs` が 39% に出る。Parser.Tests と合わせると 85%。**
+**片方だけの数字を出していたら誤読させていた。**
+
+```
+2 つの走行を合わせた行カバレッジ  ★83.2%（1455 / 1748 行）
+
+  94%  BulletRunner.fs      ← リファクタリング対象。ここが厚い
+  90%  Processable.fs
+  85%  DTD.fs
+  83%  Xml.fs
+  81%  IntermediateParser.fs
+  68%  Util.fs
+  15%  Parser.fs            ← TypeProvider 側の入口。ほぼ使われていない
+   0%  BulletmlInfo.fs      （5 行）
+```
+
+★**門にはしていない。** 割合に閾値を置くと、数え方が変わるだけで動く。
+**数を持っていること自体が目的**なので、測り方だけ残す。
+
+```
+dotnet test <proj> --collect:"XPlat Code Coverage"
+→ TestResults/<guid>/coverage.cobertura.xml
+```
+
+#### 性能の天井（`227 本の走行が桁で遅くなっていない`）
+
+★**これは性能の測定ではない。** 壁時計は台と時刻で 15% くらい動くので、
+締めた値を置くと中身が変わっていない日に赤くなる。
+**捕まえたいのは「桁で遅くなった」だけ**（うっかり O(n^2) を入れた、など）。
+
+```
+手元の素の値   8〜16 秒（実測 10291 ms）
+天井           120 秒（10 倍 弱の余裕）
+```
+
+★**数字そのものは控えに残さない。** 残すと走るたびに動いて門が死ぬ。
+実測は `TestContext.WriteLine` に出るので、遅くなる傾向は人が読める。
+★★**走行は増えていない**（`corpus-smoke` / `corpus-trace` と同じ `lazy` を使う）。
+
+★★★**壊して確かめた。** 天井を 1000 ms に下げたら
+「227 本の走行に 11174 ms 掛かっています」で赤くなった。
+
+### まだ残っている穴
+
+```
+明示的に未測定の枝  2 つ
     BulletRunner の Tasks=null（3）／ IntermediateParser の maybe の | None ->（5）
+    どちらも外から作れないので、入力では到達できない
+
+Parser.fs 15% / BulletmlInfo.fs 0%
+    TypeProvider 側の入口。Core のリファクタリングでは触らない場所
 ```
 
 ---
