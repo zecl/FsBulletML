@@ -113,3 +113,47 @@ type Expressions() =
       (Expressions.firstBullet Expressions.shortParams)
       (Expressions.firstBullet Expressions.fullParams)
     |> Golden.check "expr-short-params"
+
+  /// 4 の当てる先を実物で見る。samples 227 本のうち、
+  /// **ref に渡す param が参照先の使う $N に足りないのは 2 本**（静的に数えた）。
+  ///
+  /// どちらも `<actionRef label="impl:30"></actionRef>` のように param を 1 つも渡さず、
+  /// 参照先が `<direction>$2</direction>` `<speed>$1</speed>` を使う。
+  ///
+  /// 7 で「当てる先が在ること」と「値が動くこと」を別に測らずに踏んだので、
+  /// ここは先に実物の値を控えにする
+  [<Test>]
+  member _.``実物 2 本の 未解決の パラメータ``() =
+    let names = [ "[Bulletsmorph]_kunekune_plus_homing.xml"; "[Bulletsmorph]_satoru4.xml" ]
+    let dir = System.IO.Path.GetFullPath(System.IO.Path.Combine(__SOURCE_DIRECTORY__, "..", "..", "samples"))
+    let rows =
+      names
+      |> List.map (fun n ->
+          let found =
+            System.IO.Directory.EnumerateFiles(dir, n, System.IO.SearchOption.AllDirectories)
+            |> Seq.filter (fun p ->
+                let s = p.Replace('\\', '/')
+                [ "/bin/"; "/obj/"; "/Library/"; "/Temp/" ] |> List.forall (s.Contains >> not))
+            |> Seq.sort |> Seq.tryHead
+          match found with
+          | None -> sprintf "%-42s ★samples に無い" n
+          | Some p ->
+            let trace =
+              try Trace.run (System.IO.File.ReadAllText p) 200
+              with e ->
+                let rec inner (x: exn) = if isNull x.InnerException then x else inner x.InnerException
+                sprintf "%s" ((inner e).GetType().Name)
+            let speeds =
+              trace.Split('\n')
+              |> Array.filter (fun l -> l.Contains "  +b")
+              |> Array.map (fun l ->
+                  let m = Regex.Match(l, @"d=([-\d.]+) s=([-\d.]+)")
+                  if m.Success then m.Groups.[1].Value + "/" + m.Groups.[2].Value else "?")
+              |> Array.distinct |> Array.sort
+            sprintf "%-42s 撃った %3d 発  向き/速さ %s"
+              n (trace.Split('\n') |> Array.filter (fun l -> l.Contains "  +b") |> Array.length)
+              (speeds |> String.concat " "))
+    (rows @ [ sprintf "―― 2 本中 %d 本が撃った（0 なら走査が壊れている）"
+                (rows |> List.filter (fun r -> not (r.Contains "撃った   0 発")) |> List.length) ])
+    |> String.concat "\n"
+    |> Golden.check "real-unresolved-param"
