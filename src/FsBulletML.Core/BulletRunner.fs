@@ -383,9 +383,13 @@ module BulletRunner =
   [<CompiledName "Run">]
   let run (bullet:IBulletmlObject) =
     match bullet.Task with
-    | None -> 
-        bullet.Task |> Option.iter(fun task -> task.Finish <- true)
-        RunResult(true, bullet.X, bullet.Y)
+    | None ->
+        // 返すのは差分。呼ぶ側は足すので、ここで絶対値を返すと座標が膨らむ
+        // （膨らむ量は呼ぶ側の係数しだい。同梱では MonoGame が 1 倍、
+        //  Unity2D と C# サンプルが 1/100）。
+        // 呼ぶ側 4 経路とも Task を先に見ているのでここへは届かないが、
+        // ガードを 1 つでも外したら届くので、届いても壊れない形にしておく
+        RunResult(true, 0.f, 0.f)
     | Some bulletmlTask ->
       let tasks = bulletmlTask.Tasks
       let mutable bullet = bullet
@@ -427,7 +431,9 @@ module BulletRunner =
           RunResult(false, x, y)
       else
         bullet.Task |> Option.iter(fun task -> task.Finish <- true)
-        RunResult(true, bullet.X, bullet.Y)
+        // 上の None と同じ理由で差分 0。convertBulletmlTask が必ずリストを入れるので
+        // ここへ届く作り方が無く、**測れていない**
+        RunResult(true, 0.f, 0.f)
 
   [<CompiledName "ConvertBulletmlTask">]
   let convertBulletmlTask bulletml = 
