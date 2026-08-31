@@ -30,6 +30,16 @@ type FireShapes() =
     |> Array.map (fun l -> l.Trim())
     |> String.concat "\n"
 
+  /// samples から実物を 1 本 引く。ビルドが吐いたコピーは外す（Corpus.fs と同じ 4 つ）
+  let realSample (name: string) =
+    let dir = System.IO.Path.GetFullPath(System.IO.Path.Combine(__SOURCE_DIRECTORY__, "..", "..", "samples"))
+    System.IO.Directory.EnumerateFiles(dir, name, System.IO.SearchOption.AllDirectories)
+    |> Seq.filter (fun p ->
+        let s = p.Replace('\\', '/')
+        [ "/bin/"; "/obj/"; "/Library/"; "/Temp/" ] |> List.forall (s.Contains >> not))
+    |> Seq.sort
+    |> Seq.tryHead
+
   [<SetUp>]
   member _.SetUp() =
     // 自機は (30,100)。aim = atan2(30,-100) = 2.850
@@ -187,3 +197,40 @@ type FireShapes() =
     |> String.concat "\n"
     |> Golden.check "bullet-speed-type"
 
+  /// 7（speed type="relative"）の当てる先 7 本を、実物で全部 回す。
+  ///
+  /// 組み立てた BulletML の控えは 2 本あったが、**実物には 1 本も無かった**。
+  /// corpus-smoke は「撃ったか」しか数えないので、速さの変化はそこに映らない
+  /// （planner の指摘。門が覆っていない先を「変わらない」と読んでいた）。
+  ///
+  /// 撃った弾の速さだけを集める。**当てる先が在ることと、値が動くことは別**なので、
+  /// ここは「7 本を回すと何が出るか」を固定する
+  [<Test>]
+  member _.``実物 7 本の speed relative``() =
+    let names =
+      [ "[Bulletsmorph]_aba_1.xml"; "[Bulletsmorph]_aba_3.xml"; "[Bulletsmorph]_aba_7.xml"
+        "[Original]_air_elemental.xml"; "[Original]_hajike.xml"; "[Original]_kunekune.xml"
+        "[OtakuTwo]_self-0012.xml" ]
+    let rows =
+      names
+      |> List.map (fun n ->
+          match realSample n with
+          | None -> sprintf "%-32s ★samples に無い" n
+          | Some p ->
+            let speeds =
+              System.IO.File.ReadAllText p
+              |> runOr 200
+              |> fun t ->
+                  t.Split('\n')
+                  |> Array.filter (fun l -> l.Contains "  +b")
+                  |> Array.map (fun l ->
+                      let m = System.Text.RegularExpressions.Regex.Match(l, @"s=([-\d.]+)")
+                      if m.Success then m.Groups.[1].Value else "?")
+            sprintf "%-32s 撃った %3d 発  速さ %s"
+              n speeds.Length
+              (speeds |> Array.distinct |> Array.sort |> String.concat " "))
+    // 0 発だらけなら網か走査が壊れている。締めの 1 行で見えるようにする
+    let fired = rows |> List.filter (fun r -> not (r.Contains "撃った   0 発")) |> List.length
+    (rows @ [ sprintf "―― 7 本中 %d 本が撃った（0 なら走査か網が壊れている）" fired ])
+    |> String.concat "\n"
+    |> Golden.check "real-speed-relative-7"

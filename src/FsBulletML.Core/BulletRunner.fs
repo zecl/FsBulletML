@@ -254,11 +254,18 @@ module BulletRunner =
         else
           match pf.speed with
           | Some speed ->
-            pf.changeSpeed <- getValue speed.speedValue 
-            if (speed.speedType = SpeedType.Sequence || speed.speedType = SpeedType.Relative) then
-              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed + pf.changeSpeed 
-            else
-              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- pf.changeSpeed 
+            pf.changeSpeed <- getValue speed.speedValue
+            // 基準は type で違う。上の direction と同じ割り方にしてある
+            //   sequence  前の fire の速さ
+            //   relative  この弾の速さ
+            //   absolute  そのまま
+            match speed.speedType with
+            | SpeedType.Sequence ->
+              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed + pf.changeSpeed
+            | SpeedType.Relative ->
+              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- pf.changeSpeed + bullet.Speed
+            | _ ->
+              bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- pf.changeSpeed
           | None ->
             if newBullet.Task |> Option.forall (fun task -> task.FireData.[task.ActiveTaskIndex].SpeedInit |> not) then
               bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- 1.f
