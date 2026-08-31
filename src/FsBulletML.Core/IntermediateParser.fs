@@ -219,7 +219,9 @@ module IntermediateParser =
             | Bulletml.Action (a,b) -> BulletmlElm.Action(a,b)
             | _ -> new BulletmlDTDViolationException("convert error") |> raise)
         Bulletml.Bulletml(attrs, bulletmlElements ) 
-      | None -> new BulletmlDTDViolationException("this element should have ShootingDirection attribute.") |> raise
+      // 条件は type 属性の有無ではなく、attrs レコードそのものが取れなかったとき。
+      // 上の maybe には let! が 1 つも無いので必ず return に着き、いまは届かない
+      | None -> new BulletmlDTDViolationException("bulletml element attributes could not be read.") |> raise
     | _ -> new BulletmlDTDViolationException("not support element.") |> raise
 
   /// XmlNode to Bulletml.Action

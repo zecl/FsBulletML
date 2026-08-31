@@ -73,9 +73,11 @@ type ShootingType() =
   ///
   /// いまは type 自体が挙動に効かないので見えない。効くようにした瞬間に効いてくる。
   ///
-  /// なお IntermediateParser.fs:221 の例外は
-  /// 「this element should have ShootingDirection attribute.」と言うが、
-  /// 条件は type 属性ではなく attrs レコードが None のとき。**メッセージが実際の条件と違う。**
+  /// なお `IntermediateParser` の `| None ->` の例外は
+  /// 「this element should have ShootingDirection attribute.」と言っていたが、
+  /// 条件は type 属性ではなく attrs レコードが None のとき。
+  /// メッセージが実際の条件と違ったので、条件のほうに合わせた（2026-08-31）。
+  /// その枝に届く入力は見つかっていない。下の `bulletml-no-attrs` が確かめている。
   [<Test>]
   member _.``type を省くとどうなるか``() =
     let noType = """<?xml version="1.0" ?>
@@ -96,6 +98,34 @@ type ShootingType() =
         sprintf "%s: %s" (i.GetType().Name) (i.Message.Replace("\r", "").Replace("\n", " "))
     sprintf "DTD の定め: <!ATTLIST bulletml type (none|vertical|horizontal) \"none\"> （省略可・既定 none）\n実装: %s" result
     |> Golden.check "shooting-type-omitted"
+
+  /// IntermediateParser.fs の `| None ->` に届く入力があるかを探す。
+  ///
+  /// 条件は `tryFindBulletmlAttrs` が None のとき。中身は `maybe { ... }` だが
+  /// `let!` が 1 つも無いので Bind を通らず、必ず `return` に着く。
+  /// 属性をぜんぶ省いた `<bulletml>` が、いちばん届きそうな入力にあたる。
+  [<Test>]
+  member _.``bulletml の属性をぜんぶ省くとどうなるか``() =
+    let noAttrs = """<?xml version="1.0" ?>
+<bulletml>
+<action label="top">
+  <fire><direction type="absolute">30</direction><speed>2</speed><bullet/></fire>
+  <wait>3</wait>
+</action>
+</bulletml>"""
+    let result =
+      try
+        let t = Trace.run noAttrs 4
+        // 「落ちない」だけだと、黙って 1 つも走らなかった場合と見分けがつかない
+        let fired = t.Split('\n') |> Array.filter (fun l -> l.Contains "  +b") |> Array.length
+        sprintf "落ちない。撃った弾 %d 発" fired
+      with e ->
+        let rec inner (x: exn) = if isNull x.InnerException then x else inner x.InnerException
+        let i = inner e
+        sprintf "%s: %s" (i.GetType().Name) (i.Message.Replace("\r", "").Replace("\n", " "))
+    sprintf "xmlns も type も name も無い <bulletml>\n実装: %s\n\n落ちないなら、attrs が None になる入力は見つかっていない"
+      result
+    |> Golden.check "bulletml-no-attrs"
 
   [<Test>]
   member _.``type に知らない値を書くと DTD 違反で落ちる``() =
