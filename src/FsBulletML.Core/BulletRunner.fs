@@ -66,8 +66,19 @@ module BulletRunner =
 
     match s with
     | Some (Speed(attrs, v)) ->
+      // 上の direction と同じく type で基準が変わる。
+      // ここは attrs を束縛して 1 度も読んでおらず、型を無視して代入していた
+      //   sequence  前の fire の速さ
+      //   relative  この弾の速さ
+      //   absolute  そのまま
       let value = getValue v
-      bullet.Speed <- value
+      match attrs with
+      | Some attrs ->
+        match attrs.speedType with
+        | SpeedType.Sequence -> bullet.Speed <- bulletmlTask.GetFireData().SrcSpeed + value
+        | SpeedType.Relative -> bullet.Speed <- bullet.Speed + value
+        | _ -> bullet.Speed <- value
+      | None -> bullet.Speed <- value
     | None -> ()
     let tasks = children |> List.map cloneProcessable
     let bulletmlTask = new BulletmlTask(toProcessable,Tasks = tasks, Original = None)
@@ -207,10 +218,20 @@ module BulletRunner =
         newBullet.Task <- createTask bulletElm bulletmlTask newBullet |> Some 
        
         match bulletElm with
-        | ProcessableBulletml.Bullet(attr,_,speed,_) -> 
+        | ProcessableBulletml.Bullet(attr,_,speed,_) ->
           match speed with
-          | Some (Speed(attr,s)) -> 
-            newBullet.Speed  <- getValue s
+          | Some (Speed(sattr,s)) ->
+            // createTask と同じ値をここでも入れ直す。type を見ないと
+            // relative / sequence が absolute と同じ扱いになる
+            let value = getValue s
+            newBullet.Speed <-
+              match sattr with
+              | Some sattr ->
+                match sattr.speedType with
+                | SpeedType.Sequence -> bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed + value
+                | SpeedType.Relative -> bullet.Speed + value
+                | _ -> value
+              | None -> value
             newBullet.Task |> Option.iter (fun task -> task.FireData.[task.ActiveTaskIndex].SpeedInit <- true)
           | None -> ()
         | _ -> ()
@@ -245,7 +266,14 @@ module BulletRunner =
               bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed <- newBullet.Speed 
 
         newBullet.Task |> Option.iter(fun task -> task.FireData.[task.ActiveTaskIndex].SpeedInit <- false)
-        newBullet.Speed <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed
+        // 速さも向きと同じで、bullet の中に書いてあればそちらが勝つ。
+        // 上の枝で type ごとに入れた値を、ここで踏み潰さないようにする
+        let bulletHasSpeed =
+          match bulletElm with
+          | ProcessableBulletml.Bullet(_,_,Some _,_) -> true
+          | _ -> false
+        if not bulletHasSpeed then
+          newBullet.Speed <- bulletmlTask.FireData.[bulletmlTask.ActiveTaskIndex].SrcSpeed
         pf.finish <- true
         bullet,RunState.End
 

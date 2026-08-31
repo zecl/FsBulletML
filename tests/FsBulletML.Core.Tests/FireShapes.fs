@@ -150,3 +150,40 @@ type FireShapes() =
   <wait>10</wait>
 </action>"""
     |> runOr 3 |> Golden.check "missing-label"
+
+  /// bullet 直下の speed type を createTask が見ているか。
+  ///
+  /// 直す前は attrs を束縛して 1 度も読まず、型を無視して代入していた
+  /// （direction は同じ関数の 20 行 上で 4 分岐している）。
+  /// 実物の当てる先は air_elemental の <bullet label="spiral"> 1 個だけなので、
+  /// ここは組み立てた BulletML で 3 つの type を並べて固定する
+  [<Test>]
+  member _.``bullet 直下の speed type を見ているか``() =
+    // root は速さ 0 なので、root から撃つと relative の差が出ない（7 で踏んだ形）。
+    // 速さ 3 の弾を 1 発 撃ち、その弾の中から 2 発めを撃つ
+    let case parentSpeed t =
+      bml (sprintf """<action label="top">
+  <fire>
+    <direction type="absolute">0</direction><speed>%s</speed>
+    <bullet>
+      <action>
+        <fire>
+          <direction type="absolute">0</direction>
+          <bullet><speed type="%s">1</speed><action><wait>10</wait></action></bullet>
+        </fire>
+        <wait>10</wait>
+      </action>
+    </bullet>
+  </fire>
+  <wait>20</wait>
+</action>""" parentSpeed t)
+      |> runOr 5 |> firedBullets
+      |> fun s -> s.Split('\n') |> Array.tryItem 1 |> Option.defaultValue "2 発めが無い"
+    [ sprintf "親 speed=3  bullet speed absolute 1  ->  %s" (case "3" "absolute")
+      sprintf "親 speed=3  bullet speed relative 1  ->  %s" (case "3" "relative")
+      sprintf "親 speed=3  bullet speed sequence 1  ->  %s" (case "3" "sequence")
+      ""
+      "absolute なら 1 / relative は親の 3 + 1 = 4 / sequence は前の fire + 1" ]
+    |> String.concat "\n"
+    |> Golden.check "bullet-speed-type"
+
