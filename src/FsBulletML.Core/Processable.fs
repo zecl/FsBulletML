@@ -228,7 +228,9 @@ module Processable =
             ps.term <- getValue ps.initTerm 
           | ProcessableBulletml.Wait (pw) ->
             pw.finish <- false
-            pw.term <- getValue pw.initTerm + 1.f
+            // 生成のときと同じ値を入れる。accel / changeDirection / changeSpeed も
+            // initTerm をそのまま入れて、きっかり term フレーム占める
+            pw.term <- getValue pw.initTerm
           | ProcessableBulletml.Vanish (pv) -> 
             pv.finish <- false
           | ProcessableBulletml.Repeat(pr,actionElm) ->

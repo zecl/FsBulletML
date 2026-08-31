@@ -125,10 +125,10 @@ type RefParamFreeze() =
     BulletMLManager.Init(m)
     let hook i =
       if i = 1 then m.Rand <- 0.5f
-      elif i = 3 then m.Rand <- 0.9f
+      elif i = 2 then m.Rand <- 0.9f
     Trace.runWith hook (bml repeatViaParam) 8
     |> firedSpeeds
-    |> fun s -> s + "\n\n毎フレーム rand を動かしている（f1 で 0.5、f3 で 0.9）。\n3 発とも同じなら、ひと回りの中では 1 回しか転がっていない"
+    |> fun s -> s + "\n\n毎フレーム rand を動かしている（f1 で 0.5、f2 で 0.9）。\n3 発とも同じなら、ひと回りの中では 1 回しか転がっていない"
     |> Golden.check "freeze-rand-within-loop"
 
   /// 挙動の手前で、機構そのものを直に測る。
