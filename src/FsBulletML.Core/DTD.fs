@@ -207,6 +207,16 @@ module DTD =
             writer.WriteAttributeString(localName, t )
           | None -> ()
 
+          // parser が読む属性は writer も書く。書かないと往復で消える。
+          // 同梱の弾幕も type のうしろに name を置いている
+          match attrs.bulletmlName with
+          | Some v -> writer.WriteAttributeString("name", v)
+          | None -> ()
+
+          match attrs.bulletmlDescription with
+          | Some v -> writer.WriteAttributeString("description", v)
+          | None -> ()
+
           children |> Seq.iter (fun child -> write child)
           writer.WriteEndElement()
         | RecBulletml.Action (attrs, children) -> 
