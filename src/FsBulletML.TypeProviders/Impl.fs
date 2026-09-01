@@ -20,7 +20,7 @@ open FsBulletML
 module Impl =
   let asm = Assembly.GetExecutingAssembly()
   let ns = typeof<Style>.Namespace
-  let createProvidedTypeDefinition ns = 
+  let createProvidedTypeDefinition ns =
     ProvidedTypeDefinition(asm, ns, "BulletML", Some (typeof<obj>), HideObjectMethods = true, IsErased = true)
 
   let paramSprit strArg = 
@@ -61,10 +61,10 @@ module Impl =
     bulletmlInfos |> Seq.iter (fun (bulletml,_) -> read style bulletml |> ignore)
     bulletmlInfos |> Seq.iter (fun (bulletml,propName) -> 
       (typ:ProvidedTypeDefinition).AddMemberDelayed(fun () -> 
-        let instanceProp = 
+        let instanceProp =
           ProvidedProperty(
-            propertyName = propName, 
-            propertyType = typeof<Bulletml>, 
+            propertyName = propName,
+            propertyType = typeof<Bulletml>,
             GetterCode= (fun _ -> <@@ read style bulletml @@>))
 
         instanceProp.AddXmlDocDelayed(fun () ->
@@ -77,55 +77,11 @@ module Impl =
           docText)
         instanceProp))
 
-  let registerDependencies config registerProbingFolder =
-    let thisAssembly = Assembly.GetAssembly(typeof<Style>)
-    let path = Path.GetDirectoryName(thisAssembly.Location)
-    registerProbingFolder path
-      
-    let packagePath p = Helper.getUpDirectory 3 path + p
-    let currentPath p = path + p
-#if NET40
-    let tf = "net40"
-#endif
-#if NET45
-    let tf = "net45"
-#endif
-    let packageConfig = 
-      Helper.findConfigFile (config:TypeProviderConfig).ResolutionFolder "packages.config"
-    let packageInfo = 
-      if File.Exists(packageConfig) then
-        use xmlReader = XmlReader.Create(packageConfig)
-        let doc = XDocument.Load(xmlReader)
-        let (!) x = XName.op_Implicit x
-        query {
-          for packages in doc.Elements(!"packages") do
-          for package in packages.Elements(!"package") do
-          select (package.Attribute(!"id").Value, package.Attribute(!"version").Value,package.Attribute(!"targetFramework").Value) } 
-      else Seq.empty 
-
-    let getInfo name defaultVersion =  
-        match packageInfo |> Seq.tryFind(fun (x,_,_) -> x = name) with
-        | Some (_,v,tf) -> v, tf
-        | None -> defaultVersion, tf
-
-    let dependencies =
-      let core =
-        let name = "FsBulletML.Core"
-        let version, targetFramework = getInfo name "0.9.0"
-        [sprintf @"\%s.%s\lib\%s" name version targetFramework]
-      let fparsec = 
-        let name = "FParsec"
-        let version, _ = getInfo name "1.0.1"
-        [sprintf @"\%s.%s\lib\net40-client" name version]
-      let parser = 
-        let name = "FsBulletML.Parser"
-        let version, targetFramework = getInfo name "0.8.6"
-        [sprintf @"\%s.%s\lib\%s" name version targetFramework]
-      core @ fparsec @ parser
-
-    let packages = 
-      dependencies 
-      |> Seq.map packagePath
-      |> Seq.append (dependencies |> Seq.map currentPath)
-      |> Seq.filter (fun x -> Directory.Exists x)
-    packages |> Seq.iter registerProbingFolder
+  // Was: probe for FsBulletML.Core/FParsec/FsBulletML.Parser under a NuGet packages.config-style
+  // "packages\<id>.<version>\lib\<tf>" layout, keyed off "net40"/"net45" via #if NET40/NET45 (an
+  // ifdef that nothing defines any more - a latent, always-broken build target under this
+  // project's later configurations). There is no packages.config in this repo; dependencies are
+  // resolved through ProjectReference/PackageReference instead, and the build already copies
+  // FsBulletML.Core.dll, FsBulletML.Parser.dll and FParsec.dll next to FsBulletML.TypeProviders.dll,
+  // which is where ordinary assembly resolution looks first. Registering this assembly's own
+  // directory as a probing folder (as this function's first line did) is therefore also redundant.

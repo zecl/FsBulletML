@@ -1,7 +1,7 @@
 ﻿namespace FsBulletML.TypeProviders
 open System
 open System.IO
-open System.Runtime.CompilerServices 
+open System.Runtime.CompilerServices
 open ProviderImplementation.ProvidedTypes
 open System.ComponentModel
 
@@ -28,10 +28,10 @@ type Context (onChanged : unit -> unit) =
 
 #nowarn "13730"
 module internal Helper =
-  let findConfigFile resolutionFolder configFileName =
-    if Path.IsPathRooted configFileName then 
-      configFileName 
-    else 
+  let findConfigFile (resolutionFolder: string) (configFileName: string) =
+    if Path.IsPathRooted configFileName then
+      configFileName
+    else
       Path.Combine(resolutionFolder, configFileName)
 
   let watchFile (fileName:string) (ctx : Context) =    
@@ -52,7 +52,7 @@ module internal Helper =
       ctx.Disposing.Add watcher.Dispose
     with | exn -> watcher.Dispose()
 
-  let getDirectoryName path = 
+  let getDirectoryName (path: string) =
     let directoryName = Path.GetDirectoryName path
     if directoryName = null then "" else directoryName
 

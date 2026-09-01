@@ -42,5 +42,4 @@ type BulletMLFromFsbTypeProvider(config: TypeProviderConfig) as this =
           typ)
   do 
     this.Disposing.Add(fun _ -> (ctx :> IDisposable).Dispose())
-    registerDependencies config this.RegisterProbingFolder
     this.AddNamespace(ns, [typ])
