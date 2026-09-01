@@ -20,8 +20,12 @@ type Player () =
   [<DefaultValue>]val mutable private b2wayRightBulletTask : BulletmlTask option
   [<DefaultValue>]val mutable private hommingTask : BulletmlTask option
 
+  interface IPlayerPosition with
+    member this.PlayerPosX () = this.transform.position.x
+    member this.PlayerPosY () = this.transform.position.y
+
   member this.Awake () =
-    Processable.BulletMLManager.Init(new BulletFunctions())
+    Processable.BulletMLManager.Init(new BulletFunctions(this))
     this.b2wayLeftBulletTask <- BulletRunner.convertBulletmlTaskOption(FsBulletML.Bullets.PlayerBullet.PlayerBullet.b2wayLeftBullet)
     this.b2wayRightBulletTask <- BulletRunner.convertBulletmlTaskOption(FsBulletML.Bullets.PlayerBullet.PlayerBullet.b2wayRightBullet)
     this.hommingTask <- BulletRunner.convertBulletmlTaskOption(FsBulletML.Bullets.PlayerBullet.PlayerBullet.homing)
