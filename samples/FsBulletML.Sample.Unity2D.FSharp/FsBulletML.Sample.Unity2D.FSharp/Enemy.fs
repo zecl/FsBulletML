@@ -10,9 +10,14 @@ open FsBulletML.Unity2D
  
 type Enemy () =
   inherit BaseBullet ()
+  // Start で組み直すので Unity に直列化させない。BulletmlInfo は
+  // 弾幕の木を持っており、action が action を含む再帰なので、
+  // Unity の直列化は深さ 10 で打ち切って警告を出す
+  [<System.NonSerialized>]
   [<DefaultValue>]val mutable public bullets : BulletmlInfo list
   [<DefaultValue>]val mutable public bombType : GameObject
   [<DefaultValue>]val mutable public BulletName : string
+  [<System.NonSerialized>]
   [<DefaultValue>]val mutable public BulletmlInfo : BulletmlInfo 
   [<DefaultValue>]val mutable public Bullet : EnemyBullet 
   [<DefaultValue>]val mutable public Life : int
