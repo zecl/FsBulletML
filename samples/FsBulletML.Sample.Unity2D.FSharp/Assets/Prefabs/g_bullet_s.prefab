@@ -94,7 +94,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_SortingLayerID: 2577006507
+  m_SortingLayerID: -1717960789
   m_Sprite: {fileID: 21300000, guid: 68b6a47e4be38f94abd00c8469bc0918, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
