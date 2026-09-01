@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+    LEGACY / NOT MAINTAINED - kept for historical reference only.
+
+    This project compiles the same F# sources as the sibling
+    FsBulletML.Sample.Unity2D.FSharp.fsproj in this folder, but targets
+    Unity's old, pre-.NET-Standard "classic" Mono scripting backend: it
+    links against a single monolithic UnityEngine.dll from a full local
+    Unity Editor install (hardcoded relative HintPath below), against
+    prebuilt FsBulletML.*.dll files expected to already exist under
+    ..\Assets\FsBulletML, and it imports a standalone "Microsoft F# v4.0"
+    MSBuild targets file that shipped with old Visual Studio F# tooling for
+    early Unity/Mono projects.
+
+    None of that exists on a current machine: no current Visual Studio or
+    .NET SDK ships Microsoft F#\v4.0\Microsoft.FSharp.Targets any more (the
+    modern SDK ships its own FSharp.Targets at a different location, wired
+    up automatically for SDK-style projects), the hardcoded Unity Editor
+    path is machine-specific, and the referenced Unity layout (one flat
+    UnityEngine.dll) predates the per-module assemblies
+    (UnityEngine.CoreModule.dll, etc.) that Unity has shipped since well
+    before the version this repo's README targets (Unity 6 / 6000.x).
+
+    This is intentionally left unbuildable with current tooling, not a
+    regression to fix. The maintained, portable equivalent is the sibling
+    FsBulletML.Sample.Unity2D.FSharp.fsproj, which compiles the identical
+    sources against src/UnityEngine.Stub by default (no Unity install
+    required) or against a real Unity's modular engine assemblies via
+    -p:UseRealUnity=true -p:UnityManaged=<path to Unity's Managed folder>.
+  -->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -49,6 +78,7 @@
       <HintPath>..\Assets\FsBulletML\FsBulletML.Unity2D.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <!-- Does not resolve on current tooling - see the file header comment above. -->
   <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft F#\v4.0\Microsoft.FSharp.Targets" />
   <ItemGroup>
     <Compile Include="BulletFunctions.fs" />
