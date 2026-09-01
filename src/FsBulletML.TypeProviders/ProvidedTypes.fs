@@ -1539,20 +1539,17 @@ type ProvidedTypeDefinition(container:TypeContainer,className : string, baseType
            if v then attributes <- attributes ||| enum (int32 TypeProviderTypeAttributes.SuppressRelocate)
            else attributes <- attributes &&& ~~~(enum (int32 TypeProviderTypeAttributes.SuppressRelocate))
 
-type AssemblyGenerator(assemblyFileName) = 
+type AssemblyGenerator(assemblyFileName: string) =
     let assemblyShortName = Path.GetFileNameWithoutExtension assemblyFileName
     let assemblyName = AssemblyName assemblyShortName
-#if FX_NO_LOCAL_FILESYSTEM
-    let assembly = 
-        System.AppDomain.CurrentDomain.DefineDynamicAssembly(name=assemblyName,access=AssemblyBuilderAccess.Run)
-    let assemblyMainModule = 
+    // .NET (Core)+ dynamic assemblies can only run in-memory - AssemblyBuilderAccess.Save and
+    // AppDomain.DefineDynamicAssembly (both .NET Framework-only APIs) no longer exist. This path
+    // is only reachable for non-erased ("generative") provided types; every provider in this
+    // library uses IsErased = true, so it is not exercised at runtime.
+    let assembly =
+        AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
+    let assemblyMainModule =
         assembly.DefineDynamicModule("MainModule")
-#else
-    let assembly = 
-        System.AppDomain.CurrentDomain.DefineDynamicAssembly(name=assemblyName,access=(AssemblyBuilderAccess.Save ||| AssemblyBuilderAccess.Run),dir=Path.GetDirectoryName assemblyFileName)
-    let assemblyMainModule = 
-        assembly.DefineDynamicModule("MainModule", Path.GetFileName assemblyFileName)
-#endif
     let typeMap = Dictionary<ProvidedTypeDefinition,TypeBuilder>(HashIdentity.Reference)
     let typeMapExtra = Dictionary<string,TypeBuilder>(HashIdentity.Structural)
     let uniqueLambdaTypeName() = 
@@ -2315,27 +2312,26 @@ type AssemblyGenerator(assemblyFileName) =
         // phase 4 - complete types
         iterateTypes (fun tb _ptd -> tb.CreateType() |> ignore)
 
-#if FX_NO_LOCAL_FILESYSTEM
-#else
-        assembly.Save (Path.GetFileName assemblyFileName)
-#endif
+        // .NET (Core)+ dynamic assemblies cannot be saved to disk (AssemblyBuilder.Save was
+        // removed); the in-memory assembly built above is used directly instead. Unreachable
+        // for erased providers (IsErased = true), which is all this library defines.
 
-        let assemblyLoadedInMemory = assemblyMainModule.Assembly 
+        let assemblyLoadedInMemory = assemblyMainModule.Assembly
 
-        iterateTypes (fun _tb ptd -> 
-            match ptd with 
+        iterateTypes (fun _tb ptd ->
+            match ptd with
             | None -> ()
             | Some ptd -> ptd.SetAssembly assemblyLoadedInMemory)
 
-#if FX_NO_LOCAL_FILESYSTEM
-#else
-    member __.GetFinalBytes() = 
+    member __.GetFinalBytes() =
+        // Assembly.Load's (bytes, symbolBytes, SecurityContextSource) overload was removed in
+        // .NET (Core)+ along with Code Access Security; the plain byte[] overload replaces it.
+        // Unreachable for erased providers (IsErased = true), which is all this library defines.
         let assemblyBytes = File.ReadAllBytes assemblyFileName
-        let _assemblyLoadedInMemory = System.Reflection.Assembly.Load(assemblyBytes,null,System.Security.SecurityContextSource.CurrentAppDomain)
+        let _assemblyLoadedInMemory = System.Reflection.Assembly.Load(assemblyBytes)
         //printfn "final bytes in '%s'" assemblyFileName
         //File.Delete assemblyFileName
         assemblyBytes
-#endif
 
 type ProvidedAssembly(assemblyFileName: string) = 
     let theTypes = ResizeArray<_>()
@@ -2363,15 +2359,14 @@ type ProvidedAssembly(assemblyFileName: string) =
 
     member x.AddNestedTypes (providedTypeDefinitions, enclosingTypeNames) = add (providedTypeDefinitions, Some enclosingTypeNames)
     member x.AddTypes (providedTypeDefinitions) = add (providedTypeDefinitions, None)
-#if FX_NO_LOCAL_FILESYSTEM
-#else
-    static member RegisterGenerated (fileName:string) = 
+    // See the comment on GetFinalBytes above: the 3-arg Assembly.Load overload was removed
+    // together with Code Access Security. Unreachable for erased providers.
+    static member RegisterGenerated (fileName:string) =
         //printfn "registered assembly in '%s'" fileName
         let assemblyBytes = System.IO.File.ReadAllBytes fileName
-        let assembly = Assembly.Load(assemblyBytes,null,System.Security.SecurityContextSource.CurrentAppDomain)
+        let assembly = Assembly.Load(assemblyBytes)
         GlobalProvidedAssemblyElementsTable.theTable.Add(assembly, Lazy<_>.CreateFromValue assemblyBytes)
         assembly
-#endif
 
 
 module Local = 

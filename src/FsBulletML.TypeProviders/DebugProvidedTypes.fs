@@ -18,7 +18,7 @@ open ProviderImplementation.ProvidedTypes
 module internal Debug = 
 
     /// Converts a sequence of strings to a single string separated with the delimiters
-    let inline separatedBy delimiter (items: string seq) = String.Join(delimiter, Array.ofSeq items)
+    let inline separatedBy (delimiter: string) (items: string seq) = String.Join(delimiter, Array.ofSeq items)
 
     /// Simulates a real instance of TypeProviderConfig and then creates an instance of the last
     /// type provider added to a namespace by the type provider constructor

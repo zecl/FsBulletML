@@ -20,14 +20,14 @@ type BulletMLTypeProvider (config: TypeProviderConfig) as this =
   let typ = createProvidedTypeDefinition ns
 
   do
-    let docText = 
+    let docText =
       """<summary>Typed representation of BulletML.</summary>
          <param name='bulletmls'>Location of BulletML files or string BulletML documents. delimiter is `;` or `,`.</param>
          <param name='style'>BulletML Style (Xml or Sxml or Fsb).</param>
          <param name='watch'>Specify whether or not to monitor the file</param>"""
 
     typ.AddXmlDoc docText
-    let parameters = 
+    let parameters =
       [ProvidedStaticParameter("bulletmls", typeof<string>);
        ProvidedStaticParameter("style", typeof<Style>, Style.Xml)
        ProvidedStaticParameter("watch", typeof<bool>, false) ]
@@ -46,5 +46,4 @@ type BulletMLTypeProvider (config: TypeProviderConfig) as this =
           typ)
 
     this.Disposing.Add(fun _ -> (ctx :> IDisposable).Dispose())
-    registerDependencies config this.RegisterProbingFolder
     this.AddNamespace(ns, [typ])

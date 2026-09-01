@@ -258,7 +258,7 @@ type ProvidedMeasureBuilder =
     /// e.g. 1
     member One : System.Type
     /// e.g. m * kg
-    member Product : measure1: System.Type * measure1: System.Type  -> System.Type
+    member Product : measure1: System.Type * measure2: System.Type  -> System.Type
     /// e.g. 1 / kg
     member Inverse : denominator: System.Type -> System.Type
 
